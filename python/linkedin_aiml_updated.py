@@ -23,7 +23,7 @@ from rag_remark_generator import generate_ai_remark
 # file_path = r'C:\Users\Dell\Desktop\linkedin-scrape-data\data\apify_jobs_raw.json'  # <-- "r" handles backslashes'  # Use relative path for Node.js compatibility
 
 base_dir = os.path.dirname(__file__)
-file_path = os.path.join(base_dir, '..', 'data', 'apify_jobs_raw.json')
+file_path = os.path.join(base_dir, '..', 'data', 'filtered.json')
 
 #Load JSON data
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -669,4 +669,3 @@ with open("data/scored_jobs_output.json", "w", encoding="utf-8") as f:
     json.dump(updated_jobs, f, ensure_ascii=False, indent=2)
 
 print("Final output with AI remarks saved to 'scored_jobs_output.json'")
-

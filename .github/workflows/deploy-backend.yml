@@ -1,0 +1,134 @@
+name: Deploy Backend to EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ======================
+      # SECURITY VeRiFICATION
+      # ======================
+      - name: Validate Secrets Exist
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "::error::SSH_PRIVATE_KEY secret is missing!"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "::error::SSH_HOST secret is missing!"
+            exit 1
+          fi
+          echo "✓ All required secrets exist"
+
+      # ======================
+      # SSH SETUP
+      # ======================
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: "dummy"  # Bypass host verification
+          config: |
+            Host ${{ secrets.SSH_HOST }}
+              User ${{ secrets.SSH_USER }}
+              StrictHostKeyChecking no
+              UserKnownHostsFile=/dev/null
+              LogLevel DEBUG3  # Max verbosity
+
+      - name: Debug SSH Connection
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > key.pem
+          chmod 400 key.pem
+          echo "Testing connection to ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}"
+          ssh -vvv -i key.pem ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOD'
+            echo "✓ Connected to $(hostname)"
+            echo "✓ User: $(whoami)"
+            echo "✓ Disk space:"
+            df -h
+          EOD
+
+      # ======================
+      # DEPLOYMENT
+      # ======================
+      - name: Deploy & Monitor Backend
+        run: |
+          ssh -i key.pem ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            set -euxo pipefail  # Enable debugging
+            
+            # ===== SYSTEM CHECKS =====
+            echo "### SYSTEM STATUS ###"
+            echo "Date: $(date)"
+            echo "Uptime: $(uptime)"
+            echo "Node: $(node --version || echo 'Not installed')"
+            echo "NPM: $(npm --version || echo 'Not installed')"
+            echo "PM2: $(pm2 --version || echo 'Not installed')"
+
+            # ===== DIRECTORY VALIDATION =====
+            echo "### VALIDATING PATHS ###"
+            BACKEND_DIR="$HOME/backend/linkedin-scrape-data"
+            if [ ! -d "$BACKEND_DIR" ]; then
+              echo "::error::Backend directory missing!"
+              echo "Current home contents:"
+              ls -la ~/
+              exit 1
+            fi
+
+            # ===== CODE DEPLOYMENT =====
+            cd "$BACKEND_DIR"
+            echo "### GIT UPDATE ###"
+            git config --global --add safe.directory "$BACKEND_DIR"
+            git fetch origin
+            git reset --hard origin/main
+            git clean -fd
+
+            # ===== DEPENDENCIES =====
+            echo "### INSTALLING DEPENDENCIES ###"
+            npm ci --omit=dev
+            [ -f requirements.txt ] && pip install -r requirements.txt
+
+            # ===== PROCESS MANAGEMENT =====
+            echo "### PM2 SETUP ###"
+            if ! command -v pm2 >/dev/null; then
+              echo "Installing PM2..."
+              npm install -g pm2
+              pm2 startup
+            fi
+
+            echo "### RESTARTING SERVICE ###"
+            if pm2 describe backend >/dev/null 2>&1; then
+              pm2 reload backend --update-env
+            else
+              pm2 start server.js --name backend
+            fi
+
+            # ===== FINAL VERIFICATION =====
+            echo "### DEPLOYMENT SUMMARY ###"
+            echo "✓ Git Commit: $(git rev-parse --short HEAD)"
+            echo "✓ Node Modules: $(du -sh node_modules)"
+            pm2 list
+            echo "Last 30 logs:"
+            pm2 logs backend --lines 30 --nostream
+          EOF
+
+      # ======================
+      # POST-DEPLOY CHECKS
+      # ======================
+      - name: Verify Remote Status
+        run: |
+          ssh -i key.pem ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOD'
+            echo "=== FINAL STATUS CHECK ==="
+            cd ~/backend/linkedin-scrape-data
+            echo "Running processes:"
+            ps aux | grep node
+            echo "PM2 status:"
+            pm2 list
+            echo "Ports listening:"
+            sudo netstat -tulnp | grep -E '3000|8080' || true
+          EOD

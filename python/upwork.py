@@ -7,7 +7,7 @@ from rag_remark_generator import generate_ai_remark
 
 # === Setup path to load the Upwork job JSON file ===
 base_dir = os.path.dirname(__file__)
-file_path = os.path.join(base_dir, '..', 'data', 'upwork_jobs_raw.json') 
+file_path = os.path.join(base_dir, '..', 'data', 'filtered_upwork.json') 
 output_path = os.path.join(base_dir, '..', 'data', 'final_jobs_upwork.json')
 
 # === Load JSON data ===
@@ -24,7 +24,13 @@ else:
 
 # === Convert to DataFrame ===
 df = pd.json_normalize(jobs)
+# For all numeric columns, fill NaN/None with 0
+for col in df.select_dtypes(include='number').columns:
+    df[col] = df[col].fillna(0)
 
+# For all object (string) columns, fill NaN/None with empty string
+for col in df.select_dtypes(include='object').columns:
+    df[col] = df[col].fillna("")
 # === Preview the structure (optional, for dev only) ===
 # print(f"Loaded {len(df)} job records")
 # print(df.columns.tolist())  # Optional: See all available columns
@@ -262,9 +268,22 @@ def score_payment_verification(row):
         return 1.0
     return 0.2
 
+# def score_job_level_match(row, user_level="EXPERT"):
+#     job_level = row.get("level", "").lower()
+#     contractor_tier = row.get("contractorTier", "").lower()
+#     user_level = user_level.lower()
+
+#     if contractor_tier == user_level:
+#         return 1.0
+#     elif job_level.startswith("intermediate") or contractor_tier.startswith("intermediate"):
+#         return 0.8
+#     elif job_level.startswith("entry") or contractor_tier.startswith("entry"):
+#         return 0.6
+#     else:
+#         return 0.7  # fallback for unknown formats
 def score_job_level_match(row, user_level="EXPERT"):
-    job_level = row.get("level", "").lower()
-    contractor_tier = row.get("contractorTier", "").lower()
+    job_level = str(row.get("level", "")).lower()
+    contractor_tier = str(row.get("contractorTier", "")).lower()
     user_level = user_level.lower()
 
     if contractor_tier == user_level:
@@ -275,7 +294,6 @@ def score_job_level_match(row, user_level="EXPERT"):
         return 0.6
     else:
         return 0.7  # fallback for unknown formats
-
 
 
 # Apply the KPI functions and store scores
@@ -376,9 +394,9 @@ for idx, job in enumerate(jobs):
     enriched_jobs.append(enriched)
 
 # --- AI REMARK GENERATION ---
-print("\n>> Generating AI Remarks using RAG...")
+# print("\n>> Generating AI Remarks using RAG...")
 enriched_jobs = generate_ai_remark(enriched_jobs)
-print(">> AI Remarks generation completed.")
+# print(">> AI Remarks generation completed.")
 
 # Save to final output file
 output_path = os.path.join(base_dir, "..", "data", "final_jobs_upwork.json")
@@ -386,14 +404,14 @@ output_path = os.path.join(base_dir, "..", "data", "final_jobs_upwork.json")
 with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
-print(f"\nFinal output written to: {output_path}")
+# print(f"\nFinal output written to: {output_path}")
 
 # Final debug prints
-print("\nFinal Weighted Score Distribution:")
-print(df["final_weighted_score"].describe())
+# print("\nFinal Weighted Score Distribution:")
+# print(df["final_weighted_score"].describe())
 
-print("\nTier Breakdown:")
-print(df["tier"].value_counts())
+# print("\nTier Breakdown:")
+# print(df["tier"].value_counts())
 
-print("\nSample Final Output:")
-print(df[["title", "final_weighted_score", "tier"]].head())
+# print("\nSample Final Output:")
+# print(df[["title", "final_weighted_score", "tier"]].head())

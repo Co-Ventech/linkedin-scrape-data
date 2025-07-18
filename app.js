@@ -5,6 +5,11 @@ const cors = require('cors');
 const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const apify = require('./routes/apify');
+// const { startApifyScheduler } = require('./services/apifySchedulerService');
+// const apifySchedulerRoutes = require('./routes/apifyScheduler');
+const upworkRoutes = require('./routes/upwork');
+
+
 
 const app = express();
 
@@ -12,19 +17,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes - Add all three route files
-// const jobRoutes = require('./routes/jobRoutes');
-// const csvRoutes = require('./routes/csvRoutes');
+
+
+// Start the Apify scheduler
+// startApifyScheduler();
+
+// Use the scheduler route
+// app.use('/api', apifySchedulerRoutes);
+
+// ... rest of your app.js code (other routes, server listen, etc.) ...
 
 app.use('/api', authRoutes);  // Your existing auth routes
-// app.use('/api', jobRoutes);   // Job search routes 
 
 
-// import jobRoutes1 from './routes/apify.js';
+app.use('/api', upworkRoutes);
 
-app.use('/api', apify);
+app.use('/api', apify) ;
 
-// app.use('/api', csvRoutes);   // CSV download routes
+// added comment for review
 
 // Error handling
 app.use(errorHandler);
