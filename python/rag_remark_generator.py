@@ -44,12 +44,12 @@ def generate_remark(job, match_name, match_type):
         return f"This job has a final score of {score} ({tier} Tier), but it doesn't clearly align with our services or products."
 
     prompt = (
-        f"You are an expert job analyst AI assistant working for a software consultancy (Co-Ventech) that offers services like QA Automation, DevOps, Cybersecurity, UI/UX, and products like Recruitinn (Recruitment AI), SkillBuilder (LMS), and Co-Vental (Staff Augmentation).\nYour task is to assess whether a given job is a good fit for outreach or not, and recommend a remark. Use the job's score and tier, and compare with other similar job titles.\n"
+        f"You are an expert job analyst AI assistant working for a software consultancy (Co-Ventech) that offers services like QA Automation, DevOps, Cybersecurity, UI/UX, and products like Recruitinn (Recruitment AI), SkillBuilder (LMS), and Co-Vental (Staff Augmentation).\nYour task is to assess whether a given job is a good fit for outreach or not, and recommend a concise, to the point , 1 line remark. Use the job's score and tier, make sure you do not add this in the remark, and compare with other similar job titles.\n"
         f"Job Title: {title}\n"
         f"Description: {desc[:1000]}\n"
         f"Score: {score}, Tier: {tier}\n"
         f"Matched {match_type}: {match_name}\n\n"
-        f"Write a short remark explaining why this job aligns well and should be pitched with this {match_type}."
+        f"Write a concse, to the point, 1 liner remark explaining why this job aligns well and should be pitched with this {match_type}."
     )
 
     response = openai_client.chat.completions.create(

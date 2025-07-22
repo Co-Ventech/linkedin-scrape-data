@@ -51,7 +51,7 @@
     "predicted_domain": "cybersecurity",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "The Network Security Engineer role at AlgoQuant Asset Management aligns well with our Cybersecurity service at Co-Ventech due to the focus on protecting digital assets and ensuring the security of the organization's network infrastructure. With a score of 0.55 and a tier of Yellow, this job falls within the mid-range of our assessment criteria, making it a good fit for outreach. We recommend pitching this job with our Cybersecurity service to highlight our expertise in this area and how we can assist in enhancing the security measures for AlgoQuant Asset Management."
+    "ai_remark": "This job aligns well with our Cybersecurity service due to its focus on network security and the need for rigorous protection in a globally distributed investment management business."
   },
   {
     "id": "4264169011",
@@ -123,7 +123,7 @@
     "predicted_domain": "development",
     "final_score": 0.59,
     "tier": "Yellow",
-    "ai_remark": "This job for a Senior Full Stack Engineer at TestGorilla aligns well with the QA & Test Automation service offered by Co-Ventech. With a score of 0.59 and a Tier of Yellow, this role indicates a strong emphasis on quality assurance and testing. The combination of Angular and Python technologies suggests a need for robust testing practices to ensure the seamless integration and functionality of the software. By pitching this job with the QA & Test Automation service, Co-Ventech can highlight its expertise in ensuring the quality and reliability of software products, making it a strong fit for outreach."
+    "ai_remark": "This job aligns well with QA & Test Automation service due to the emphasis on skills-based hiring and validation of true skills and potential at TestGorilla."
   },
   {
     "id": "4253514092",
@@ -176,7 +176,7 @@
     "predicted_domain": "cybersecurity",
     "final_score": 0.62,
     "tier": "Yellow",
-    "ai_remark": "The DevSecOps Engineer role aligns well with our DevOps service at Co-Ventech due to its focus on cloud and infrastructure security. DevOps encompasses practices that emphasize collaboration and communication between software development and IT operations, making it a perfect fit for a role that serves as the central point for security within the organization. By pitching this job with our DevOps service, we can highlight our expertise in cloud security and infrastructure management, showcasing our ability to support our client's needs effectively."
+    "ai_remark": "This job aligns well with our DevOps service as it focuses on cloud and infrastructure security within a global fintech company."
   },
   {
     "id": "4260725286",
@@ -247,7 +247,7 @@
     "predicted_domain": "devops",
     "final_score": 0.58,
     "tier": "Yellow",
-    "ai_remark": "This DevOps Engineer role at Phrase aligns well with our DevOps service at Co-Ventech. The job description emphasizes the importance of shaping and supporting the core platform and infrastructure, which are key aspects of DevOps. The global nature of the company and the need to work closely with developers to design and maintain tools and systems also align with the collaborative and technical nature of DevOps. With a score of 0.58 and a tier of Yellow, this job is a good fit for outreach and pitching our DevOps service to Phrase."
+    "ai_remark": "This job aligns well with our DevOps service as it involves shaping and supporting core platform and infrastructure with collaboration and tool maintenance."
   },
   {
     "id": "4264707738",
@@ -312,7 +312,7 @@
     "predicted_domain": "devops",
     "final_score": 0.7,
     "tier": "Green",
-    "ai_remark": "This job of Director of DevOps aligns well with our DevOps service at Co-Ventech. The candidate's expertise in DevOps principles, release and deployment tools, AWS, Azure, Kubernetes, and containerization technologies makes them a perfect fit for leading and scaling our DevOps projects. With a score of 0.7 and a Tier of Green, this job is a strong match for our service offering and should be pitched accordingly."
+    "ai_remark": "This job aligns well with our DevOps service due to the emphasis on leading a team of DevOps and MLOps engineers, building scalable infrastructure, and expertise in AWS and Azure services."
   },
   {
     "id": "4256702702",
@@ -373,7 +373,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "This job of Senior Product Designer at NewTendermint aligns well with the UI/UX Designing service offered by Co-Ventech. The responsibilities mentioned in the job description, such as designing interactive experiences, creating wireframes, and maintaining design systems, are all key components of UI/UX design. With a score of 0.6 and falling under the Yellow tier, this job is a good fit for outreach and can benefit from the expertise and services provided by Co-Ventech in the UI/UX domain."
+    "ai_remark": "This job as a Senior Product Designer aligns well with the UI/UX Designing service due to its focus on creating intuitive experiences and cohesive visual design for developer tools and dApps."
   },
   {
     "id": "3936104342",
@@ -442,7 +442,7 @@
     "predicted_domain": "cloud_devops",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "The Senior Design Manager role at Canonical aligns well with our DevOps service due to the focus on ensuring the experience of the software and infrastructure aligns with the company's intentions. DevOps involves streamlining the development and operation processes to deliver high-quality software efficiently, which complements the responsibilities of a Design Manager in ensuring the software meets the needs of the community and customers. This match suggests that there is potential for a strong partnership between Co-Ventech and Canonical in driving successful software and infrastructure projects."
+    "ai_remark": "This job aligns well with DevOps as it focuses on ensuring the experience of software and infrastructure is true to intentions and delivers tools needed by the community and customers."
   },
   {
     "id": "4264265155",
@@ -502,7 +502,7 @@
     "predicted_domain": "ai",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "Remark: The Voice Producer - AI Tutor role aligns well with the Co-Vental AI-Driven Staff Augmentation product due to its focus on leveraging specialized knowledge in voice production to enhance AI voice technology. This job requires collaboration with AI engineers and linguists to refine voice algorithms and improve model performance, which perfectly complements the capabilities of Co-Vental in providing skilled professionals to augment existing teams and drive innovation in AI projects. The Yellow tier score indicates a good match for outreach and pitching this job with the Co-Vental product."
+    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation due to its focus on leveraging specialized knowledge in voice production to enhance AI technology."
   },
   {
     "id": "4261119998",
@@ -556,7 +556,7 @@
     "predicted_domain": "cybersecurity",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "This Network Security Engineer role at AlgoQuant Asset Management aligns well with our Cybersecurity service at Co-Ventech. With a score of 0.55 and being in the Yellow tier, this job requires expertise in cybersecurity practices to ensure the protection of the company's digital assets and data. By leveraging our Cybersecurity service, we can provide the necessary tools and strategies to enhance network security, mitigate risks, and safeguard against potential cyber threats for AlgoQuant Asset Management. This job is a good fit for outreach and we should pitch our Cybersecurity service to support their security needs effectively."
+    "ai_remark": "This job aligns well with our Cybersecurity service as it requires expertise in network security and aligns with our focus on protecting digital assets."
   },
   {
     "id": "4263148903",
@@ -614,7 +614,7 @@
     "predicted_domain": "devops",
     "final_score": 0.64,
     "tier": "Yellow",
-    "ai_remark": "This job for a Senior DevOps Engineer at Trilogy aligns well with our DevOps service at Co-Ventech. The job description emphasizes the need for expertise in AWS infrastructure and automation, which are key components of our DevOps offerings. The high-stakes environment and focus on optimizing and consolidating multiple stacks also resonate with the expertise and experience we offer in DevOps. With a score of 0.64 and a tier of Yellow, this job is a good fit for outreach and pitching our DevOps service to the company."
+    "ai_remark": "This job aligns well with our DevOps service as it requires expertise in AWS infrastructure, automation, and optimizing multiple stacks for efficiency and scalability."
   },
   {
     "id": "4251508132",
@@ -675,7 +675,7 @@
     "predicted_domain": "development",
     "final_score": 0.65,
     "tier": "Yellow",
-    "ai_remark": "This job as a Release Engineer at MetaMask aligns well with Co-Vental - AI-Driven Staff Augmentation due to its focus on providing skilled resources to supplement existing teams. The role requires expertise in managing software releases, which can benefit from the additional support and flexibility offered by Co-Vental's staff augmentation services. With a score of 0.65 and a Tier of Yellow, this job is a good fit for outreach and pitching Co-Vental as a solution to support the team's needs."
+    "ai_remark": "This job aligns well with Co-Vental as it requires expertise in releasing software products, making it a good fit for AI-driven Staff Augmentation."
   },
   {
     "id": "4264707738",
@@ -740,7 +740,7 @@
     "predicted_domain": "devops",
     "final_score": 0.7,
     "tier": "Green",
-    "ai_remark": "This job of Director of DevOps aligns well with our DevOps service at Co-Ventech. With a score of 0.7 and a Tier of Green, this role requires in-depth knowledge of DevOps principles, experience with release and deployment tools, and expertise in AWS & Azure services, Kubernetes, and containerization technologies. The opportunity to lead and scale a team, make complex decisions, and design state-of-the-art technical solutions perfectly fits the expertise and services we offer in the DevOps domain. This job is a good fit for outreach and should be pitched with our DevOps service."
+    "ai_remark": "This job aligns well with our DevOps service due to the emphasis on leading a team of DevOps and MLOps engineers, building scalable infrastructure, and expertise in AWS & Azure services."
   },
   {
     "id": "4264169011",
@@ -812,7 +812,7 @@
     "predicted_domain": "development",
     "final_score": 0.59,
     "tier": "Yellow",
-    "ai_remark": "This Senior Full Stack Engineer role at TestGorilla aligns well with the QA & Test Automation service offered by Co-Ventech. With a score of 0.59 and a tier of Yellow, this job falls within the range of similar roles that have successfully utilized QA & Test Automation services. By leveraging our expertise in this area, we can help TestGorilla streamline their hiring process, ensure the quality of their platform, and ultimately achieve their goal of empowering individuals to find their dream jobs based on true skills and potential."
+    "ai_remark": "This job is a good fit for outreach with QA & Test Automation service due to the emphasis on skills-based hiring and the need for validating tests to ensure unbiased hiring based on true skills and potential."
   },
   {
     "id": "4263148924",
@@ -870,7 +870,7 @@
     "predicted_domain": "development",
     "final_score": 0.59,
     "tier": "Yellow",
-    "ai_remark": "Remark: The job of Back End Developer at Trilogy aligns well with the Recruitinn AI-Powered Recruitment Platform due to its focus on revolutionizing software development with AI. As a company that integrates artificial intelligence into every aspect of their development process, Trilogy would greatly benefit from using Recruitinn to streamline their recruitment process and find top talent that shares their vision of AI-driven software engineering. The job's score of 0.59 and Yellow tier indicate a good fit for outreach, making it a prime candidate for pitching Recruitinn's services."
+    "ai_remark": "Remark: This job aligns well with Recruitinn as it requires a visionary developer who sees AI as the future of software engineering, making it a perfect fit for AI-powered recruitment platform."
   },
   {
     "id": "4263380540",
@@ -942,7 +942,7 @@
     "predicted_domain": "development",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the DevOps service because it involves optimizing GPU algorithms and data structures to enhance scalability, which is a key aspect of DevOps practices. The role also requires staying updated on GPU technologies and trends, which is in line with the continuous improvement and innovation focus of DevOps. Additionally, the focus on collaborating with a highly skilled team and mentoring junior engineers aligns with the teamwork and knowledge-sharing aspects of DevOps. Overall, this job would be a good fit for outreach with the DevOps service."
+    "ai_remark": "This job aligns well with the DevOps service as it focuses on optimizing GPU algorithms and data structures for scalability, which is crucial for efficient deployment and management of software applications."
   },
   {
     "id": "4224361794",
@@ -995,7 +995,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.58,
     "tier": "Yellow",
-    "ai_remark": "This job for a Product Designer at Fuse Energy aligns well with the UI/UX Designing service offered by Co-Ventech. The responsibilities of the role, such as designing user interfaces for various platforms and generating creative collateral for consumer touchpoints, closely align with the expertise and services provided in UI/UX Designing. Additionally, the job's score of 0.58 and tier of Yellow indicate a good fit for outreach and potential success in pitching the UI/UX Designing service to Fuse Energy."
+    "ai_remark": "This job aligns well with UI/UX Designing service as it involves designing user interfaces for multiple platforms and generating creative collateral for consumer touchpoints."
   },
   {
     "id": "4264735690",
@@ -1050,7 +1050,7 @@
     "predicted_domain": "development",
     "final_score": 0.56,
     "tier": "Yellow",
-    "ai_remark": "This Senior Front-End Developer position at C Teleport aligns well with Co-Ventech's services, particularly in UI/UX. With a score of 0.56 and being in the Yellow tier, this job is a good fit for outreach. The job description emphasizes the use of cutting-edge technology and the development of a revolutionary business travel app, which falls in line with Co-Ventech's expertise in UI/UX design. By pitching this job with Co-Ventech's services, we can offer our expertise in creating seamless user experiences and contributing to the shaping of the future platform for C Teleport."
+    "ai_remark": "This job aligns well with Co-Ventech's UI/UX service due to the focus on developing cutting-edge technology for a global scale-up in the travel industry."
   },
   {
     "id": "4224365452",
@@ -1103,7 +1103,7 @@
     "predicted_domain": "development",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "Remark: The job of Applied AI Engineer at Fuse Energy aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires technical expertise in AI and backend engineering, which is a key focus of Co-Vental's services. The candidate will be working on innovative projects that involve developing AI tools to enhance consumer experiences and internal operations, which closely aligns with Co-Vental's goal of providing AI-driven solutions to augment staff capabilities. This job opportunity is a good fit for outreach with Co-Vental as it offers a platform for the candidate to further enhance their AI skills and contribute to cutting-edge projects in the energy sector."
+    "ai_remark": "This job aligns well with Co-Vental as it requires expertise in AI and backend engineering, making it a perfect fit for AI-driven staff augmentation services."
   },
   {
     "id": "4264270630",
@@ -1163,7 +1163,7 @@
     "predicted_domain": "development",
     "final_score": 0.5,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the Co-Vental AI-Driven Staff Augmentation product because it requires a specialized skill set in phonetics and a deep understanding of language processing. The job's focus on training AI systems and collaborating with developers to enhance audio description technology fits perfectly with the capabilities offered by Co-Vental, which provides AI-driven staff augmentation to support and enhance project teams with specialized expertise. The job's score and tier indicate that it is a good fit for outreach, and pitching it with Co-Vental would be a strategic move to provide the necessary support and expertise for the role."
+    "ai_remark": "This job aligns well with Co-Vental as it requires expertise in phonetics to enhance AI systems, making it a perfect fit for AI-Driven Staff Augmentation."
   },
   {
     "id": "4264273662",
@@ -1223,7 +1223,7 @@
     "predicted_domain": "ai",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "Remark: The role of Pharmacist - AI Trainer aligns well with the Recruitinn - AI-Powered Recruitment Platform as it requires a high level of expertise in analyzing and reviewing medical content, providing feedback, and collaborating with interdisciplinary teams. The AI capabilities of Recruitinn can help streamline the recruitment process for finding qualified candidates with the necessary clinical knowledge and experience to excel in this role. This job opportunity should be pitched with the Recruitinn service to attract top talent in the healthcare and pharmaceutical industry."
+    "ai_remark": "This job aligns well with Recruitinn as it requires expertise in training AI systems, making it a good fit for leveraging AI-powered recruitment platforms."
   },
   {
     "id": "4264267899",
@@ -1283,7 +1283,7 @@
     "predicted_domain": "ai",
     "final_score": 0.56,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the Recruitinn - AI-Powered Recruitment Platform service as it involves training AI systems to better understand the complexities of modern finance. The Financial Manager - AI trainer role requires a deep understanding of financial strategies and expertise in AI training initiatives, making it a good fit for leveraging the capabilities of Recruitinn to find the right candidates with the necessary skills and experience in both finance and AI training."
+    "ai_remark": "This job aligns well with Recruitinn as the Financial Manager will be training AI systems, demonstrating a strong understanding and utilization of AI technology in the financial sector."
   },
   {
     "id": "4264262512",
@@ -1343,7 +1343,7 @@
     "predicted_domain": "ai",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "Remark: The job of Voice Expert - AI Trainer aligns well with the Co-Vental - AI-Driven Staff Augmentation product due to its specialized focus on training and refining AI voice technology. The role requires expertise in analyzing and providing feedback on AI-generated voice samples, which directly complements the capabilities of Co-Vental in providing skilled AI professionals to enhance project teams. The job's score and tier also indicate a good fit for outreach, making it a strong candidate for pitching with the Co-Vental product."
+    "ai_remark": "This job aligns well with Co-Vental's AI-driven Staff Augmentation as it requires specialized knowledge in voice production and coaching, making it a perfect fit for leveraging AI technology in enhancing voice algorithms and model performance."
   },
   {
     "id": "4264262485",
@@ -1403,7 +1403,7 @@
     "predicted_domain": "ai",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "This job of Voice Expert - AI Trainer aligns well with the Co-Vental product, which offers AI-driven staff augmentation services. The role involves analyzing and evaluating AI-generated voice samples, providing feedback, collaborating with AI engineers, and coaching AI systems. The expertise in voice production and training required for this job makes it a good fit for leveraging the AI capabilities of Co-Vental to enhance and optimize the performance of AI voice technology."
+    "ai_remark": "The Singing Coach - AI Tutor job aligns well with Co-Vental's AI-Driven Staff Augmentation for enhancing AI voice technology with specialized voice expertise."
   },
   {
     "id": "4264262512",
@@ -1463,7 +1463,7 @@
     "predicted_domain": "ai",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation because the role of a Voice Expert - AI Trainer requires specialized knowledge in voice production and coaching, which can be effectively augmented by AI-driven solutions. The job involves analyzing and evaluating AI-generated voice samples, providing feedback, and collaborating with AI engineers to enhance voice algorithms, all of which can benefit from the advanced capabilities of AI technology. By leveraging Co-Vental's AI-driven staff augmentation services, the company can enhance the efficiency and effectiveness of the Voice Expert's role, ultimately leading to better outcomes in shaping the future of AI voice technology."
+    "ai_remark": "This job aligns well with Co-Vental as it requires specialized knowledge in voice production and coaching, which can be effectively leveraged through AI-driven staff augmentation."
   },
   {
     "id": "4264263554",
@@ -1523,7 +1523,7 @@
     "predicted_domain": "ai",
     "final_score": 0.51,
     "tier": "Yellow",
-    "ai_remark": "This Voice Coach - AI Tutor role aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires expertise in guiding AI in mastering accents and dialects, which fits perfectly with the product's focus on providing skilled AI professionals to enhance project teams. The role's emphasis on collaborating with AI developers and providing expert guidance also aligns with Co-Vental's goal of augmenting teams with specialized talent. This job should be pitched with Co-Vental to offer the client the best matching AI professionals for their innovative AI Tutoring project."
+    "ai_remark": "This job aligns well with Co-Vental's AI-driven Staff Augmentation as it requires expertise in guiding AI and enhancing voice recognition capabilities."
   },
   {
     "id": "3936104342",
@@ -1592,7 +1592,7 @@
     "predicted_domain": "cloud_devops",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "The Senior Design Manager role at Canonical aligns well with our DevOps service due to the emphasis on ensuring the experience of the software and infrastructure aligns with the company's intentions. DevOps focuses on collaboration, automation, and efficiency in software development and deployment, which is crucial for delivering tools that meet the needs of both the community and customers. The job's score and tier indicate a moderate fit, making it a good candidate for outreach with the DevOps service."
+    "ai_remark": "This job aligns well with DevOps as it focuses on ensuring the experience of software and infrastructure aligns with intentions and delivers necessary tools for community and customers."
   },
   {
     "id": "4264270630",
@@ -1652,7 +1652,7 @@
     "predicted_domain": "development",
     "final_score": 0.5,
     "tier": "Yellow",
-    "ai_remark": "This job as a Phonetics Expert aligns well with the Co-Vental AI-Driven Staff Augmentation product because it requires a high level of expertise in a specialized field, which can be effectively sourced and matched with the right project through AI-driven staff augmentation. The job's focus on training AI systems in audio description and contributing to groundbreaking technology fits perfectly with the capabilities of Co-Vental in providing skilled professionals for project-based work. The job's score and tier indicate a good fit for outreach, and pitching it with Co-Vental can help ensure the customer finds the right candidate for this unique role."
+    "ai_remark": "This job aligns well with Co-Vental as it requires expertise in phonetics to enhance AI systems, making it a perfect fit for AI-driven staff augmentation."
   },
   {
     "id": "4256702702",
@@ -1713,7 +1713,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "Remark: The Senior Product Designer role at NewTendermint aligns well with the UI/UX Designing service offered by Co-Ventech. With a score of 0.6 and a Tier of Yellow, this job focuses on translating complex concepts into intuitive experiences for users, which requires a strong understanding of user interface and user experience design principles. By leveraging our expertise in UI/UX Designing, we can provide valuable insights and support to help NewTendermint create coherent, accessible, and useful tools for Gno.land users. This job is a good fit for outreach and pitching our UI/UX Designing service."
+    "ai_remark": "This job aligns well with UI/UX Designing service due to its focus on creating intuitive experiences, designing user journeys, and maintaining design systems."
   },
   {
     "id": "4236263006",
@@ -1766,7 +1766,7 @@
     "predicted_domain": "development",
     "final_score": 0.65,
     "tier": "Yellow",
-    "ai_remark": "This job as an Asset Architect in Professional Services at Five9 aligns well with the DevOps service offered by Co-Ventech. DevOps focuses on automating the development and delivery of software products, which is a key aspect of the responsibilities outlined for this role. The emphasis on rapid product development and modern development methodologies also closely align with the expertise and services provided by the DevOps team at Co-Ventech. Therefore, this job would be a good fit for outreach and pitching the DevOps service to Five9."
+    "ai_remark": "This job aligns well with DevOps as it involves rapid product development and leveraging modern development methodologies and tools."
   },
   {
     "id": "4207972592",
@@ -1824,7 +1824,7 @@
     "predicted_domain": "development",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "This job as a Staff Technical Program Manager aligns well with the SkillBuilder Learning & Career Development Platform because it requires managing complex, cross-functional efforts and partnering with stakeholders. SkillBuilder can provide the necessary tools and resources for continuous learning and skill development, enabling the individual to excel in their role and deliver successful outcomes. The platform can help enhance their project management skills, communication abilities, and leadership capabilities, making it a great fit for outreach."
+    "ai_remark": "This job aligns well with SkillBuilder as it requires managing complex, cross-functional efforts and partnering with stakeholders for learning and career development."
   },
   {
     "id": "4236052771",
@@ -1882,7 +1882,7 @@
     "predicted_domain": "development",
     "final_score": 0.59,
     "tier": "Yellow",
-    "ai_remark": "This job as a Federal Sales Engineer in the Department of Defense aligns well with Co-Ventech's services, particularly in the area of Cybersecurity. With a score of 0.59 and falling within the Yellow tier, this role requires a strong technical background and expertise in positioning and demonstrating products, which is in line with Co-Ventech's focus on providing services like Cybersecurity. The emphasis on improving software supply chain security for the government also resonates with Co-Ventech's commitment to offering top-notch security solutions. This job would be a good fit for outreach with a focus on showcasing Co-Ventech's expertise in Cybersecurity to potential clients in the federal sector."
+    "ai_remark": "This job aligns well with Co-Ventech's expertise in cybersecurity and DevOps, making it a good fit for outreach."
   },
   {
     "id": "4242878032",
@@ -1937,7 +1937,7 @@
     "predicted_domain": "development",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a Senior Software Engineer with expertise in Java backend development. The role involves leading backend development for mission-critical payment infrastructure, which fits perfectly with the services offered by Co-Vental. By leveraging AI-driven staff augmentation, the hiring partner can quickly and efficiently fill this critical role with a qualified candidate who can contribute to the success of their crypto and Web3 platform."
+    "ai_remark": "This job aligns well with Co-Vental's AI-Driven Staff Augmentation for expert backend development support."
   },
   {
     "id": "4249276884",
@@ -1997,7 +1997,7 @@
     "predicted_domain": "qa",
     "final_score": 0.5,
     "tier": "Yellow",
-    "ai_remark": "This Quality Assurance Lead position at ClassLink aligns well with our QA & Test Automation service at Co-Ventech because it involves working with innovative products in the education technology sector. The focus on providing essential usage data, automation, and security aligns closely with the expertise and services we offer in QA Automation. The job's score and tier also indicate a good fit for outreach, making it a strong candidate for pitching our services."
+    "ai_remark": "This job is a good fit for outreach as it aligns well with our QA & Test Automation service, given the emphasis on product innovation, data analysis, and automation in the education technology sector."
   },
   {
     "id": "4263149921",
@@ -2055,7 +2055,7 @@
     "predicted_domain": "qa",
     "final_score": 0.57,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the QA & Test Automation service offered by Co-Ventech because it requires the candidate to leverage AI in QA processes and create intelligent test automation frameworks. The job description emphasizes the use of AI to simulate edge-case user behaviors, generate stress conditions, and surface hard-to-find bugs. This aligns perfectly with Co-Ventech's expertise in QA Automation, making it a good fit for outreach."
+    "ai_remark": "This job aligns well with our QA & Test Automation service as it focuses on leveraging AI for intelligent and adaptive test automation frameworks, revolutionizing QA workflows."
   },
   {
     "id": "4264281735",
@@ -2113,7 +2113,7 @@
     "predicted_domain": "qa",
     "final_score": 0.57,
     "tier": "Yellow",
-    "ai_remark": "This CDI Specialist - QA role aligns well with the QA & Test Automation service offered by Co-Ventech. The job description mentions the importance of auditing and ensuring accurate documentation and coding, which requires a strong focus on quality assurance. The candidate for this position needs to be detail-oriented and quality-focused, which are key qualities for a successful QA professional. By leveraging the QA & Test Automation service, Co-Ventech can provide the necessary tools and expertise to support the CDI-S QA in maintaining high standards of quality in their work."
+    "ai_remark": "This job aligns well with QA & Test Automation service due to its focus on quality assurance and compliance in clinical documentation, making it a good fit for outreach."
   },
   {
     "id": "4262879908",
@@ -2177,7 +2177,7 @@
     "predicted_domain": "qa",
     "final_score": 0.57,
     "tier": "Yellow",
-    "ai_remark": "This QA Lead position aligns well with our QA & Test Automation service offered at Co-Ventech. With a score of 0.57 and falling into the Yellow tier, this job requires a deep experience in manual testing, API testing, and performance/load testing - all key areas covered by our service. The responsibilities and must-have skills listed for this role closely match the expertise and tools we provide in QA Automation. Therefore, this job is a good fit for outreach and we should pitch our service to the hiring company."
+    "ai_remark": "This job aligns well with our QA & Test Automation service due to the emphasis on manual testing, API testing, performance testing, and potential automation contributions."
   },
   {
     "id": "4264205526",
@@ -2240,7 +2240,7 @@
     "predicted_domain": "qa",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "This job for a Senior Software Quality Assurance Engineer aligns well with the QA & Test Automation service offered by Co-Ventech. The job description mentions the need for experience in quality assurance concepts and manual testing on complex software applications, which are key components of QA & Test Automation services. Additionally, the fully remote nature of the position fits well with the virtual services provided by Co-Ventech. The job's score and tier also indicate a good match for outreach. It is recommended to pitch this job with the QA & Test Automation service to showcase Co-Ventech's expertise in this area."
+    "ai_remark": "This job aligns well with our QA & Test Automation service due to its focus on manual testing on complex software applications and the need for quality control efforts."
   },
   {
     "id": "4264267514",
@@ -2302,7 +2302,7 @@
     "predicted_domain": "qa",
     "final_score": 0.53,
     "tier": "Yellow",
-    "ai_remark": "This Quality Assurance Engineer role aligns well with our QA & Test Automation service at Co-Ventech. With a score of 0.53 and a Yellow tier, this job indicates a moderate level of fit for outreach. The responsibilities outlined in the job description, such as developing and executing test plans, collaborating with cross-functional teams, and driving quality throughout the software development lifecycle, closely align with the expertise offered by our QA Automation service. By leveraging our expertise in QA & Test Automation, we can help enhance the efficiency and effectiveness of the testing processes for high-quality, mission-critical healthcare applications, ultimately ensuring the delivery of reliable software products."
+    "ai_remark": "This Quality Assurance Engineer role aligns well with our QA & Test Automation service due to its focus on validating software functionality, collaborating with cross-functional teams, and driving quality throughout the software development lifecycle."
   },
   {
     "id": "4259549286",
@@ -2362,7 +2362,7 @@
     "predicted_domain": "development",
     "final_score": 0.63,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Ventech's services, particularly in the areas of QA Automation, DevOps, and UI/UX. The Technical Lead (.NET) role requires experience with C#, .NET, cloud native development, and front end development, which are all areas of expertise offered by Co-Ventech. The high visibility and impact of the role also make it a good fit for outreach, as it aligns with Co-Ventech's focus on providing innovative solutions to global organizations. This job should be pitched with Co-Ventech to showcase the company's ability to provide top-notch technical leadership and expertise in software development."
+    "ai_remark": "This job aligns well with Co-Ventech's services as it requires technical leadership in .NET, cloud native development, and front end experience, making it a good fit for outreach."
   },
   {
     "id": "4245467600",
@@ -2425,7 +2425,7 @@
     "predicted_domain": "development",
     "final_score": 0.49,
     "tier": "Red",
-    "ai_remark": "This job for a FACs Programmer/Engineer at The CCS Companies aligns well with our Co-Vental AI-Driven Staff Augmentation product due to its low score and tier. The job's score of 0.49 and tier of Red indicate that it may not be the best fit for outreach, but with the assistance of our staff augmentation services, we can help provide the necessary support and expertise to improve the efficiency and effectiveness of the internal production applications and workflows in FACs. Our AI-driven staff augmentation can provide the additional resources and skills needed to troubleshoot process and application non-conformances, develop and maintain comprehensive reporting, and ensure compliance with management and client requirements."
+    "ai_remark": "This job aligns well with Co-Vental's AI-Driven Staff Augmentation service due to its need for experienced programmers/administrators in FACs/Artiva for designing, developing, and supporting internal production applications."
   },
   {
     "id": "4208074813",
@@ -2482,7 +2482,7 @@
     "predicted_domain": "development",
     "final_score": 0.58,
     "tier": "Yellow",
-    "ai_remark": "This Senior Back End Developer position at Galaxy aligns well with Co-Ventech's services, particularly in the areas of QA Automation, DevOps, and Cybersecurity. With a score of 0.58 and a Tier of Yellow, this job falls within the mid-range of compatibility. The focus on digital assets, data center infrastructure, and AI technologies at Galaxy suggests a need for expertise in backend development, making it a suitable match for Co-Ventech's offerings. This job could benefit from Co-Ventech's services to enhance efficiency, security, and automation in their development processes."
+    "ai_remark": "This job aligns well with Co-Ventech's expertise in DevOps and cybersecurity, making it a good fit for outreach."
   },
   {
     "id": "4199742684",
@@ -2544,7 +2544,7 @@
     "predicted_domain": "development",
     "final_score": 0.51,
     "tier": "Yellow",
-    "ai_remark": "This ServiceNow Developer job aligns well with the SkillBuilder Learning & Career Development Platform as the role requires experience in data warehouse, data visualization, analytics, and web application development. SkillBuilder can provide training and resources to enhance the candidate's skills in these areas, making them a strong fit for the position. Additionally, the yellow tier score indicates a moderate fit, making it a good opportunity for outreach and pitching the SkillBuilder product."
+    "ai_remark": "This job aligns well with SkillBuilder as it requires continuous learning and development in the field of ServiceNow and data analytics."
   },
   {
     "id": "4188526580",
@@ -2612,7 +2612,7 @@
     "predicted_domain": "ai",
     "final_score": 0.53,
     "tier": "Yellow",
-    "ai_remark": "This job as a Product Designer for Onchain Consumer aligns well with the UI/UX Designing service offered by Co-Ventech. The focus on creating a seamless and user-friendly product experience for billions of users on the onchain platform requires a deep understanding of user interface and user experience design principles. The emphasis on building a secure, decentralized platform also highlights the importance of creating intuitive and engaging user interfaces. With a score of 0.53 and a Tier of Yellow, this job is a good fit for outreach and should be pitched with the UI/UX Designing service to showcase Co-Ventech's expertise in creating exceptional digital experiences."
+    "ai_remark": "This job aligns well with UI/UX Designing service as it requires strong Product Designers to lead the Onchain Consumer product experience, focusing on creating a user-friendly interface for billions of users."
   },
   {
     "id": "4263382205",
@@ -2673,7 +2673,7 @@
     "predicted_domain": "development",
     "final_score": 0.46,
     "tier": "Red",
-    "ai_remark": "The job of a 한영통번역사 (Korean-English Translator) at Coupang aligns well with Co-Ventech's services like UI/UX and products like Recruitinn (Recruitment AI) due to the emphasis on effective communication and collaboration across different teams and regions. The role of a translator is crucial in ensuring smooth business operations and facilitating knowledge sharing within a global organization like Coupang. By leveraging Co-Ventech's expertise in providing innovative solutions and products, this job can greatly benefit from the support and resources offered by the consultancy. It is recommended to pitch this job with Co-Ventech to maximize its potential for success."
+    "ai_remark": "This job aligns well with Co-Ventech's services as it requires expertise in communication, collaboration, and supporting a dynamic business environment, making it a good fit for outreach."
   },
   {
     "id": "4264220993",
@@ -2736,7 +2736,7 @@
     "predicted_domain": "ai",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "The Consultancy: HIV Data Scientist Consultant role at UNICEF aligns well with Co-Vental - AI-Driven Staff Augmentation, as it requires specialized skills and expertise in the field of data analytics and health. This job involves remote work, which can benefit from the AI-driven staff augmentation services provided by Co-Vental. By leveraging the platform, UNICEF can quickly access top talent in the industry to support their important work in improving children's health outcomes worldwide."
+    "ai_remark": "This job aligns well with Co-Vental's AI-driven staff augmentation for remote positions, offering expertise in data analytics and health-related projects."
   },
   {
     "id": "4264706747",
@@ -2797,7 +2797,7 @@
     "predicted_domain": "ai",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "This job as an Artificial Intelligence and Machine Learning Global Quality Leader aligns well with the Recruitinn - AI-Powered Recruitment Platform service offered by Co-Ventech. The candidate's deep expertise in AI and ML is crucial for leading innovation in quality management processes, which aligns perfectly with the advanced AI capabilities of Recruitinn. Additionally, the focus on enhancing product reliability and operational efficiency through data-driven initiatives mirrors the goal of Recruitinn to streamline and optimize the recruitment process using AI technology. Therefore, this job is a good fit for outreach and should be pitched with the Recruitinn service."
+    "ai_remark": "This job aligns well with Recruitinn as it requires a proactive Quality Director with expertise in AI/ML to enhance product reliability and operational efficiency through data-driven quality initiatives."
   },
   {
     "id": "4264205802",
@@ -2857,7 +2857,7 @@
     "predicted_domain": "development",
     "final_score": 0.64,
     "tier": "Yellow",
-    "ai_remark": "This job as a DX Engineer, AI SDK at Vercel aligns well with our Co-Vental - AI-Driven Staff Augmentation product because it requires working with cross-functional teams and ensuring the quality of development tools and workflows. The job also involves technical writing, which indicates a need for strong communication skills and attention to detail, both of which are qualities that our AI-driven staff augmentation service can provide. The Yellow tier score suggests that this job may benefit from additional support and expertise, making it a good fit for our Co-Vental service."
+    "ai_remark": "This job aligns well with Co-Vental's AI-Driven Staff Augmentation for seamless collaboration with cross-functional teams in improving development tools and workflows."
   },
   {
     "id": "4261133543",
@@ -2929,7 +2929,7 @@
     "predicted_domain": "ai",
     "final_score": 0.67,
     "tier": "Yellow",
-    "ai_remark": "Remark: The Machine Learning Engineer - Generative Visuals (Text-to-Image) role at the Bio-Tech company aligns well with our Recruitinn AI-Powered Recruitment Platform. This job requires expertise in advanced ML architectures, which is a key feature of our platform that helps streamline the recruitment process by matching candidates with the right skill sets for the job. With a score of 0.67 and a Yellow tier, this job presents a good fit for outreach and pitching our service to the company."
+    "ai_remark": "Remark: This job aligns well with Recruitinn as it requires advanced ML expertise, making it a strong fit for sourcing top talent in AI and ML fields."
   },
   {
     "id": "4147224156",
@@ -2991,7 +2991,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.62,
     "tier": "Yellow",
-    "ai_remark": "Based on the job's score and tier, the Principal Product Designer role for the Ads Platform at Reddit aligns well with the UI/UX Designing service offered by Co-Ventech. With a score of 0.62 and falling into the Yellow tier, this job requires a strong understanding of user experience and interface design to create seamless interactions between brands and users. The UI/UX Designing service focuses on creating visually appealing and user-friendly designs, which is essential for shaping Reddit's monetization strategy and enhancing the overall user experience on the platform. Therefore, this job would be a good fit for outreach with a pitch centered around our UI/UX Designing service."
+    "ai_remark": "This job aligns well with UI/UX Designing as it involves shaping Reddit's monetization strategy and building tools for seamless interactions between brands and users."
   },
   {
     "id": "4263182414",
@@ -3044,7 +3044,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.62,
     "tier": "Yellow",
-    "ai_remark": "This job for a UX/UI Designer aligns well with our UI/UX Designing service at Co-Ventech. The job description emphasizes the importance of crafting intuitive digital experiences, conducting user research, and creating engaging designs, all of which are key components of UI/UX design. The job's score of 0.62 and tier of Yellow indicate a moderate fit, suggesting that there is potential for a good match between the job requirements and our service offerings. This job should definitely be pitched with our UI/UX Designing service to showcase our expertise in this area and help the client meet their design needs effectively."
+    "ai_remark": "The UX/UI Designer role aligns well with our UI/UX Designing service due to its focus on crafting intuitive digital experiences and developing engaging designs."
   },
   {
     "id": "4261129848",
@@ -3116,7 +3116,7 @@
     "predicted_domain": "development",
     "final_score": 0.64,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the Recruitinn AI-Powered Recruitment Platform as it requires experience in AI and an \"AI first\" work environment. The Director of Product Design role involves working with B2C Consumer Apps and utilizing AI professionally, which makes it a good fit for the AI capabilities of Recruitinn. Additionally, the emphasis on leadership experience and creating a strong design vision aligns with the advanced features of Recruitinn for identifying and attracting top talent in the industry. This job should be pitched with Recruitinn to effectively source and recruit candidates who meet the specific requirements and preferences of the role."
+    "ai_remark": "This job aligns well with Recruitinn as it requires experience in AI and a strong design vision, making it a good fit for AI-Powered Recruitment Platform."
   },
   {
     "id": "4188526580",
@@ -3184,7 +3184,7 @@
     "predicted_domain": "ai",
     "final_score": 0.53,
     "tier": "Yellow",
-    "ai_remark": "This job as a Product Designer for Onchain Consumer aligns well with the UI/UX Designing service offered by Co-Ventech. The focus on creating a user-friendly and engaging product experience for billions of users aligns perfectly with the skills and expertise of UI/UX designers. By leveraging their knowledge in user research, interaction design, and visual communication, UI/UX designers can help Base achieve its goal of bringing a million developers and a billion users onchain. This job should definitely be pitched with the UI/UX Designing service to ensure a seamless and impactful product experience."
+    "ai_remark": "This job aligns well with UI/UX Designing service as it focuses on creating a seamless product experience for a large user base on an innovative onchain platform."
   },
   {
     "id": "4222377951",
@@ -3243,7 +3243,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.58,
     "tier": "Yellow",
-    "ai_remark": "Remark: The Senior Product Designer role at BioRender aligns well with the UI/UX Designing service offered by Co-Ventech. With a high score of 0.58 and a Yellow tier, this job involves shaping seamless user experiences and accelerating scientific discovery through design. This closely aligns with the expertise and focus of the UI/UX Designing service, making it a strong fit for outreach and collaboration."
+    "ai_remark": "This job aligns well with UI/UX Designing as it focuses on shaping seamless user experiences and accelerating scientific discovery."
   },
   {
     "id": "4263170370",
@@ -3300,7 +3300,7 @@
     "predicted_domain": "development",
     "final_score": 0.64,
     "tier": "Yellow",
-    "ai_remark": "This Senior Software Engineer role is a good fit for outreach with Co-Vental - AI-Driven Staff Augmentation because it requires a high level of expertise and experience in full stack development. The job description highlights the need for someone who can have a significant impact on the product and business, which aligns well with the capabilities of Co-Vental in providing skilled and experienced staff to augment the existing team. Additionally, the remote nature of the role fits well with the flexibility and scalability that Co-Vental offers in matching the right talent to the specific needs of the project."
+    "ai_remark": "This job aligns well with Co-Vental's AI-Driven Staff Augmentation for providing senior full stack engineering expertise to scale event ingestion and build analytics suite efficiently."
   },
   {
     "id": "4170838156",
@@ -3365,7 +3365,7 @@
     "predicted_domain": "development",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "The job of Technical Lead at Version 1 aligns well with Co-Ventech's services, especially in areas like QA Automation, DevOps, and Cybersecurity. With a score of 0.52 and being in the Yellow tier, this job is a good fit for outreach as it indicates a moderate level of compatibility with our services. By leveraging our expertise in these areas, we can help Version 1 drive customer success and achieve their goals in digital transformation and expansion."
+    "ai_remark": "This job aligns well with Co-Ventech's expertise in providing technical services like QA Automation, DevOps, and Cybersecurity, making it a good fit for outreach."
   },
   {
     "id": "4251508132",
@@ -3426,7 +3426,7 @@
     "predicted_domain": "development",
     "final_score": 0.65,
     "tier": "Yellow",
-    "ai_remark": "This job as a Release Engineer at MetaMask aligns well with Co-Vental - AI-Driven Staff Augmentation because it requires technical expertise in software development, which is a key focus area of the staff augmentation service. The job's score and tier indicate a moderate match, making it a good fit for outreach. The job involves working on tools and infrastructure, which can benefit from additional support and resources provided by Co-Vental's AI-driven staff augmentation services. This match presents a great opportunity to pitch the service to Consensys for potential collaboration."
+    "ai_remark": "This job aligns well with Co-Vental as it requires a skilled Release Engineer to work on tools and infrastructure, making it a good fit for AI-Driven Staff Augmentation."
   },
   {
     "id": "4245438076",
@@ -3504,7 +3504,7 @@
     "predicted_domain": "development",
     "final_score": 0.68,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the Software Development service offered by Co-Ventech due to its focus on building scalable digital applications using Java and Spring boot. The job description also mentions creating intuitive front-end experiences and working with RESTful APIs, which are key areas of expertise for software developers. Additionally, the job's score and tier indicate a good fit for outreach, making it a suitable candidate to pitch for the Software Development service."
+    "ai_remark": "This job aligns well with our Software Development service as it involves building scalable digital applications using Java and Spring boot, which are key expertise areas for us."
   },
   {
     "id": "4261119998",
@@ -3558,7 +3558,7 @@
     "predicted_domain": "cybersecurity",
     "final_score": 0.55,
     "tier": "Yellow",
-    "ai_remark": "This Network Security Engineer position at AlgoQuant Asset Management aligns well with our Cybersecurity service at Co-Ventech due to the focus on protecting digital assets and ensuring data security. The job score of 0.55 and Yellow tier indicate a moderate level of fit, making it a good candidate for outreach. The emphasis on rigorous research, technology, and performance align with the expertise and services we offer in cybersecurity, making it a strong potential match for our services."
+    "ai_remark": "This job aligns well with our Cybersecurity service due to its focus on network security and risk management in a quantitative environment."
   },
   {
     "id": "4263381170",
@@ -3624,7 +3624,7 @@
     "predicted_domain": "qa",
     "final_score": 0.59,
     "tier": "Yellow",
-    "ai_remark": "This Salesforce QA Tester role aligns well with our QA & Test Automation service at Co-Ventech due to the strong focus on ensuring the quality and reliability of Salesforce implementations. The job description highlights the importance of telephony integrations and Salesforce CPQ, which are areas where our expertise in QA automation can add significant value. Additionally, the company's commitment to ongoing learning and development opportunities aligns with our focus on continuous improvement and innovation in software testing. Overall, this job is a good fit for outreach with our QA & Test Automation service."
+    "ai_remark": "This job aligns well with the QA & Test Automation service due to the focus on ensuring quality and reliability of Salesforce implementations."
   },
   {
     "id": "4264727579",
@@ -3704,7 +3704,7 @@
     "predicted_domain": "qa",
     "final_score": 0.53,
     "tier": "Yellow",
-    "ai_remark": "This Junior QA Automation Engineer role aligns well with our QA & Test Automation service at Co-Ventech. The job description emphasizes the importance of delivering high-quality software solutions through automated testing frameworks and scripts, which is a key focus of our QA Automation service. The candidate would play a critical role in ensuring the quality and functionality of products, aligning perfectly with our expertise in this area. This job is a good fit for outreach and should be pitched with our QA & Test Automation service."
+    "ai_remark": "This job aligns well with our QA & Test Automation service as it focuses on designing, implementing, and maintaining automated test frameworks to ensure high-quality software solutions."
   },
   {
     "id": "3936104342",
@@ -3773,7 +3773,7 @@
     "predicted_domain": "cloud_devops",
     "final_score": 0.6,
     "tier": "Yellow",
-    "ai_remark": "This Senior Design Manager role at Canonical aligns well with our DevOps service at Co-Ventech due to the focus on ensuring the experience of the software and infrastructure is true to the company's intentions. DevOps emphasizes collaboration between development and operations teams to streamline the software delivery process, which would be crucial in this role to deliver the tools needed by the community and customers. The job's score and tier also indicate a good fit for outreach with our DevOps service."
+    "ai_remark": "This job aligns well with DevOps as it requires ensuring the experience of the software and infrastructure is true to intentions and delivers the tools needed for community and customers."
   },
   {
     "id": "4260103326",
@@ -3826,7 +3826,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.56,
     "tier": "Yellow",
-    "ai_remark": "This job of Lead Industrial Product Designer at Manta Sleep aligns well with the UI/UX Designing service offered by Co-Ventech. The role involves shaping the company's product vision and leading the design team to create innovative sleep products for customers, which requires a strong understanding of user experience and interface design. As UI/UX Designing focuses on creating user-friendly and visually appealing products, this job would benefit from the expertise and skills offered by this service. It is recommended to pitch this job with the UI/UX Designing service for a successful outreach."
+    "ai_remark": "This job aligns well with UI/UX Designing as it requires creating innovative sleep products that resonate with customers, showcasing a strong focus on user experience and design aesthetics."
   },
   {
     "id": "4264273662",
@@ -3886,7 +3886,7 @@
     "predicted_domain": "ai",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "This job aligns well with the Recruitinn - AI-Powered Recruitment Platform service because it involves leveraging AI technology in the healthcare industry. As a Pharmacist - AI Trainer, the candidate will be utilizing their clinical expertise to review and enhance AI-generated content related to prescriptions and patient education. This aligns with the capabilities of Recruitinn in utilizing AI to streamline the recruitment process and find the best candidates for specialized roles. The job's score of 0.52 and Yellow tier suggest that it may benefit from the advanced capabilities of Recruitinn to help find the right talent for this unique position."
+    "ai_remark": "This job aligns well with Recruitinn as it requires expertise in training AI systems, making it a good fit for pitching the AI-Powered Recruitment Platform."
   },
   {
     "id": "4262869043",
@@ -3950,7 +3950,7 @@
     "predicted_domain": "uiux",
     "final_score": 0.65,
     "tier": "Yellow",
-    "ai_remark": "Remark: This job as a UX Designer aligns well with our UI/UX Designing service at Co-Ventech. The job description highlights the need for translating ideas into functional spatial experiences, developing wireframes and flows, and collaborating with developers to ensure accurate implementation. These tasks are closely related to the skills and expertise offered by our UI/UX Designing service. Additionally, the fast-paced, creative, and innovative nature of the role fits well with the ethos of our service. This job should be pitched with our UI/UX Designing service to provide the best support and expertise for the client."
+    "ai_remark": "Remark: The UX Designer role aligns well with our UI/UX Designing service, as it requires expertise in translating ideas into functional spatial experiences and collaborating with developers to ensure accurate implementation."
   },
   {
     "id": "4264581367",
@@ -4003,6 +4003,6 @@
     "predicted_domain": "development",
     "final_score": 0.52,
     "tier": "Yellow",
-    "ai_remark": "The Service Designer job aligns well with the UI/UX Designing service offered by Co-Ventech due to its focus on delivering innovative digital solutions and large-scale digital transformation projects in the Public Sector. With a score of 0.52 and a Tier of Yellow, this job is a good fit for outreach as it requires 2+ years of commercial experience in a Service Designer role, which closely aligns with the skills and expertise of UI/UX designers. Pitching this job with the UI/UX Designing service can help showcase the company's capabilities in delivering successful digital solutions and providing excellent career growth opportunities for candidates."
+    "ai_remark": "This job aligns well with UI/UX Designing as it requires experience in designing digital solutions for large scale projects in the public sector, similar to UI/UX design principles."
   }
 ]

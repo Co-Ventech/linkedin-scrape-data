@@ -4,6 +4,8 @@ import pandas as pd
 import re
 from datetime import datetime
 from rag_remark_generator import generate_ai_remark
+from proposal_generator import generate_upwork_proposal
+
 
 # === Setup path to load the Upwork job JSON file ===
 base_dir = os.path.dirname(__file__)
@@ -383,17 +385,24 @@ print(">> AI Remarks generation completed.")
 # Save to final output file
 output_path = os.path.join(base_dir, "..", "data", "final_jobs_upwork.json")
 
-with open(output_path, 'w', encoding='utf-8') as f:
+with open(output_path, 'w', encoding='utf-8') as f: 
     json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
 print(f"\nFinal output written to: {output_path}")
 
-# Final debug prints
-print("\nFinal Weighted Score Distribution:")
-print(df["final_weighted_score"].describe())
 
-print("\nTier Breakdown:")
-print(df["tier"].value_counts())
 
-print("\nSample Final Output:")
-print(df[["title", "final_weighted_score", "tier"]].head())
+# Let's assume we're triggering this from the front-end or logic
+job = {
+    "title": "AI Engineer Needed for LLM Implementation and Integration",
+    "descriptionText": "We are seeking an experienced AI Engineer to implement, deploy, optimize, clean, train, and integrate new large language models (LLMs) into our systems. The ideal candidate will have a strong background in AI technologies and experience with model deployment in real-world applications. Your role will involve collaborating with our development team to ensure seamless integration and performance optimization of AI capabilities. If you have a passion for pushing the boundaries of AI and have experience with LLMs, we would love to hear from you!\n\nWe are working with the National Science Foundation with this project. The ideal candidate would need to commit for at least 2 years."
+}
+
+# Real-time selected category (e.g., from dropdown)
+selected_category = "AI"
+
+# Generate draft
+draft = generate_upwork_proposal(job, selected_category)
+
+# Output the draft (or pass to frontend)
+print(draft)

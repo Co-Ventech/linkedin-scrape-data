@@ -1,7 +1,6 @@
-openai
-pinecone-client
-tqdm
-pandas
-python-dotenv
+openai>=1.6.0
+pinecone-client>=3.0.0
+tqdm>=4.66.0
+pandas>=2.2.0
+python-dotenv>=1.0.0
 uuid
-numpy

@@ -53,12 +53,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.698,
-    "tier": "Yellow",
-    "ai_remark": "This job for a Senior Java Developer aligns well with our Software Development service at Co-Ventech. The key requirements for this role, such as 8+ years of Java development experience, expertise in Spring Framework, Spring Boot, and Java Swing, as well as the ability to write clean and efficient code, closely match the skills and expertise offered by our software development team. With our experience in providing high-quality software development services, we are well-equipped to support and excel in this role."
+    "final_weighted_score": 0.659,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944766678578282226",
@@ -110,12 +109,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.58,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with the UI/UX Designing service offered by Co-Ventech because a skilled full-stack developer with a strong background in both front-end and back-end technologies will be able to contribute to creating seamless user experiences. The focus on detail and passion for creating dynamic web applications indicates that the candidate may have a good understanding of user interface and user experience design principles, making them a suitable fit for the UI/UX Designing service. This job should be pitched with this service to leverage the candidate's skills and expertise in creating user-centric designs for the exciting project."
+    "final_weighted_score": 0.541,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944811086287658157",
@@ -173,12 +171,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.702,
-    "tier": "Green",
-    "ai_remark": "Remark: This job for a WordPress, Astra and Elementor Developer aligns well with our UI/UX Designing service as it requires advanced user experience and personalization skills, as well as a focus on content management and publishing workflow. Our UI/UX designers can help enhance the user experience by implementing sophisticated user tracking, personalized content feeds, and intuitive navigation, all of which are key development areas for this project. With our expertise in UI/UX design, we can ensure that the end product meets the high standards expected from a WordPress developer specializing in Astra Pro and Elementor."
+    "final_weighted_score": 0.663,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944805520761622871",
@@ -231,12 +228,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.551,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The AI Voice Agent Retelling Project aligns well with Recruitinn's AI-powered recruitment platform as it requires the development of an AI receptionist to handle inbound calls for a medical aesthetics clinic. Recruitinn's expertise in AI technology can help in building an efficient and effective automated system to answer calls, handle bookings, respond to inquiries, and capture lead details. This project also involves the delivery of a reusable template for future use, which aligns with Recruitinn's focus on providing scalable solutions for businesses. Overall, this job is a good fit for outreach with Recruitinn's services."
+    "final_weighted_score": 0.512,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944810273100580437",
@@ -289,12 +285,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.59,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a specific skill set in Smartsheet development for M&A integration projects. The product offers access to a pool of skilled professionals who can be seamlessly integrated into the team to provide expertise and support in completing projects efficiently and effectively. The AI-driven aspect of Co-Vental can help match the right candidate with the required skill set for this job, making it a good fit for outreach."
+    "final_weighted_score": 0.551,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944809894476300018",
@@ -348,12 +343,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.8,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.712,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our UI/UX Designing service because it involves designing a clean and functional website for a legal services company. The requirements for mobile optimization, contact forms, and download funnels all fall under the realm of UI/UX design. Additionally, the use of Elementor/Divi for design aligns with our expertise in creating visually appealing and user-friendly websites. Overall, this job is a good fit for outreach with our UI/UX Designing service."
+    "final_weighted_score": 0.673,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944809066592670039",
@@ -410,12 +404,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.7,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.756,
-    "tier": "Green",
-    "ai_remark": "This job for a Lead Developer with expertise in C# and React aligns well with Co-Ventech's services, particularly in QA Automation and DevOps. The requirement for test driven development and mastery of the system matches Co-Ventech's expertise in providing quality assurance and automation solutions. The job's score of 0 and Green tier indicate a strong fit for outreach, as it falls within the target range for Co-Ventech's services. This job should be pitched with Co-Ventech to offer the best possible solutions for the client's needs."
+    "final_weighted_score": 0.717,
+    "tier": "Green"
   },
   {
     "jobId": "1944808863827519185",
@@ -470,12 +463,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.795,
-    "tier": "Green",
-    "ai_remark": "Remark: The Online Billing System project aligns well with Co-Ventech's services, particularly in the realm of UI/UX and DevOps. With a focus on building a user-friendly front-end portal for customers and a robust backend management portal for administrators, this project requires expertise in designing intuitive interfaces and ensuring seamless functionality. Co-Ventech's experience in UI/UX and DevOps makes it a strong fit for this project, as it can provide the necessary skills and support to successfully execute the development of the cloud-based billing system."
+    "final_weighted_score": 0.756,
+    "tier": "Green"
   },
   {
     "jobId": "1944808239526340305",
@@ -527,12 +519,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.722,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the Software Development service offered by Co-Ventech because the candidate will be responsible for developing a mobile/SaaS application tailored to support business operations. The required skills in app development, UI/UX design, and cloud/SaaS solutions are all areas of expertise covered by the Software Development service. Additionally, the use of technologies like React, Next.js, and Supabase indicates a strong fit with the capabilities of Co-Ventech's developers. This job should be pitched with the Software Development service to provide the client with the best possible solution for their needs."
+    "final_weighted_score": 0.683,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944807657872844497",
@@ -584,12 +575,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.7,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.688,
-    "tier": "Yellow",
-    "ai_remark": "This job for Business Development Tracking System Development for a Start-up aligns well with our Software Development service because it requires technical expertise in creating a tailored solution for managing leads, tracking interactions, and analyzing performance metrics. With a score of 0 and a tier of Yellow, this job falls within the entry-level range, making it a suitable fit for outreach in line with our Software Development service. By pitching our expertise in software development, we can offer a customized solution that meets the specific needs of this start-up and helps them succeed in their business development efforts."
+    "final_weighted_score": 0.649,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944807484014749393",
@@ -641,12 +631,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.776,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our DevOps service as it involves troubleshooting an Azure pipeline for a hybrid mobile application. The candidate should have a strong understanding of Azure DevOps and CI/CD pipelines, which are key components of our DevOps offering. By leveraging our expertise in this area, we can effectively assist with resolving any issues and ensuring smooth deployment for this project."
+    "final_weighted_score": 0.737,
+    "tier": "Green"
   },
   {
     "jobId": "1944806690679718982",
@@ -699,12 +688,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.834,
-    "tier": "Green",
-    "ai_remark": "This job for an AI + Automation Expert for Investor Relations & Operations workflows aligns well with the Co-Vental AI-Driven Staff Augmentation product. The job requires deep expertise in AI productivity tools and seamless integration across platforms, which is exactly what Co-Vental offers - highly skilled AI experts who can optimize and automate workflows. The hands-on implementation role and milestone-based project structure make it a perfect fit for Co-Vental's services, ensuring successful project delivery and training for the client."
+    "final_weighted_score": 0.795,
+    "tier": "Green"
   },
   {
     "jobId": "1944806502357982381",
@@ -756,12 +744,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.751,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our UI/UX Designing service due to the emphasis on creating user-friendly websites and having a keen eye for detail. As a UI/UX designer, we focus on optimizing the user experience and interface design to ensure websites meet client specifications and are visually appealing. By pitching our UI/UX Designing service for this job, we can help enhance the overall user experience and design aesthetics of the websites developed by the candidate."
+    "final_weighted_score": 0.712,
+    "tier": "Green"
   },
   {
     "jobId": "1944806288952682193",
@@ -813,12 +800,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.863,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the UI/UX Designing service because having a deep understanding of Neo4j and React is crucial in creating a user-friendly and visually appealing interface. The nuanced edge cases mentioned in the job description require someone with a strong eye for design and the ability to enhance the user experience. By pitching this job with the UI/UX Designing service, Co-Ventech can ensure that the candidate not only has the technical skills but also the creativity and attention to detail needed for this project."
+    "final_weighted_score": 0.824,
+    "tier": "Green"
   },
   {
     "jobId": "1944806256653141062",
@@ -870,12 +856,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.7,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.693,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our DevOps service as it involves optimizing website performance and resolving conflicts between different systems. The expertise required to diagnose and fix the Siteground–Everflow conflict, as well as implement Core Web Vitals improvements, falls within the realm of DevOps. With our experience in handling similar tasks, we are well-equipped to tackle the challenges associated with WordPress speed optimization and caching conflict resolution."
+    "final_weighted_score": 0.654,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944805913502928879",
@@ -930,12 +915,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.629,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our DevOps service as it involves not only developing a React mobile application but also setting up a cloud database and building a chrome extension. DevOps practices can help streamline the development, deployment, and maintenance processes for this project, ensuring smooth integration and efficient collaboration between the development and operations teams. Additionally, our expertise in DevOps can help optimize the performance and scalability of the cloud database setup, enhancing the overall functionality and user experience of the application."
+    "final_weighted_score": 0.59,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944805472530908757",
@@ -989,12 +973,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.59,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with our DevOps service as it involves updating and launching a new version of a platform, which requires seamless collaboration between development and operations teams. DevOps practices can streamline the deployment process, ensure continuous integration and delivery, and help maintain the stability and performance of the website. Additionally, the mention of potentially integrating web3 technology further highlights the need for a robust DevOps strategy to handle any complexities that may arise. Therefore, this job would be a good fit for outreach with our DevOps service."
+    "final_weighted_score": 0.551,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944805471557566194",
@@ -1048,12 +1031,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.59,
-    "tier": "Yellow",
-    "ai_remark": "This job for an iOS Developer to create an ultra-secure instant messaging app aligns well with our Software Development service at Co-Ventech. The focus on building a secure communication tool and implementing robust security features matches our expertise in Cybersecurity and UI/UX. Our team of experienced developers can collaborate closely with the client to ensure a seamless user experience while delivering high-quality code. This job is a good fit for outreach as we have the skills and experience to successfully execute this project."
+    "final_weighted_score": 0.551,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944804849098450641",
@@ -1109,12 +1091,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.727,
-    "tier": "Green",
-    "ai_remark": "Remark: This Ecommerce CRO Account Manager position aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires managing multiple client accounts, conducting audits, and collaborating with various team members. Co-Vental can provide additional support and resources to handle the workload efficiently and effectively, making it a great fit for outreach."
+    "final_weighted_score": 0.688,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944804166181373525",
@@ -1162,12 +1143,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.746,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with the UI/UX Designing service offered by Co-Ventech. As a Senior Flutter Developer, the candidate will be responsible for creating visually appealing and user-friendly mobile applications. A strong background in UI/UX design is crucial for ensuring a seamless and engaging user experience. By pitching this job with the UI/UX service, Co-Ventech can provide a comprehensive solution that combines both technical expertise in Flutter development and design proficiency to deliver top-notch mobile applications."
+    "final_weighted_score": 0.707,
+    "tier": "Green"
   },
   {
     "jobId": "1944803953509601623",
@@ -1218,12 +1198,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.727,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our DevOps service as it involves building and managing automated workflows in N8N to streamline the blog writing and researching process. DevOps focuses on enhancing collaboration and efficiency within teams, which perfectly fits the requirements of this job. By utilizing DevOps practices, we can help optimize the workflow and ensure seamless integration of various scenarios for blog post creation."
+    "final_weighted_score": 0.688,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944803492945749713",
@@ -1275,12 +1254,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.712,
-    "tier": "Green",
-    "ai_remark": "Remark: This job for file migration from Blox to WordPress aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a skilled freelancer with experience in website migrations. The project's focus on attention to detail, understanding of platforms, and delivering quality work within a specified timeframe matches the capabilities of Co-Vental's staff augmentation services. By leveraging AI-driven talent matching, Co-Vental can provide the ideal candidate with the necessary expertise in WordPress functionalities and best practices to ensure a smooth transition of content. This job is a good fit for outreach with Co-Vental to find the right talent for the project."
+    "final_weighted_score": 0.673,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944803350818358343",
@@ -1333,12 +1311,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.5,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.722,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with the SkillBuilder Learning & Career Development Platform as it requires someone with strong communication skills and the ability to teach while creating. The candidate will be guiding others through the setup process and helping them gain practical knowledge in AI and bot interaction. SkillBuilder provides a platform for learning and development, making it a perfect fit for this role."
+    "final_weighted_score": 0.683,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944802870179686097",
@@ -1390,12 +1367,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.82,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with Co-Ventech's services, particularly QA Automation and DevOps. The candidate's expertise in building and integrating systems using various tools aligns perfectly with the services offered by Co-Ventech. With a score of 0 and a tier of Green, this job is a great fit for outreach, as the candidate's skills and experience closely match the services provided by Co-Ventech."
+    "final_weighted_score": 0.78,
+    "tier": "Green"
   },
   {
     "jobId": "1944802258905928023",
@@ -1449,12 +1425,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.624,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with our DevOps service as it requires building a production-ready SaaS platform for real-time monitoring and reporting. DevOps focuses on streamlining the development and deployment process, ensuring efficient collaboration between development and operations teams. The goals of Pulse 2.0 v1.0, such as real-time data dashboard integration and role-based views, are in line with the expertise and capabilities of our DevOps team. We recommend pitching this job with our DevOps service to effectively meet the client's needs and deliver a successful project."
+    "final_weighted_score": 0.585,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944802121875232300",
@@ -1511,12 +1486,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.702,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with the UI/UX Designing service offered by Co-Ventech due to the emphasis on creating strategic, high-performing, and conversion-focused websites with a very high standard of design and user experience. The focus on working with high-level clients and the need for a long-term collaborator also suggests a potential for ongoing UI/UX design work with Elever. The timeline of 75-90 days for the project also allows for a thorough and detailed design process to meet the client's expectations. Overall, this job presents a great opportunity for Co-Ventech to showcase its expertise in UI/UX design and provide value to Elever."
+    "final_weighted_score": 0.663,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944801643676616277",
@@ -1571,12 +1545,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.561,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our DevOps service as it requires expertise in optimizing algorithms for high performance on GPU architectures. DevOps focuses on improving collaboration and efficiency in software development processes, making it a good fit for this role that involves developing scripts for GPU parallel computing with Metaheuristic algorithms. By leveraging our DevOps service, we can help streamline the development and deployment of these complex algorithms, ensuring they meet the required performance standards."
+    "final_weighted_score": 0.522,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944800943790384849",
@@ -1636,12 +1609,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.732,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our DevOps service as it requires experience in managing and optimizing server environments using Docker. The candidate will also need to collaborate closely with the team to ensure smooth deployments, which falls under the purview of DevOps practices. By leveraging our expertise in DevOps, we can provide valuable support in ensuring high code quality and efficient deployment processes for Nevuto's projects."
+    "final_weighted_score": 0.693,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944800608865996783",
@@ -1694,12 +1666,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.771,
-    "tier": "Green",
-    "ai_remark": "This job for a Contract Software Engineer (GUI/UX) for a CPQ web platform aligns well with the UI/UX Designing service offered by Co-Ventech. The job description clearly states the focus on developing and optimizing the graphical user interface for a web platform, as well as potentially involving user experience tasks. The required skills in HTML, CSS, JavaScript, and front-end frameworks are directly related to UI/UX design. Therefore, this job is a good fit for outreach with the UI/UX Designing service, as it requires expertise in creating a seamless and intuitive user experience."
+    "final_weighted_score": 0.732,
+    "tier": "Green"
   },
   {
     "jobId": "1944800461486868053",
@@ -1751,12 +1722,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.766,
-    "tier": "Green",
-    "ai_remark": "Remark: The job of a Moodle Developer for upgrade and migration aligns well with our SkillBuilder Learning & Career Development Platform. This job requires expertise in e-learning platforms like Moodle and a strong understanding of data migration and customization. SkillBuilder offers a comprehensive learning management system that can support the candidate in developing their skills and knowledge in e-learning technology, making it a perfect fit for this role. We recommend pitching this job with SkillBuilder to provide the candidate with the necessary tools and resources for success in this position."
+    "final_weighted_score": 0.727,
+    "tier": "Green"
   },
   {
     "jobId": "1944750927515533042",
@@ -1806,12 +1776,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.824,
-    "tier": "Green",
-    "ai_remark": "Remark: This job for a Senior Backend Developer for ad-tech automation aligns well with our DevOps service due to the emphasis on building a robust and scalable system. DevOps focuses on streamlining the development and deployment process, ensuring high performance and efficiency. The candidate's expertise in Kotlin and the Spring framework will complement our DevOps service, making them a great fit for this role."
+    "final_weighted_score": 0.785,
+    "tier": "Green"
   },
   {
     "jobId": "1944799351612408902",
@@ -1861,12 +1830,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.61,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a skilled developer to work on the backend of a project. The product offers staff augmentation services, providing access to talented professionals to fill specific roles like this one. By utilizing Co-Vental, the company can easily find a developer with the necessary skills and expertise to successfully complete the project."
+    "final_weighted_score": 0.571,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944799287443752006",
@@ -1923,12 +1891,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.732,
-    "tier": "Green",
-    "ai_remark": "This Symfony Backend Developer role aligns well with our DevOps service at Co-Ventech due to the candidate's strong experience with Docker for managing server environments. DevOps focuses on streamlining development and operations processes through automation and collaboration, making this job a good fit for outreach with this service."
+    "final_weighted_score": 0.693,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944798934038791765",
@@ -1979,12 +1946,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.776,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our Cybersecurity service as it requires expertise in web security and vulnerability assessments, which are key components of cybersecurity. Building a web form vulnerability scanning tool in Replit using Python and relevant libraries fits within the scope of our cybersecurity offerings. By leveraging our expertise in this area, we can deliver a high-quality solution that meets the client's requirements for scanning company domains for potential vulnerabilities. This job is a good fit for outreach and pitching our Cybersecurity service."
+    "final_weighted_score": 0.737,
+    "tier": "Green"
   },
   {
     "jobId": "1944798930268112469",
@@ -2038,12 +2004,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.585,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with the Software Development service offered by Co-Ventech. As a Software Architect, the candidate will be responsible for leading the design and development of the Minimum Viable Product (MVP) for an EdTech company looking to revolutionize the SAT prep industry. With a strong background in software architecture and product development processes, the candidate can effectively utilize Co-Ventech's expertise in Software Development to create the architectural blueprint and guide the development team throughout the project. This job presents a great opportunity for Co-Ventech to showcase its capabilities in software development and potentially lead to a long-term partnership for the development of the final product."
+    "final_weighted_score": 0.546,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944798392222531314",
@@ -2095,12 +2060,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.707,
-    "tier": "Green",
-    "ai_remark": "Remark: This job of setting up custom checkout options on a Shopify store aligns well with our Software Development service as it involves creating a specialized feature to enhance the user experience and streamline the checkout process. By customizing the checkout page to allow customers to enter their UPS/FedEx account information and receive a $0 shipping rate, we can help improve customer satisfaction and increase efficiency. This job falls under the Green tier, indicating a good fit for outreach and potential for successful collaboration."
+    "final_weighted_score": 0.668,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944798173497966322",
@@ -2152,12 +2116,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.512,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of integrating DataGolf and SportsDataIO APIs for a fantasy sports app aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a skilled developer with specific expertise in API integration. The product offers access to a pool of highly skilled professionals who can seamlessly integrate into your team to provide the necessary technical expertise for this project. The yellow tier score indicates that this job may benefit from additional support and resources, making Co-Vental a suitable option for ensuring successful completion of the integration project."
+    "final_weighted_score": 0.473,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944798076785704690",
@@ -2213,12 +2176,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.7,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.615,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with the UI/UX Designing service offered by Co-Ventech as it requires expertise in creating a smooth and premium user experience for a client portal. The job description emphasizes the importance of clean design and smart structure, which are key components of UI/UX design. Additionally, the long-term collaboration opportunity makes it a good fit for outreach as it can lead to future projects and potential partnerships."
+    "final_weighted_score": 0.576,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944797601937523782",
@@ -2272,12 +2234,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.741,
-    "tier": "Green",
-    "ai_remark": "Remark: This job of rebuilding a web app UI using React and Tailwind aligns well with the UI/UX Designing service offered by Co-Ventech. The job description emphasizes the importance of clean, modern design and moving towards component libraries for efficiency and quality. The expertise in building clean, fast, and responsive React front ends required for this job closely aligns with the skills and focus of the UI/UX Designing service. By leveraging the UI/UX expertise of Co-Ventech, the client can ensure that their web app UI not only looks top-notch but also provides a seamless user experience."
+    "final_weighted_score": 0.702,
+    "tier": "Green"
   },
   {
     "jobId": "1944796785775503057",
@@ -2338,12 +2299,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.522,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of developing a revolutionary stock alert system aligns well with our Cybersecurity service at Co-Ventech. Cybersecurity plays a crucial role in ensuring the confidentiality, integrity, and availability of sensitive financial data and algorithms used in the system. By leveraging our expertise in Cybersecurity, we can help safeguard the system from potential cyber threats and ensure its smooth operation, making it a good fit for outreach."
+    "final_weighted_score": 0.483,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944796773310825542",
@@ -2396,12 +2356,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.8,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a talented developer to finalize an AI-powered tool. The product offers staff augmentation services powered by AI, which can provide additional support and expertise to enhance the development process for the sales workflow tool. By leveraging Co-Vental, the company can access specialized talent to ensure the project is completed successfully and efficiently. This job is a good fit for outreach with this product to meet the specific requirements of the project."
+    "final_weighted_score": 0.761,
+    "tier": "Green"
   },
   {
     "jobId": "1944796682603249394",
@@ -2453,12 +2412,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.498,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our Software Development service as it requires expertise in mobile app development, specifically for creating a tournament app with 2D minigames, in-app purchases, and multiplayer functionality. Our team of skilled developers at Co-Ventech has experience in creating innovative and functional mobile applications, making us a perfect fit for this project. We recommend reaching out to the client to discuss how we can bring their app idea to life."
+    "final_weighted_score": 0.459,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944796403900901073",
@@ -2512,12 +2470,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.659,
-    "tier": "Yellow",
-    "ai_remark": "This job for a Web Application Developer for a Real Estate Platform aligns well with our Software Development service at Co-Ventech. The candidate's skills in full-stack development, proficiency in JavaScript, HTML, and CSS, and experience with frameworks like NextJs or React make them a good fit for our team. The job's focus on creating a complex web application and the requirement for direct communication with the developer align with our expertise in delivering high-quality software solutions tailored to our clients' needs. This job should be pitched with our Software Development service to ensure a successful collaboration and project delivery."
+    "final_weighted_score": 0.62,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944796244437569879",
@@ -2567,12 +2524,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.6,
-    "final_weighted_score": 0.585,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with the DevOps service offered by Co-Ventech because it involves improving workspace automation and resolving technical issues within a specific platform (Monday.com). The skills required for this job, such as working with automations, custom templates, and troubleshooting bugs, are closely related to the expertise provided by the DevOps team. By leveraging the experience and knowledge of the DevOps service, we can effectively address the tasks and deliverables outlined in this job description."
+    "final_weighted_score": 0.546,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944790052465854037",
@@ -2628,12 +2584,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.644,
-    "tier": "Yellow",
-    "ai_remark": "This job for an AI-Focused Full Stack Developer aligns well with our DevOps service because it involves building a sophisticated automation tool powered by LLMs, which requires expertise in deploying and managing complex infrastructure. As a seasoned AI/ML Full Stack Engineer with experience in building scalable applications, the candidate can benefit from our DevOps service to ensure smooth deployment and maintenance of the platform. By leveraging our DevOps expertise, the candidate can focus on developing innovative AI features while we handle the operational aspects of the project."
+    "final_weighted_score": 0.605,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944794704913415922",
@@ -2688,12 +2643,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.761,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the UI/UX Designing service offered by Co-Ventech as it involves a complete website redesign focused on modern visual language, accessibility, and responsiveness. The project's key aspects of enhancing user experience and integrating with existing tools like HubSpot make it a good fit for outreach with our UI/UX expertise. The green tier score indicates a high potential for success in delivering a successful solution for this website migration and redesign project."
+    "final_weighted_score": 0.722,
+    "tier": "Green"
   },
   {
     "jobId": "1944794004112326386",
@@ -2749,12 +2703,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.722,
-    "tier": "Green",
-    "ai_remark": "This job of building a Legal AI RAG Prototype on Azure Government aligns well with our DevOps service at Co-Ventech because it involves configuring Azure Government environment by code, setting up DevSecOps practices, and ensuring secure deployment of the prototype. By leveraging our expertise in DevOps, we can efficiently deliver the expected deliverables and ensure a seamless development and deployment process for this project. This job is a good fit for outreach and pitching with our DevOps service to provide the necessary technical support and expertise."
+    "final_weighted_score": 0.683,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944792900692371153",
@@ -2808,12 +2761,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.483,
-    "tier": "Yellow",
-    "ai_remark": "Remark: Based on the job description and the low score of 0, this job of website modifications and cleanup seems to align well with our UI/UX Designing service. The need for polishing and potentially reworking code suggests a focus on improving the user experience and interface design of the website. As a result, reaching out to the client with our UI/UX Designing service would be a suitable recommendation to help elevate their website to meet their desired standards."
+    "final_weighted_score": 0.444,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944792487955580501",
@@ -2865,12 +2817,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 0.3,
     "kpi_client_rating": 0.8,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.737,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our UI/UX Designing service because it requires someone with experience in designing intuitive user interfaces and optimizing for conversions. The candidate will be collaborating with a team to create visually appealing and effective landing pages, which is a key aspect of UI/UX design. With a score of 0 and a Green tier, this job is a good fit for outreach and pitching our UI/UX Designing service."
+    "final_weighted_score": 0.698,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944792208073604850",
@@ -2922,12 +2873,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.712,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our Software Development service as it requires expertise in creating web-based applications that enhance client engagement and streamline various processes. With a focus on usability and performance, our team of skilled developers can deliver a high-quality solution that meets the client's needs effectively. This job is a good fit for outreach as it falls within the Green tier and matches well with our capabilities in software development."
+    "final_weighted_score": 0.673,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944792071143720006",
@@ -2984,12 +2934,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.707,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the UI/UX Designing service offered by Co-Ventech because it requires expertise in UX/UI design, Shopify store design, and conversion-focused website setup. The job's focus on clean, responsive design, strong communication, and a proactive mindset matches the qualities our UI/UX Designing service provides. Additionally, the long-term partnership aspect of the job fits well with our commitment to providing ongoing support for our clients. Overall, this job is a good fit for outreach with the UI/UX Designing service."
+    "final_weighted_score": 0.668,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944791915807671366",
@@ -3041,12 +2990,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.8,
-    "tier": "Green",
-    "ai_remark": "This Full-Stack Ruby on Rails & React Developer job aligns well with our DevOps service due to the focus on building and scaling a SaaS platform, integrating AI technologies, optimizing app performance, and ensuring scalability. DevOps practices can help streamline the development process, improve collaboration, and enhance the overall efficiency of the project. By pitching this job with our DevOps service, we can offer valuable support in achieving the technical goals outlined in the job description."
+    "final_weighted_score": 0.761,
+    "tier": "Green"
   },
   {
     "jobId": "1944791858025320431",
@@ -3099,12 +3047,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.58,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of an Amazon SP-API Integration Developer aligns well with Co-Vental's AI-Driven Staff Augmentation service as it requires a skilled developer with specific expertise in API integration. Co-Vental can provide the necessary technical expertise and support to assist in integrating APIs into the client's no-code backend, making it a suitable fit for outreach."
+    "final_weighted_score": 0.541,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944790946879946482",
@@ -3159,12 +3106,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 0.3,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.717,
-    "tier": "Green",
-    "ai_remark": "This job for a Senior Full-Stack Engineer aligns well with the UI/UX Designing service offered by Co-Ventech. The job description emphasizes a focus on performance, scalability, security, and great UX, which are key aspects of UI/UX design. The tech stack also includes frontend technologies like Next.js, React, and TypeScript, which are commonly used in UI/UX design. Additionally, the job's score and tier indicate a good fit for outreach, making it a strong candidate for pitching with the UI/UX Designing service."
+    "final_weighted_score": 0.678,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944790018215167573",
@@ -3225,12 +3171,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.483,
-    "tier": "Yellow",
-    "ai_remark": "This job for Acdemia digital aligns well with our Cybersecurity service as it requires secure registration and login processes, integration with payment gateways like Stripe and PayPal, and the implementation of a referral system. Our expertise in Cybersecurity can ensure that the platform is protected from potential security threats and data breaches, providing a secure environment for users to interact with sensitive information. Pitching our Cybersecurity service for this job can help enhance the overall security and trustworthiness of the platform."
+    "final_weighted_score": 0.444,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944789808638879443",
@@ -3283,12 +3228,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.761,
-    "tier": "Green",
-    "ai_remark": "Remark: The role of a Full Stack Web Developer for an ecommerce website requires a strong understanding of user interface and user experience design principles to create a seamless and visually appealing online shopping experience. As a UI/UX Designing service, Co-Ventech can provide valuable expertise in enhancing the user interface and overall user experience of the ecommerce website, making it a perfect fit for outreach."
+    "final_weighted_score": 0.722,
+    "tier": "Green"
   },
   {
     "jobId": "1944789121217532247",
@@ -3340,12 +3284,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.8,
-    "tier": "Green",
-    "ai_remark": "This job for an AI Engineer needed for LLM implementation and integration aligns well with Co-Vental's AI-Driven Staff Augmentation service because it requires a specialized skill set in AI technologies and experience with model deployment. The candidate will collaborate with the development team to optimize AI capabilities, which fits perfectly with the goal of Co-Vental to provide skilled professionals for seamless integration and performance optimization. The commitment of at least 2 years also aligns with the long-term support and partnership that Co-Vental offers to clients."
+    "final_weighted_score": 0.761,
+    "tier": "Green"
   },
   {
     "jobId": "1944784812958074453",
@@ -3398,12 +3341,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.585,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job for an AI + Neurotechnology Developer with a focus on EEG Signal Processing aligns well with our Co-Vental - AI-Driven Staff Augmentation service. With a score of 0 and a Tier of Yellow, this job falls within the range of projects that our staff augmentation service is designed to support. The expertise required for EEG signal processing, AI/ML for biosignal classification, and brainwave entrainment matches well with the skills and capabilities of our AI-driven staff members. By leveraging our pool of talented professionals, we can provide the specialized support needed to successfully complete this project within the specified 4-6 week duration."
+    "final_weighted_score": 0.546,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944788950425060949",
@@ -3455,12 +3397,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.805,
-    "tier": "Green",
-    "ai_remark": "This job as a Machine Learning Researcher for LLM Development is a great fit for SkillBuilder - Learning & Career Development Platform because it requires a strong background in machine learning, deep learning, and natural language processing. The platform can provide resources and training to enhance the candidate's skills in these areas, making them even more valuable to the project. Additionally, the 2-year commitment aligns well with the platform's focus on long-term learning and career development. This job should definitely be pitched with SkillBuilder to attract top talent looking to grow and excel in their field."
+    "final_weighted_score": 0.766,
+    "tier": "Green"
   },
   {
     "jobId": "1944788862147280626",
@@ -3513,12 +3454,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.741,
-    "tier": "Green",
-    "ai_remark": "This job for Mobile App Development for a Recipe Website aligns well with our Software Development service at Co-Ventech. The job requires expertise in creating a user-friendly mobile application, which falls under the realm of software development. Given the nature of the project and the desired outcomes of enhancing user experience and engagement, our team of software developers can effectively design and build a high-quality mobile app to meet the client's needs. This job is a good fit for outreach, and we should pitch our Software Development service to the client."
+    "final_weighted_score": 0.702,
+    "tier": "Green"
   },
   {
     "jobId": "1944788365558464242",
@@ -3572,12 +3512,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.498,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our DevOps service as it involves optimizing and improving the performance of a WordPress website, which falls under the realm of infrastructure and deployment management. DevOps practices can help streamline code, enhance site performance, and ensure a seamless user experience, making it a good fit for outreach with this service."
+    "final_weighted_score": 0.459,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944788284193837399",
@@ -3637,12 +3576,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.756,
-    "tier": "Green",
-    "ai_remark": "This job for Flutter experts aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires experienced individuals for long-term full-time work. Co-Vental provides access to a pool of skilled professionals who can seamlessly integrate into your team and contribute to the development of Android and iOS apps using Flutter. This job opportunity is a good fit for outreach as it matches the expertise and availability of the staff augmentation service."
+    "final_weighted_score": 0.717,
+    "tier": "Green"
   },
   {
     "jobId": "1944788159165091823",
@@ -3689,12 +3627,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.498,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with our Software Development service because it involves overseeing the setup, customization, and management of a marketplace platform. Our expertise in software development can help ensure the smooth operation of the Sharetribe marketplace, implement necessary updates, and provide the necessary support to users. We have the skills and knowledge to support the candidate in creating exceptional online marketplaces."
+    "final_weighted_score": 0.459,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944786830343300817",
@@ -3746,12 +3683,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.79,
-    "tier": "Green",
-    "ai_remark": "This job for a Branch.io expert aligns well with Co-Vental - AI-Driven Staff Augmentation because it requires specialized knowledge in mobile app link tracking and SDK integration. Co-Vental offers access to skilled professionals on-demand, making it the perfect solution for filling in expertise gaps and ensuring the successful completion of this project. With Co-Vental, you can quickly scale your team with the right talent for this specific task."
+    "final_weighted_score": 0.751,
+    "tier": "Green"
   },
   {
     "jobId": "1944786490012516082",
@@ -3807,12 +3743,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.644,
-    "tier": "Yellow",
-    "ai_remark": "This job for building a high-converting Shopify site for a premium coffee subscription brand aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires expertise in web development and design, which can be efficiently supplemented with AI-driven staff augmentation. This product can provide the necessary resources and expertise to ensure the successful completion of the project, making it a good fit for outreach."
+    "final_weighted_score": 0.605,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944740414304077397",
@@ -3863,12 +3798,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.62,
-    "tier": "Yellow",
-    "ai_remark": "This job for a Manual QA Engineer aligns well with our QA & Test Automation service because it requires expertise in manual software testing, test case creation, and bug reporting. While this job is specifically looking for manual testing skills, our service can help streamline and automate testing processes to improve efficiency and accuracy. With our service, we can enhance the quality assurance process and help the team achieve their quality standards more effectively. This job is a good fit for outreach with our QA & Test Automation service."
+    "final_weighted_score": 0.58,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944785229620233813",
@@ -3923,12 +3857,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.566,
-    "tier": "Yellow",
-    "ai_remark": "This job for an Intermediate Web Developer aligns well with the UI/UX Designing service offered by Co-Ventech. The job description mentions collaborating closely with design teams to turn concepts into reality, indicating a strong emphasis on user experience and interface design. As a UI/UX service focuses on creating visually appealing and user-friendly websites, this job is a good fit for outreach with this service. The candidate can leverage their skills in web development to enhance the overall user experience and design of the project."
+    "final_weighted_score": 0.527,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944784937297952499",
@@ -3981,12 +3914,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.673,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of developing a HIPAA compliant website for structured settlements aligns well with the SkillBuilder Learning & Career Development Platform. This platform offers a range of tools and resources for continuous learning and skill development, which can be beneficial for the candidate to stay updated on HIPAA regulations and secure website development practices. Additionally, the platform can help the candidate enhance their technical skills and stay competitive in the ever-evolving field of web development. Overall, pitching this job with SkillBuilder can provide the candidate with the necessary support and resources to excel in their role."
+    "final_weighted_score": 0.634,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944784737481573973",
@@ -4044,12 +3976,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.771,
-    "tier": "Green",
-    "ai_remark": "This job for a Full Stack Developer from Latvia aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires expertise in building digital solutions using React, React Native, and TypeScript. The job description emphasizes collaboration, integration of APIs, performance optimization, and staying ahead of industry trends, all of which are areas where Co-Vental's AI-driven staff augmentation can provide valuable support. With a score of 0 and being in the Green tier, this job is a good fit for outreach with the Co-Vental product to provide the necessary expertise and support for the company Vietne."
+    "final_weighted_score": 0.732,
+    "tier": "Green"
   },
   {
     "jobId": "1944778828399298133",
@@ -4108,12 +4039,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.766,
-    "tier": "Green",
-    "ai_remark": "This QA Software Tester for a Business Listing Website aligns well with the QA & Test Automation service offered by Co-Ventech. The job description mentions the need for manual QA testing of key features, cross-browser and cross-device testing, bug reporting with detailed steps and severity prioritization, suggesting UI/UX improvements, and documenting the QA testing process. These requirements are in line with the expertise and services provided by Co-Ventech in QA Automation. This job would be a good fit for outreach as it falls under the Green tier with a score of 0, indicating a strong match with the company's offerings."
+    "final_weighted_score": 0.727,
+    "tier": "Green"
   },
   {
     "jobId": "1944783322101606097",
@@ -4168,12 +4098,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.78,
-    "tier": "Green",
-    "ai_remark": "This Part-Time QA Analyst role aligns well with our QA & Test Automation service as it requires experience in developing and executing test plans, test cases, and test scripts for new features and updates. The key responsibilities of manual testing, bug tracking, regression testing, and collaboration in sprint planning all fall within the realm of QA & Test Automation expertise. Additionally, the emphasis on data integrity and privacy aligns with the quality assurance aspect of our service. This job should be pitched with our service to provide the necessary expertise and support for the Athena Tracker product."
+    "final_weighted_score": 0.741,
+    "tier": "Green"
   },
   {
     "jobId": "1944783152080799317",
@@ -4224,12 +4153,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.727,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our DevOps service as it involves diagnosing and fixing technical issues related to caching conflicts, which falls under the realm of DevOps responsibilities. The job requires experience with WordPress/WooCommerce, a strong understanding of caching, and the ability to communicate clearly about the changes made. Given the urgency of the task and the estimated time of completion, this job is a good fit for outreach under our DevOps service."
+    "final_weighted_score": 0.688,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944737015312712774",
@@ -4285,12 +4213,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.815,
-    "tier": "Green",
-    "ai_remark": "This QA Engineer position at Good Face aligns well with our QA & Test Automation service at Co-Ventech. The job description emphasizes the importance of delivering a bug-free, scalable SaaS product, which is a key focus of our QA Automation service. With a score of 0 and a Tier of Green, this job is a good fit for outreach as it closely matches our expertise and services."
+    "final_weighted_score": 0.776,
+    "tier": "Green"
   },
   {
     "jobId": "1944782795343161041",
@@ -4345,12 +4272,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.746,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the UI/UX Designing service offered by Co-Ventech due to the focus on transforming designs into pixel-perfect, production-ready React apps using Next.js, and creating seamless, intuitive experiences through Storybook UI components. The candidate's 4+ years of experience mastering Next.js and Storybook, along with a portfolio of shipped apps, indicate a strong alignment with the UI/UX Designing service, making this job a good fit for outreach."
+    "final_weighted_score": 0.707,
+    "tier": "Green"
   },
   {
     "jobId": "1944781796347264754",
@@ -4410,12 +4336,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.6,
-    "final_weighted_score": 0.488,
-    "tier": "Yellow",
-    "ai_remark": "This job for End-to-End MVP Development for an On-Demand Delivery App + Admin Dashboard aligns well with our Software Development service at Co-Ventech. The job requires expertise in full-stack development, building scalable on-demand apps, database design, mobile app frameworks, API development, and UI/UX best practices. These are all areas in which our software development team excels. Additionally, the job's focus on customer-facing mobile app development and admin dashboard aligns with our expertise in creating user-friendly interfaces for both customers and operators. With our experience in software development and the specific requirements of this job, we are well-equipped to pitch our services for this project."
+    "final_weighted_score": 0.449,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944781530088529069",
@@ -4473,12 +4398,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.868,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with the QA & Test Automation service offered by Co-Ventech. The description highlights the need for a manual software QA tester to test various aspects of the platform, test new product releases, and communicate with different teams regarding issues and improvements. The job's score and tier indicate a strong match with the service, making it a good fit for outreach."
+    "final_weighted_score": 0.829,
+    "tier": "Green"
   },
   {
     "jobId": "1944781460380877894",
@@ -4530,12 +4454,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.62,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our Software Development service as it requires expertise in Shopify theme development, which falls under the realm of software development. The task of customizing the Dawn theme to improve user experience and accuracy aligns with the skills and capabilities of our software developers. Given the nature of the job and its focus on enhancing the functionality of an e-commerce store, pitching our Software Development service to the client would be a suitable approach to address their needs effectively."
+    "final_weighted_score": 0.58,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944779998911716525",
@@ -4590,12 +4513,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.815,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with Co-Ventech's expertise in software services like QA Automation, DevOps, Cybersecurity, and UI/UX. The requirement for an experienced firmware developer with a strong understanding of Modbus protocols and BLE communication fits perfectly with Co-Ventech's capabilities. The job's score of 0 and tier of Green indicate a strong match with the services offered by Co-Ventech, making it a good fit for outreach."
+    "final_weighted_score": 0.776,
+    "tier": "Green"
   },
   {
     "jobId": "1944780182316934865",
@@ -4648,12 +4570,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.873,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our Software Development service as it requires expertise in React Native development for both iOS and Android platforms. The description mentions collaborating on UI/UX, API integrations, and app performance optimization, all of which are key components of our service offerings. The long-term opportunity for growth and project ownership also fits well with our focus on providing top-notch software solutions to our clients. This job is a great fit for outreach with our Software Development service."
+    "final_weighted_score": 0.834,
+    "tier": "Green"
   },
   {
     "jobId": "1944779357293056343",
@@ -4704,12 +4625,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.532,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with our UI/UX Designing service as it requires expertise in converting a JavaScript task into Task Builder 2 effectively. The candidate should have hands-on experience with design tools like Gorilla and JavaScript, which falls within the realm of UI/UX design. By pitching our UI/UX Designing service, we can provide the candidate with the necessary skills and knowledge to successfully complete the task and excel in their role."
+    "final_weighted_score": 0.493,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944779058465760979",
@@ -4768,12 +4688,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.8,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the Co-Vental - AI-Driven Staff Augmentation product because the AI Systems Engineer role requires a candidate who is deeply AI-enabled and has a strong coding background. The job description emphasizes the need for someone who can push the boundaries of what is possible with model-assisted development and is excited about new tooling. The Co-Vental product offers AI-driven staff augmentation, which can provide the consultancy with the right engineering partner who can bring in the required expertise and skills to enhance their AI projects. This job is a good fit for outreach as it matches the requirements for the Co-Vental service."
+    "final_weighted_score": 0.761,
+    "tier": "Green"
   },
   {
     "jobId": "1944778856836679253",
@@ -4824,12 +4743,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.761,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our Software Development service as it requires expertise in Salesforce customization, web tracking script development, and API integration. The project scope is well-defined, and the requirements are clear, making it a good fit for our team's skills and capabilities. We should pitch this job to showcase our proficiency in delivering custom solutions for Salesforce and web tracking needs."
+    "final_weighted_score": 0.722,
+    "tier": "Green"
   },
   {
     "jobId": "1944777063775913557",
@@ -4882,12 +4800,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.756,
-    "tier": "Green",
-    "ai_remark": "Remark: \"This job for a WordPress Developer aligns well with our Software Development service at Co-Ventech. With the required skills in WordPress development, frontend development, API integrations, and custom PHP coding, our team of experienced developers can deliver high-quality solutions for your agency. Communication, tracking changes, and meeting aggressive deadlines are key aspects of our service, ensuring smooth collaboration and project completion. We recommend reaching out to pitch our Software Development service for this job opportunity.\""
+    "final_weighted_score": 0.717,
+    "tier": "Green"
   },
   {
     "jobId": "1944775845481332466",
@@ -4940,12 +4857,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.688,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of a Shopify Site Setup Expert aligns well with the UI/UX Designing service offered by Co-Ventech. As a UI/UX designer, you will have the expertise to ensure the online store is not only visually appealing but also user-friendly, which is crucial for optimizing sales. Your skills in customizing themes and creating a seamless user experience will make you a valuable asset in setting up the Shopify site from scratch. This job is a good fit for outreach with the UI/UX Designing service."
+    "final_weighted_score": 0.649,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944773882681542229",
@@ -4996,12 +4912,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 0.3,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.566,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job for a Full Stack Developer for a Modern Website aligns well with our DevOps service. While the job score is low, the description emphasizes the need for creating high-performance websites using modern technologies. DevOps practices can help streamline the development process, improve site performance, and ensure maintainability. By leveraging our DevOps expertise, we can help the client achieve their goal of delivering clean and optimized websites."
+    "final_weighted_score": 0.527,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944775163043582295",
@@ -5052,12 +4967,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.834,
-    "tier": "Green",
-    "ai_remark": "Remark: The job of a Django Backend Developer aligns well with our DevOps service as it requires working closely with a small team to enhance a product based on customer requests. DevOps emphasizes collaboration, automation, and continuous improvement, which are essential for efficiently developing and deploying software. With the job's score of 0 and Tier of Green, this opportunity is a good fit for outreach and pitching our DevOps service to provide the necessary support for successful project execution."
+    "final_weighted_score": 0.795,
+    "tier": "Green"
   },
   {
     "jobId": "1944774903063166706",
@@ -5114,12 +5028,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.478,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The Website Developer job aligns well with the UI/UX Designing service offered by Co-Ventech due to the focus on building responsive and user-friendly front-end interfaces. The candidate will be responsible for creating a visually appealing and intuitive website, which requires a strong understanding of user experience design principles. By leveraging the expertise of our UI/UX designers, we can ensure that the website not only looks great but also provides a seamless and engaging user experience for visitors. This alignment makes it a good fit for outreach with the UI/UX Designing service."
+    "final_weighted_score": 0.439,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944774768208580951",
@@ -5176,8 +5089,7 @@
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
     "final_weighted_score": 0.498,
-    "tier": "Yellow",
-    "ai_remark": "Remark: This job aligns well with the SkillBuilder Learning & Career Development Platform as it requires a high level of creativity and innovation in developing hyper-realistic AI influencers. The platform can provide resources and courses to enhance the freelancer's skills in AI development and social media trends, ultimately helping them excel in this unique and exciting project. The job's focus on creating groundbreaking content also resonates with SkillBuilder's mission to support individuals in their career development and growth."
+    "tier": "Yellow"
   },
   {
     "jobId": "1944774815454102598",
@@ -5227,12 +5139,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.78,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the UI/UX Designing service offered by Co-Ventech because the task involves creating a seamless and user-friendly live preview drag and drop feature in a NUXT3 SANTIY CMS project. As UI/UX designers specialize in optimizing user experiences and interfaces, they would be well-equipped to tackle this specific challenge and provide valuable insights and solutions. This job has a score of 0, indicating a perfect match for the UI/UX Designing service."
+    "final_weighted_score": 0.741,
+    "tier": "Green"
   },
   {
     "jobId": "1944774166787417809",
@@ -5284,12 +5195,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.512,
-    "tier": "Yellow",
-    "ai_remark": "This job for a Custom Booking System Developer aligns well with our Software Development service at Co-Ventech. The candidate will be responsible for designing user-friendly interfaces, managing databases, and integrating payment gateways, which are all key components of software development. The specific requirements for this job, such as offering predefined text-based options per day and integrating a booking fee payment, showcase the need for a skilled developer who can customize and tailor the system to meet the client's specific needs. Our expertise in software development makes us well-suited to pitch our services for this job opportunity."
+    "final_weighted_score": 0.473,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944773269000840913",
@@ -5343,12 +5253,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.693,
-    "tier": "Yellow",
-    "ai_remark": "This job for QA Testers aligns well with the QA & Test Automation service offered by Co-Ventech. The job requires proven experience in web and/or mobile app QA testing, which falls under the expertise of this service. The project involves functional, usability, and regression testing, which can be efficiently handled by the QA & Test Automation team. Additionally, the potential for more work on future projects indicates a long-term partnership opportunity, making it a good fit for outreach."
+    "final_weighted_score": 0.654,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944773159308002374",
@@ -5400,12 +5309,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 0.2,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.527,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of Picture Gallery Development for an E-commerce Site aligns well with the UI/UX Designing service offered by Co-Ventech. As a UI/UX designer, you have the expertise in creating user-friendly interfaces, which is crucial for developing a picture gallery that provides a seamless experience for customers. Your skills in designing intuitive layouts and optimizing user interactions will be valuable in ensuring the success of this project. This job is a good fit for outreach with the UI/UX Designing service to deliver a visually appealing and functional solution for the client."
+    "final_weighted_score": 0.488,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944772301107266630",
@@ -5457,12 +5365,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.732,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our SkillBuilder Learning & Career Development Platform as it requires expertise in WordPress, WooCommerce, Sensei LMS, and Elementor, which are all skills that can be further developed and enhanced through our platform. The candidate can leverage the resources and courses available on SkillBuilder to stay updated with the latest trends in website optimization, troubleshooting, and user experience design, making them an ideal fit for this project. This job is a good fit for outreach as it falls under the Green tier with a score of 0, indicating a strong match with our SkillBuilder product."
+    "final_weighted_score": 0.693,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944771880909308998",
@@ -5522,12 +5429,11 @@
     "kpi_skill_match": 0.4,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.746,
-    "tier": "Green",
-    "ai_remark": "Remark: This job aligns well with our UI/UX Designing service because the experienced web developer needed for PassTheOT.com will be responsible for optimizing, maintaining, and enhancing the functionality of the site to improve the user experience. A strong focus on user interface and user experience design will be crucial in ensuring that the site is user-friendly, visually appealing, and easy to navigate for occupational therapy students preparing for the NBCOT® exam. By pitching our UI/UX Designing service, we can offer expertise in creating intuitive and engaging interfaces that will enhance the overall usability and effectiveness of the platform."
+    "final_weighted_score": 0.707,
+    "tier": "Green"
   },
   {
     "jobId": "1944771829054334673",
@@ -5580,12 +5486,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.756,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with our service offerings at Co-Ventech, particularly in the area of UI/UX and DevOps. As a seasoned Magento developer, the candidate will be working closely with our design and marketing teams to ensure a seamless user experience, which falls under the UI/UX service. Additionally, the candidate will be responsible for implementing custom features and optimizing performance, which falls under the DevOps service. With a score of 0 and a tier of Green, this job is a good fit for outreach and should be pitched to showcase our expertise in these areas."
+    "final_weighted_score": 0.717,
+    "tier": "Green"
   },
   {
     "jobId": "1944771791909078613",
@@ -5640,12 +5545,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.678,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Ventech's services, specifically in the area of QA Automation and DevOps. The job requires expertise in CodeIgniter 4, API integrations, and clean coding practices, all of which are areas where Co-Ventech excels. Additionally, the immediate availability requirement matches well with Co-Ventech's ability to provide quick and efficient solutions. This job should be pitched with Co-Ventech to provide the best fit for the client's needs."
+    "final_weighted_score": 0.639,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944770625910637638",
@@ -5699,12 +5603,11 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 0.3,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.624,
-    "tier": "Yellow",
-    "ai_remark": "This job aligns well with Co-Vental - AI-Driven Staff Augmentation as it requires a specialist with expertise in AI, NLP, ML, and MLOps. Co-Vental provides staff augmentation services using AI-driven solutions, making it a perfect fit for this role. The candidate can benefit from the advanced technology and support offered by Co-Vental to excel in their responsibilities and contribute effectively to the innovative project."
+    "final_weighted_score": 0.585,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944769755121914199",
@@ -5757,12 +5660,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.693,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of an Experienced Backend Developer for WordPress Customization Removal aligns well with our Software Development service at Co-Ventech. With a score of 0 and a Tier of Yellow, this job falls within the mid-range of complexity and expertise. Given the specific requirements for expertise in WooCommerce, BuddyBoss, Gamipress, and Memberpress, our team of software developers specializing in WordPress customization and plugin management would be well-equipped to handle this project effectively. This job presents a great opportunity for us to showcase our skills in streamlining and optimizing custom WordPress sites, ultimately leading to potential future collaborations on custom development projects."
+    "final_weighted_score": 0.654,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944768267273143366",
@@ -5814,12 +5716,11 @@
     "kpi_skill_match": 0.2,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 0.8,
-    "final_weighted_score": 0.688,
-    "tier": "Yellow",
-    "ai_remark": "Remark: The job of uploading digital products to Wordpress with Woocommerce aligns well with Co-Vental, our AI-driven Staff Augmentation product. With Co-Vental, you can easily scale your team with skilled professionals who have experience with Wordpress, Woocommerce, and Thrive Themes. This job opportunity is a great fit for reaching out to potential clients who may benefit from our staff augmentation services to efficiently complete their digital product uploads."
+    "final_weighted_score": 0.649,
+    "tier": "Yellow"
   },
   {
     "jobId": "1944768051597043409",
@@ -5873,11 +5774,10 @@
     "kpi_skill_match": 0.6,
     "kpi_weekly_hour_commitment": 1.0,
     "kpi_client_rating": 1.0,
-    "kpi_client_activity_recency": 1.0,
+    "kpi_client_activity_recency": 0.2,
     "kpi_payment_verification": 1.0,
     "kpi_job_level_match": 1.0,
-    "final_weighted_score": 0.829,
-    "tier": "Green",
-    "ai_remark": "This job aligns well with the Co-Vental AI-Driven Staff Augmentation product as it requires a qualified backend developer with specific experience in API integration. The job description mentions the need to build a backend integration for visibility of fund allocations in WealthTech platforms, which aligns with the expertise offered by Co-Vental in providing skilled professionals for various technical projects. The job's score and tier also indicate a good fit for outreach with this product."
+    "final_weighted_score": 0.79,
+    "tier": "Green"
   }
 ]

@@ -117,3 +117,4 @@ for name, docs in [("products-index", product_docs), ("services-index", service_
         ])
 
 print("All embeddings uploaded to Pinecone.")
+
