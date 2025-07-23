@@ -1,20 +1,65 @@
 {
   "upwork": {
-    "general": {
-      "prompt": "Draft a professional, humanized Upwork proposal using the following skeleton. The proposal should be structured into three concise paragraphs based on the job description provided. Ensure the proposal is aligned with the client's requirements and avoids generic responses.",
-      "skeleton": {
-        "intro": "Begin with greeting and short background with ___ years experience.",
-        "body": "Align your skills/tools with the client's needs. Reference specific tools or approaches.",
-        "closing": "Summarize your approach and express enthusiasm. Add a CTA to connect or chat further."
-      },
+    "AI/ML": {
       "references": [
-    "Hi,\nWith over a decade of experience in web, mobile, and API testing, I have worked with businesses of all sizes to build reliable and scalable applications. I specialize in both manual and automation testing, utilizing tools like Selenium, Cypress, and Appium to ensure software stability and performance. My focus is not just on finding bugs but on optimizing QA processes to improve efficiency, reduce costs, and enhance overall product quality.\nAs your project requires a QA expert with strong automation expertise to design and implement efficient testing strategies, I am confident that my experience aligns perfectly. Whether it’s setting up automation frameworks, identifying key testing areas, or integrating quality checks into CI/CD pipelines, I can contribute effectively to ensuring a seamless software experience for your users.\nMy approach involves analyzing existing testing workflows, identifying areas for automation, implementing robust test scripts, and providing detailed reports that help streamline your development cycle. I am ready to start immediately and look forward to discussing how I can bring value to your project.\nLooking forward to the opportunity to work with you on this project.\nThanks and Regards,",
-    "Hi,\nWith over a decade of experience in web, mobile, and API testing, I have successfully collaborated with more than 50 clients globally. As a Top Rated Plus freelancer with a 100% Job Success Score, I bring proven expertise in automation testing using Selenium, Appium, and Cypress. My strong background in designing test strategies and optimizing QA processes ensures that products are delivered with the highest quality standards.\nYour project requires a QA expert who can identify automation opportunities, build reliable test automation frameworks, and enhance testing efficiency. Given my extensive experience in automation engineering, I can effectively meet these requirements. I have helped numerous businesses integrate automation into their workflows, ensuring seamless execution and maintainability.\nMy approach involves identifying high-impact areas for automation, implementing structured automation frameworks using the latest testing tools, and ensuring smooth adoption by training your team on maintaining and expanding these solutions. I am available to start immediately and look forward to collaborating with you.\nLooking forward to the opportunity to work with you on this project.\nThanks and Regards,",
-    "Hi,\nWith over five years of experience in manual and automation testing, I have worked on diverse projects ensuring software applications are delivered bug-free and meet industry standards. I specialize in designing test frameworks using Selenium, Cypress, and Playwright, along with API validation and end-to-end functional testing. My expertise lies in implementing structured testing methodologies that enhance product reliability and user experience.\nYour project requires a QA professional with expertise in both manual and automated testing to improve testing efficiency and optimize workflows. My experience in test automation engineering, coupled with a deep understanding of testing strategies, allows me to effectively contribute to this requirement. I can help streamline your testing process by identifying key areas for automation, implementing effective test scripts, and providing detailed reports for better decision-making.\nMy approach involves analyzing your current testing needs, designing scalable automation frameworks, and ensuring a smooth transition by training your team on best practices for ongoing maintenance. I am ready to start working on this project and contribute to its success.\nLooking forward to the opportunity to work with you on this project.\nThanks and Regards,",
-    "Hi [Client's Name], your QA project really stood out to me. With ___ years of experience in both\nmanual and automated testing, I've handled similar challenges in projects like [Project Names],\ndelivering consistent, high-quality results.\nMy hands-on expertise includes ___ years specifically in automation tools such as Selenium,\nCypress, Postman, and JMeter. I've also integrated these effectively within Jenkins CI/CD\npipelines, ensuring smoother, quicker releases. My experience aligns closely with your needs,\nleveraging Agile methodologies and my ISTQB certification to guarantee structured and reliable\ntesting.\nI'd love the chance to discuss your project more and share how I can help elevate your QA\nprocess. Looking forward to connecting soon!",
-    "Hello [Client's Name], I was immediately drawn to your software development project. With ___\nyears dedicated to creating robust and scalable software solutions, I've delivered impactful\nresults on projects similar to yours, such as [Project Names].\nMy experience includes ___ years specifically working with technologies like JavaScript,\nPython, React, Node.js, MySQL, MongoDB, AWS, and Azure. I’m proficient in Agile\nmethodologies and have extensive experience collaborating through Git, ensuring efficient,\nhigh-quality development.\nI'd be happy to dive deeper into your project's details and discuss exactly how my experience\ncan contribute to your success. Let’s chat soon!",
-    "Hi [Client's Name], your security testing needs align perfectly with my background. Over the\npast ___ years specializing in Vulnerability Assessment & Penetration Testing, I've significantly\nstrengthened the security posture of various organizations, including [Project Names].\nMy expertise includes ___ years specifically working with Kali Linux, Metasploit, Nessus, and\nBurp Suite, adhering strictly to OWASP and ISO 27001 standards. My approach involves\nrigorous ethical hacking methods paired with clear, actionable reports, ensuring vulnerabilities\nare effectively identified and addressed.\nI'd be excited to discuss your specific security objectives further. Let’s arrange a call soon!"
-]
+        "As a Top Rated AI specialist with 100% job success, I've spent ___ years turning complex data into actionable insights for clients like [Project Names] - now I'd love to tackle your [specific JD challenge]. My recent [similar project] achieved [quantifiable result] using [JD-relevant technologies]. Let's discuss how we can replicate this success.",
+        "Your need for [specific JD requirement] caught my attention - I recently built [solution] that improved [metric] by X% for [prestigious client]. With ___ years in ML/AI solutions using [tools], I can help you [specific value proposition]. Available to start immediately."
+      ]
+    },
+    "QA": {
+      "references": [
+        "QA Automation isn't just my job—it's my passion. After creating 500+ Selenium scripts for Bykea (60% faster releases) and exhaustive manual tests for Careem, I'm eager to bring this experience to your project. My [tool expertise] and ISTQB certification ensure we'll [specific JD benefit]. Let's connect.",
+        "Your need to automate testing aligns perfectly with my ___ years' experience. At [Client], I implemented [number] automated tests covering [coverage%], reducing regression time by X%. My [JD technologies] expertise means I can [specific solution]. Available for a quick call."
+      ]
+    },
+    "Software Development": {
+      "references": [
+        "Full-stack development is my passion. After building [solution] for [Client 1] ([result]) and [solution] for [Client 2] ([result]), I'm excited to tackle your [specific JD challenge]. My ___ years with [JD technologies] means I can [specific value prop]. Let's discuss.",
+        "Your [Front-end/Back-end] project caught my eye. I recently [achievement] for [Client] using [JD tech], resulting in [metric improvement]. What sets me apart is my ability to [unique selling point from JD]. I'm confident I can deliver similar results for you."
+      ]
+    },
+    "Mobile App Development": {
+      "references": [
+        "Mobile development isn't just my job—it's what I love. After publishing [number] apps including [Project Names] that achieved [metrics], I'm excited to bring this experience to your project. My [JD technologies] expertise ensures we'll [specific benefit]. Let's connect.",
+        "Your need for [specific JD requirement] matches my ___ years building iOS/Android apps. For [Client], I [achievement] using [tools], resulting in [quantifiable outcome]. I'm available to start immediately and would welcome a discussion."
+      ]
+    },
+    "UI/UX": {
+      "references": [
+        "UI/UX design is my passion. For [Client], my designs improved conversion by X% through [specific JD-relevant approach]. With ___ years using [tools], I can help you [specific value proposition]. Let's schedule a call to discuss your vision.",
+        "Your design project caught my eye—I recently created [solution] for [Client] that achieved [metric]. My user-centered process combining [JD technologies] means I can [specific benefit]. Available to start immediately."
+      ]
+    },
+    "DevOps": {
+      "references": [
+        "DevOps isn't just about tools—it's about delivering results. For [Client], I implemented CI/CD pipelines that reduced deployment times by 70% using [JD technologies]. I'm excited to bring this experience to your project. Let's connect.",
+        "Your infrastructure needs match my ___ years streamlining deployments. At [Client], my [solution] achieved 99.99% uptime through [specific approach]. With expertise in [JD tools], I can help you [specific benefit]. Available for a quick call."
+      ]
+    },
+    "Cloud DevOps": {
+      "references": [
+        "Cloud optimization is my specialty. For [Client], I reduced costs by 40% while improving performance through [specific strategy]. With ___ years architecting [JD cloud platforms], I can help you [specific value prop]. Let's discuss.",
+        "Your cloud project caught my attention—I recently migrated [Client] to [JD platform], achieving [metrics]. My [certifications] and hands-on experience mean I can [specific solution]. Available to start immediately."
+      ]
+    },
+    "VAPT": {
+      "references": [
+        "Penetration testing is my passion. For [Client], I uncovered X critical vulnerabilities using [JD tools], preventing potential [risk]. With ___ years in ethical hacking, I can help secure your systems. Let's schedule a consultation.",
+        "Your security needs align perfectly with my ___ years conducting 150+ engagements. My recent assessment for [industry] client identified [specific findings] using [JD frameworks]. I'm available for a quick discovery call."
+      ]
+    },
+    "Cybersecurity": {
+      "references": [
+        "Cybersecurity isn't just my job—it's my mission. For [Client], my [solution] reduced breach risk by X% through [specific controls]. With [certifications], I can help protect your organization. Let's connect.",
+        "Your security requirements match my ___ years protecting companies like [Client]. My work implementing [JD solutions] means I can [specific benefit]. Available to discuss your needs."
+      ]
+    },
+    "Data Engineering": {
+      "references": [
+        "Data pipelines are my specialty. For [Client], I built [solution] that processed [volume] with [metric] improvement. With ___ years using [JD technologies], I can help you [specific value prop]. Let's discuss.",
+        "Your data project caught my attention—I recently [achievement] for [Client] using [tools]. My ability to [JD-relevant skill] means I can [specific solution]. Available to start immediately."
+      ]
     }
-  }
+  },
+  "prompt": "Draft a disruptive Upwork proposal using:\n1. HOOK: Start with a compelling opening from our references\n2. ALIGNMENT: Directly address top 3 JD requirements\n3. PROOF: Include quantifiable achievements from similar projects\n4. SKILLS: List only JD-relevant technologies\n5. CTA: Use action-oriented closing\n\nRules:\n- Include 1 industry metric\n- Maintain 2:1 'you:I' ratio\n- 200-250 words\n- Active voice\n- Mirror reference templates' style\n\nJob Description:\n[Paste JD here]"
 }

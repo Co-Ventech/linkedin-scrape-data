@@ -1,40 +1,46 @@
 import json
+import random
 from config import openai_client
 
-# Load templates
+# Load templates once
 with open("data/email_templates.json", "r", encoding="utf-8") as f:
     templates = json.load(f)
 
-# Main proposal generation function for Upwork
+# Generate Upwork proposal using category and JD/title
 def generate_upwork_proposal(job_data: dict, category: str) -> str:
     title = job_data.get("title", "")
     description = job_data.get("description", job_data.get("descriptionText", ""))
-    
-    # Fetch template block
-    category_data = templates["upwork"].get(category)
+    category = category.strip()
+
+    # Try to fetch category-level reference block
+    domain_templates = templates.get("upwork", {})
+    category_data = domain_templates.get(category)
+
     if not category_data:
-        return "No matching proposal template found for the given category."
+        return f"No reference template found for selected category: {category}"
 
-    skeleton = category_data["skeleton"]
-    prompt_text = category_data["prompt"]
+    # Choose a random reference email to diversify
+    references = category_data.get("references", [])
+    if not references:
+        return f"No reference email available for category: {category}"
 
-    # Build prompt
+    reference_email = random.choice(references)
+    global_prompt = templates.get("prompt", "")
+
+    # Construct prompt
     prompt = (
-    f"{category_data['prompt']}\n\n"
-    f"Skeleton:\n{skeleton}\n\n"
-    f"Job Title: {title}\n"
-    f"Job Description:\n{description}\n\n"
-    f"Generate a fully customized Upwork proposal in 3 short paragraphs. "
-    f"Use a professional, humanize tone and keep it relevant to the job post. "
-    f"Do not repeat any existing template exactly. Use the skeleton as inspiration only."
-)
+        f"{global_prompt}\n\n"
+        f"Reference Email:\n{reference_email}\n\n"
+        f"Job Title: {title}\n"
+        f"Job Description:\n{description}\n\n"
+        f"Please draft accordingly."
+    )
 
-
-    # Call OpenAI
+    # OpenAI API Call
     response = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.7,
+        temperature=0.7
     )
 
     return response.choices[0].message.content.strip()

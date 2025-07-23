@@ -392,17 +392,17 @@ print(f"\nFinal output written to: {output_path}")
 
 
 
-# Let's assume we're triggering this from the front-end or logic
-job = {
-    "title": "AI Engineer Needed for LLM Implementation and Integration",
-    "descriptionText": "We are seeking an experienced AI Engineer to implement, deploy, optimize, clean, train, and integrate new large language models (LLMs) into our systems. The ideal candidate will have a strong background in AI technologies and experience with model deployment in real-world applications. Your role will involve collaborating with our development team to ensure seamless integration and performance optimization of AI capabilities. If you have a passion for pushing the boundaries of AI and have experience with LLMs, we would love to hear from you!\n\nWe are working with the National Science Foundation with this project. The ideal candidate would need to commit for at least 2 years."
-}
+# # Let's assume we're triggering this from the front-end or logic
+# job = {
+#     "title": "Build a High-Converting Shopify Site for a Premium Coffee Subscription Brand",
+#     "descriptionText": "We’re launching Longshot — a next-gen coffee brand built for people who want wellness and performance without the “supplement” vibe.\n\nIt’s a lifestyle subscription brand, and the website needs to reflect that — clean, premium, bold, and conversion-focused.\n\n⸻\n\n✅ What We Need:\n\t1.\tShopify Website Setup\n\t•\tHome page, Product page (with subscription), FAQ, About, Contact\n\t•\tFast, responsive, mobile-optimised\n\t•\tLight customisation of a Shopify theme (we can purchase one if needed)\n\n\t2.\tRecharge Subscription Integration\n\t•\tMonthly subscription with ability to manage customer accounts\n\t•\tSeamless checkout and subscriber flow\n\n\t3.\tConversion-Driven Layout\n\t•\tIncorporate UGC, reviews, icons, benefits\n\t•\tSticky CTA buttons, simple nav, mobile-first layout\n\t•\tTrust-building elements (badges, customer promises)\n\n\t4.\tFigma Designs First\n\t•\tWe want clear wireframes and Figma mockups before development begins\n\t•\tEnsure brand identity and tone are locked in\n\n⸻\n\n📦 We’ll Provide:\n\t•\tBrand colours\n\t•\tCopy for each section (or we’ll collaborate)\n\t•\tInspiration websites."
+# }
 
-# Real-time selected category (e.g., from dropdown)
-selected_category = "AI"
+# # Real-time selected category (e.g., from dropdown)
+# selected_category = "Software Development"
 
-# Generate draft
-draft = generate_upwork_proposal(job, selected_category)
+# # Generate draft
+# draft = generate_upwork_proposal(job, selected_category)
 
-# Output the draft (or pass to frontend)
-print(draft)
+# # Output the draft (or pass to frontend)
+# print(draft)
