@@ -34,7 +34,7 @@ async function runFullPipeline() {
 }
 
 
-cron.schedule('40 15 * * *', () => {
+cron.schedule('30 6 * * *', () => {
   console.log('Cron job is running at:', new Date());
   runFullPipeline();
 });
