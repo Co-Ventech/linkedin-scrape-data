@@ -55,6 +55,12 @@ Here’s what you should tell your frontend developer about the changes:
   ],
   "ae_comment": "AI remark is correct"
 }
+
+How to Use
+LinkedIn (apify) GET:
+GET /api/apify/job?id=YOUR_JOB_ID (with auth token)
+Upwork GET:
+GET /api/upwork/job?id=YOUR_JOB_ID (with auth token)
 ```
 ---
 **If you need the full request/response format or have any questions, let me know!**

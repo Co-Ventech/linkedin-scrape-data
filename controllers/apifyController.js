@@ -381,7 +381,37 @@ exports.updateJobStatusAndComment = async (req, res) => {
 };
 
 
+// ... existing code ...
 
+/**
+ * GET /api/apify/job?id=xxx
+ * Returns the latest job with the given id for the authenticated user.
+ */
+exports.getJobById = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.query;
+    if (!id) {
+      return res.status(400).json({ message: 'Job id is required as query param.' });
+    }
+    const userJobBatch = await UserJobBatch.findOne({ userId });
+    if (!userJobBatch || !userJobBatch.batches.length) {
+      return res.status(404).json({ message: 'No job batches found for user.' });
+    }
+    // Search batches in reverse (latest first)
+    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+      const batch = userJobBatch.batches[i];
+      const job = batch.jobs.find(j => j.id === id);
+      if (job) {
+        return res.json(job);
+      }
+    }
+    return res.status(404).json({ message: 'Job not found for user.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
 // ...existing code...
 
 // exports.exportJobsByDateToExcel = async (req, res) => {
@@ -537,7 +567,9 @@ exports.exportJobsByDateToExcel = async (req, res) => {
     const columns = [
       { header: 'ZoomInfo Contact ID', key: 'id', width: 20 },
       { header: 'Job Title', key: 'title', width: 30 },
-      { header: 'Management Level', key: 'employmentType', width: 20 },
+      // { header: 'Management Level', key: 'employmentType', width: 20 },
+      { header: 'Employment & Workplace', key: 'employmentAndWorkplace', width: 30 },
+
       { header: 'Job Start Date', key: 'postedDate', width: 20 },
       { header: 'Job Function', key: 'descriptionText', width: 40 },
       { header: 'LinkedIn Contact Profile URL', key: 'linkedinUrl', width: 40 },
@@ -566,7 +598,9 @@ exports.exportJobsByDateToExcel = async (req, res) => {
       worksheet.addRow({
         id: job.id,
         title: job.title,
-        employmentType: job.employmentType,
+        // employmentType: job.employmentType,
+        employmentAndWorkplace: `${job.employmentType || ''} - (${job.workplaceType || ''})`,
+
         postedDate: job.postedDate ? job.postedDate.toISOString().split('T')[0] : '',
         descriptionText: job.descriptionText,
         linkedinUrl: job.linkedinUrl,

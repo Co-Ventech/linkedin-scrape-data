@@ -125,4 +125,4 @@ const UserJobBatchSchema = new mongoose.Schema({
   batches: [BatchSchema]
 });
 
-module.exports = mongoose.model('UserJobBatch', UserJobBatchSchema);
+module.exports = mongoose.model('UserLinkedinJobBatch', UserJobBatchSchema);

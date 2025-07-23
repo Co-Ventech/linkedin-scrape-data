@@ -6,6 +6,9 @@ const AUTOMATION_JWT_TOKEN = process.env.AUTOMATION_JWT_TOKEN;
 
 async function runUpworkPipeline() {
   try {
+    console.log('Pipeline started at', new Date().toISOString());
+    
+
     // 1. Fetch jobs from Upwork
     await axios.post(`${API_BASE_URL}/api/upwork`);
     console.log('Upwork jobs fetched');
@@ -21,7 +24,10 @@ async function runUpworkPipeline() {
     // 4. Save jobs to MongoDB (requires auth)
     await axios.post(`${API_BASE_URL}/api/upwork/save-jobs`, {}, {
       headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }
+   
+
     });
+    console.log('Pipeline complete at', new Date().toISOString());
     console.log('Upwork jobs saved to DB');
   } catch (err) {
     console.error('Upwork pipeline error:', err.message);
@@ -29,7 +35,7 @@ async function runUpworkPipeline() {
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
-cron.schedule('30 19 * * *', () => {
+cron.schedule('50 15 * * *', () => {
   console.log('Upwork cron job started at:', new Date());
   runUpworkPipeline();
 });

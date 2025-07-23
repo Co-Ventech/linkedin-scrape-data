@@ -496,3 +496,36 @@ exports.getUpworkFinalScores = (req, res) => {
         res.status(500).json({ message: 'Error reading upwork score file', error: error.message });
     }
 };
+
+
+// ... existing code ...
+
+/**
+ * GET /api/upwork/job?id=xxx
+ * Returns the latest upwork job with the given jobId for the authenticated user.
+ */
+exports.getJobById = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { id } = req.query;
+    if (!id) {
+      return res.status(400).json({ message: 'Job id is required as query param.' });
+    }
+    const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+    if (!userJobBatch || !userJobBatch.batches.length) {
+      return res.status(404).json({ message: 'No job batches found for user.' });
+    }
+    // Search batches in reverse (latest first)
+    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+      const batch = userJobBatch.batches[i];
+      const job = batch.jobs.find(j => j.jobId === id);
+      if (job) {
+        return res.json(job);
+      }
+    }
+    return res.status(404).json({ message: 'Job not found for user.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};

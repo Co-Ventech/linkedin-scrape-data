@@ -32,6 +32,12 @@ router.patch('/jobs/:jobId', authMiddleware, apifyController.updateJobStatusAndC
 // Export jobs-by-date data to Excel
 router.get('/jobs-by-date/excel', authMiddleware, apifyController.exportJobsByDateToExcel);
 
+// ... existing code ...
+
+// Get a specific job by id for the authenticated user
+router.get('/apify/job', authMiddleware, apifyController.getJobById);
+
+// ... existing code ...
 // ...existing code...
 
 module.exports = router;

@@ -21,5 +21,11 @@ router.get('/upwork/jobs-by-date',authMiddleware, upworkController.getJobsByDate
 
 // Edit job by jobId
 router.patch('/upwork/job/:jobId',authMiddleware, upworkController.editJobById);
+// ... existing code ...
+
+// Get a specific upwork job by id for the authenticated user
+router.get('/upwork/job', authMiddleware, upworkController.getJobById);
+
+// ... existing code ...
 
 module.exports = router;

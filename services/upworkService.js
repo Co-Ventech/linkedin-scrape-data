@@ -17,7 +17,7 @@ const defaultInput = {
     contract_to_hire: false,
     dev_dataset_clear: true,
     dev_no_strip: false,
-    fixed: false,
+    fixed: true,
     hourly: true,
     "includes.attachments": false,
     "includes.history": false,
@@ -62,99 +62,6 @@ exports.fetchUpworkJobs = async (input = defaultInput) => {
     }
 };
 
-// ... existing code ...
-
-// function normalizeJob(job) {
-//     return {
-//         jobId: job.id,
-//         title: job.title,
-//         description: job.description,
-//         isContractToHire: job.isContractToHire,
-//         isPaymentMethodVerified: job.isPaymentMethodVerified,
-//         level: job.level,
-//         contractorTier: job.contractorTier,
-//         companyId: job.buyer?.company?.companyId || null,
-//         companyIndustry: job.buyer?.company?.profile?.industry || null,
-//         companyContractDate: job.buyer?.company?.contractDate || null,
-//         buyerScore: job.buyer?.stats?.score ?? null,
-//         buyerTotalAssignments: job.buyer?.stats?.totalAssignments ?? null,
-//         buyerTotalJobsWithHires: job.buyer?.stats?.totalJobsWithHires ?? null,
-//         buyerActiveAssignmentsCount: job.buyer?.stats?.activeAssignmentsCount ?? null,
-//         buyerFeedbackCount: job.buyer?.stats?.feedbackCount ?? null,
-//         buyerOpenJobsCount: job.buyer?.jobs?.openCount ?? null,
-//         buyerPostedJobsCount: job.buyer?.jobs?.postedCount ?? null,
-//         buyerAvgHourlyRate: job.buyer?.avgHourlyJobsRate?.amount ?? null,
-//         minHourlyRate: job.hourly?.min ?? null,
-//         maxHourlyRate: job.hourly?.max ?? null,
-//         hourlyType: job.hourly?.type ?? null,
-//         hourlyWeeks: job.hourly?.duration?.weeks ?? null,
-//         tags: Array.isArray(job.tags) ? job.tags : [],
-//         skills: Array.isArray(job.skills) ? job.skills.map(s => s.name) : [],
-//         minHoursWeek: job.qualifications?.minHoursWeek ?? null,
-//         lastBuyerActivity: job.clientActivity?.lastBuyerActivity ?? null,
-        
-//     // --- Additional fields for business value ---
-//     city: job.buyer?.location?.city || null,
-//     country: job.buyer?.location?.country || null,
-//     countryTimezone: job.buyer?.location?.countryTimezone || null,
-//     utcOffsetMillis: job.buyer?.location?.offsetFromUtcMillis ?? null,
-//     companyName: job.buyer?.company?.name || null,
-//     companySize: job.buyer?.company?.profile?.size ?? null,
-//     companyIsEDCReplicated: job.buyer?.company?.isEDCReplicated ?? null,
-//     clientTotalHours: job.buyer?.stats?.hoursCount ?? null,
-//     clientTotalSpend: job.buyer?.stats?.totalCharges?.amount ?? null,
-//     clientRisingTalent: job.buyer?.stats?.risingTalent ?? null,
-//     category: job.category?.name || null,
-//     categoryGroup: job.categoryGroup?.name || null,
-//     occupation: job.occupation?.prefLabel || null,
-//     jobType: job.type || null,
-//     fixedBudget: job.fixed?.budget?.amount ?? null,
-//     fixedDurationLabel: job.fixed?.duration?.label || null,
-//     numberOfPositionsToHire: job.numberOfPositionsToHire ?? null,
-//     premium: job.premium ?? null,
-//     openJobs: job.openJobs ?? [],
-//     questions: job.questions ?? [],
-//     status: job.status || null,
-//     url: job.url || null,
-//     qualificationsCountries: job.qualifications?.countries ?? null,
-//     qualificationsLanguages: job.qualifications?.languages ?? null,
-//     qualificationsMinJobSuccessScore: job.qualifications?.minJobSuccessScore ?? null,
-//     qualificationsRisingTalent: job.qualifications?.risingTalent ?? null,
-//     qualificationsLocationCheckRequired: job.qualifications?.locationCheckRequired ?? null,
-//     ts_create: job.ts_create || null,
-//     ts_publish: job.ts_publish || null,
-//     ts_sourcing: job.ts_sourcing || null
-        
-//     };
-// }
-// exports.filterAndDeduplicateUpworkJobs = () => {
-//     const inputPath = path.join(__dirname, '../data/upwork_jobs_raw.json');
-//     const outputPath = path.join(__dirname, '../data/filtered_upwork.json');
-
-//     // Read raw jobs
-//     const jobs = JSON.parse(fs.readFileSync(inputPath, 'utf-8'));
-
-//     // Normalize
-//     const normalized = jobs.map(normalizeJob);
-
-//     // Deduplicate and collect duplicates
-//     const seen = new Set();
-//     const deduped = [];
-//     const duplicates = [];
-//     for (const job of normalized) {
-//         if (seen.has(job.jobId)) {
-//             duplicates.push(job);
-//         } else {
-//             seen.add(job.jobId);
-//             deduped.push(job);
-//         }
-//     }
-
-//     // Save filtered jobs
-//     fs.writeFileSync(outputPath, JSON.stringify(deduped, null, 2), 'utf-8');
-
-//     return { deduped, duplicates };
-// };
 
 
 // Allowed and European countries
