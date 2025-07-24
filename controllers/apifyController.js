@@ -574,7 +574,7 @@ exports.exportJobsByDateToExcel = async (req, res) => {
       { header: 'Job Function', key: 'descriptionText', width: 40 },
       { header: 'LinkedIn Contact Profile URL', key: 'linkedinUrl', width: 40 },
       { header: 'Email Address', key: 'email', width: 30 }, // Not present in schema
-      { header: 'Person City', key: 'company_city', width: 20 },
+      { header: 'City', key: 'city', width: 20 },
       { header: 'Country', key: 'company_country', width: 20 },
       { header: 'Company Name', key: 'company_name', width: 30 },
       { header: 'Website', key: 'company_website', width: 30 },
@@ -605,6 +605,7 @@ exports.exportJobsByDateToExcel = async (req, res) => {
         descriptionText: job.descriptionText,
         linkedinUrl: job.linkedinUrl,
         email: '', // Not present in schema
+        city: location.city || '',  
         company_city: location.city || '',
         company_country: location.country || '',
         company_name: company.name || '',
@@ -614,6 +615,7 @@ exports.exportJobsByDateToExcel = async (req, res) => {
         company_industry: (company.industries && company.industries[0]) || '',
         company_linkedinUrl: company.linkedinUrl || '',
         company_state: location.state || ''
+        
       });
     });
 
