@@ -178,6 +178,9 @@ const UpworkJobSchema = new mongoose.Schema({
   kpi_client_activity_recency: mongoose.Schema.Types.Mixed,
   kpi_payment_verification: mongoose.Schema.Types.Mixed,
   kpi_job_level_match: mongoose.Schema.Types.Mixed,
+  proposal: { type: String, default: "" },
+  ae_score: { type: Number, default: 0 },
+
   final_weighted_score: mongoose.Schema.Types.Mixed,
   tier: String,
   ai_remark: String

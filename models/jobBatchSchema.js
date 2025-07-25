@@ -106,7 +106,8 @@ ae_comment: {
   kpi_contact_info: mongoose.Schema.Types.Mixed,
   kpi_skills_explicitness: mongoose.Schema.Types.Mixed,
   kpi_experience_threshold: mongoose.Schema.Types.Mixed,
-
+  proposal: { type: String, default: "" },
+  ae_score: { type: Number, default: 0 },
   // AI Prediction for domain and remarks by AI
   predicted_domain: String,
   ai_remark: String,

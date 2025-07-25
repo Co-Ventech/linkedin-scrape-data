@@ -74,7 +74,7 @@ exports.getScoredJobs = (req, res) => {
 exports.uploadScoredJobsFromFile = async (req, res) => {
   try {
     const userId = req.user._id;
-    const filePath = path.join(__dirname, '../data/scored_jobs_output.json');
+    const filePath = path.join(__dirname, '../data/scored_linkedin_jobs.json');
 
     // Read and parse the JSON file (which is an array)
     const fileContent = fs.readFileSync(filePath, 'utf-8');
