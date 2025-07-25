@@ -1,79 +1,80 @@
-import json
+from openai import OpenAI
+from config import OPENAI_API_KEY, PINECONE_API_KEY
+from pinecone import Pinecone
+from utils.get_embedding import get_embedding
 from tqdm import tqdm
-from config import pinecone_client, openai_client
-from utils import get_embedding
 
-# Load final job data
-# with open("data/scored_jobs_output.json", "r", encoding="utf-8") as f:
-#     jobs = json.load(f)
-def main():
-    with open("data/scored_jobs_output.json", "r", encoding="utf-8") as f:
-        jobs = json.load(f)
-    jobs_with_remarks = generate_ai_remark(jobs)
-    with open("data/final_jobs_linkedin.json", "w", encoding="utf-8") as f:
-        json.dump(jobs_with_remarks, f, ensure_ascii=False, indent=2)
+client = OpenAI(api_key=OPENAI_API_KEY)
+pc = Pinecone(api_key=PINECONE_API_KEY)
 
-if __name__ == "__main__":
-    main()
-# Pinecone indexes
-product_index = pinecone_client.Index("products-index")
-service_index = pinecone_client.Index("services-index")
+index = pc.Index("services-index")  # Combined index
 
-# Query logic
 def retrieve_best_match(query: str):
-    query_emb = get_embedding(query)
+    query_embedding = get_embedding(query)
+    results = index.query(vector=query_embedding, top_k=1, include_metadata=True)
 
-    prod_match = product_index.query(vector=query_emb, top_k=1, include_metadata=True)
-    serv_match = service_index.query(vector=query_emb, top_k=1, include_metadata=True)
+    if results and results["matches"]:
+        match = results["matches"][0]
+        metadata = match["metadata"]
+        return metadata["content"], metadata["source_name"], metadata["source_type"]
+    
+    return None, None, None
 
-    prod = prod_match.get("matches", [])[0] if prod_match.get("matches") else None
-    serv = serv_match.get("matches", [])[0] if serv_match.get("matches") else None
-
-    prod_score = prod["score"] if prod else 0
-    serv_score = serv["score"] if serv else 0
-
-    if prod_score >= serv_score:
-        return prod["metadata"]["service_name"], "product"
-    elif serv:
-        return serv["metadata"]["service_name"], "service"
-    return None, None
-
-# AI remark generation
-def generate_remark(job, match_name, match_type):
+def generate_remark(job, context_chunk, match_name, match_type):
     title = job.get("title", "")
-    
-    # Support both LinkedIn (`descriptionText`) and Upwork (`description`)
-    desc = job.get("descriptionText") or job.get("description") or ""
-    
-    score = job.get("final_score", 0)
-    tier = job.get("tier", "Red")
-    
-    if not match_name:
-        return f"This job has a final score of {score} ({tier} Tier), but it doesn't clearly align with our services or products."
+    desc = job.get("descriptionText") or job.get("description", "")
+
+    if not context_chunk:
+        return "Unable to confidently recommend a product or service for this job."
 
     prompt = (
-        f"You are an expert job analyst AI assistant working for a software consultancy (Co-Ventech) that offers services like QA Automation, DevOps, Cybersecurity, UI/UX, and products like Recruitinn (Recruitment AI), SkillBuilder (LMS), and Co-Vental (Staff Augmentation).\nYour task is to assess whether a given job is a good fit for outreach or not, and recommend a concise, to the point , 1 line remark. Use the job's score and tier, make sure you do not add this in the remark, and compare with other similar job titles.\n"
-        f"Job Title: {title}\n"
-        f"Description: {desc[:1000]}\n"
-        f"Score: {score}, Tier: {tier}\n"
-        f"Matched {match_type}: {match_name}\n\n"
-        f"Write a concse, to the point, 1 liner remark explaining why this job aligns well and should be pitched with this {match_type}."
-    )
+    f"STRICT CO-VENTECH JOB ANALYST RULES:\n"
+    f"1. MUST recommend ONE SPECIFIC SERVICE (25 words max) unless job contains EXACT product phrases below\n"
+    f"2. Service recommendations MUST cite job-specific tech/tools/needs\n\n"
+    
+    f"🔷 APPROVED PRODUCT TRIGGERS (ONLY THESE):\n"
+    f"- Recruitinn: 'bulk hiring' OR 'filter applicants' OR 'remote hiring platform'\n"
+    f"- SkillBuilder: 'React/AWS teacher' OR 'building LMS platform'\n"
+    f"- Co-Vental: 'vetted candidates trial' OR 'managing recruitment partners'\n\n"
+    
+    f"🔷 SERVICE SELECTION GUIDE:\n"
+    f"1. QA/Test Automation: Mention if job has 'testing'/'QA'/'automation'/'Selenium'\n"
+    f"2. AI/ML: Mention 'AI'/'ML'/'LLM'/'GPU algorithms'/'NLP'\n"
+    f"3. Software Dev: Mention specific stacks ('MERN'/'Python'/'mobile apps')\n"
+    f"4. DevOps: Mention 'CI/CD'/'cloud migration'/'Kubernetes'\n"
+    f"5. Cybersecurity: Mention 'pentesting'/'SOC'/'vulnerability assessment'\n"
+    f"6. UI/UX: 'Figma'/'Adobe XD'/'user research'/'wireframing'/'design system'/'prototyping'\n\n"
+    
+    f"---\n"
+    f"JOB DATA:\n"
+    f"Title: {title}\n"
+    f"Description: {desc[:1000]}\n\n"
+    
+    f"DELIVER OUTPUT IN THIS EXACT FORMAT:\n"
+    f"1. For SERVICES (95% cases):\n"
+    f"   \"Recommend [SPECIFIC_SERVICE] because [JOB-SPECIFIC_TECH/TOOLS/NEEDS]\" (EXACTLY 25 WORDS)\n"
+    f"2. For PRODUCTS (5% cases):\n"
+    f"   \"[PRODUCT_MATCH] Recommending [PRODUCT] for [EXACT_MATCHED_PHRASE]\"\n\n"
+    
+    f"BAD EXAMPLE (REJECT):\n"
+    f"\"Recommend Services because job aligns with Co-Ventech\" → TOO GENERIC\n"
+    f"GOOD EXAMPLE (APPROVED):\n"
+    f"\"Recommend AI/ML services for GPU algorithm optimization using CUDA and TensorFlow\" (25 words)"
+)
 
-    response = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.6,
-    )
+    try:
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.6
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"[AI Remark Error: {str(e)}]"
 
-    return response.choices[0].message.content.strip()
-
-# Main callable function from main model
 def generate_ai_remark(jobs):
     for job in tqdm(jobs, desc="Generating AI Remarks"):
-        query = f"{job.get('title', '')} {job.get('descriptionText', '')}"
-        match_name, match_type = retrieve_best_match(query)
-        job["ai_remark"] = generate_remark(job, match_name, match_type)
-
+        query = f"{job.get('title', '')} {job.get('descriptionText') or job.get('description', '')}"
+        context, match_name, match_type = retrieve_best_match(query)
+        job["ai_remark"] = generate_remark(job, context, match_name, match_type)
     return jobs
-

@@ -3,5 +3,8 @@ db/
 rabbitmq_data/
 .env
 service-account-key.json
-data/
 .scannerwork/
+data/
+Lib
+venv
+requirements.txt

@@ -1,0 +1,156 @@
+[  
+  {
+    "upwork": {
+      "AI/ML": {
+        "references": [
+          "As a Top Rated AI specialist with 100% job success, I've spent ___ years turning complex data into actionable insights for clients like [Project Names] - now I'd love to tackle your [specific JD challenge]. My recent [similar project] achieved [quantifiable result] using [JD-relevant technologies]. Let's discuss how we can replicate this success.",
+          "Your need for [specific JD requirement] caught my attention - I recently built [solution] that improved [metric] by X% for [prestigious client]. With ___ years in ML/AI solutions using [tools], I can help you [specific value proposition]. Available to start immediately."
+        ]
+      }
+      ,
+      "QA": {
+        "references": [
+          "QA Automation isn't just my job—it's my passion. After creating 500+ Selenium scripts for Bykea (60% faster releases) and exhaustive manual tests for Careem, I'm eager to bring this experience to your project. My [tool expertise] and ISTQB certification ensure we'll [specific JD benefit]. Let's connect.",
+          "Your need to automate testing aligns perfectly with my ___ years' experience. At [Client], I implemented [number] automated tests covering [coverage%], reducing regression time by X%. My [JD technologies] expertise means I can [specific solution]. Available for a quick call."
+        ]
+      },
+      "Software Development": {
+        "references": [
+          "Full-stack development is my passion. After building [solution] for [Client 1] ([result]) and [solution] for [Client 2] ([result]), I'm excited to tackle your [specific JD challenge]. My ___ years with [JD technologies] means I can [specific value prop]. Let's discuss.",
+          "Your [Front-end/Back-end] project caught my eye. I recently [achievement] for [Client] using [JD tech], resulting in [metric improvement]. What sets me apart is my ability to [unique selling point from JD]. I'm confident I can deliver similar results for you."
+        ]
+      },
+      "Mobile App Development": {
+        "references": [
+          "Mobile development isn't just my job—it's what I love. After publishing [number] apps including [Project Names] that achieved [metrics], I'm excited to bring this experience to your project. My [JD technologies] expertise ensures we'll [specific benefit]. Let's connect.",
+          "Your need for [specific JD requirement] matches my ___ years building iOS/Android apps. For [Client], I [achievement] using [tools], resulting in [quantifiable outcome]. I'm available to start immediately and would welcome a discussion."
+        ]
+      },
+      "UI/UX": {
+        "references": [
+          "UI/UX design is my passion. For [Client], my designs improved conversion by X% through [specific JD-relevant approach]. With ___ years using [tools], I can help you [specific value proposition]. Let's schedule a call to discuss your vision.",
+          "Your design project caught my eye—I recently created [solution] for [Client] that achieved [metric]. My user-centered process combining [JD technologies] means I can [specific benefit]. Available to start immediately."
+        ]
+      },
+      "DevOps": {
+        "references": [
+          "DevOps isn't just about tools—it's about delivering results. For [Client], I implemented CI/CD pipelines that reduced deployment times by 70% using [JD technologies]. I'm excited to bring this experience to your project. Let's connect.",
+          "Your infrastructure needs match my ___ years streamlining deployments. At [Client], my [solution] achieved 99.99% uptime through [specific approach]. With expertise in [JD tools], I can help you [specific benefit]. Available for a quick call."
+        ]
+      },
+      "Cloud DevOps": {
+        "references": [
+          "Cloud optimization is my specialty. For [Client], I reduced costs by 40% while improving performance through [specific strategy]. With ___ years architecting [JD cloud platforms], I can help you [specific value prop]. Let's discuss.",
+          "Your cloud project caught my attention—I recently migrated [Client] to [JD platform], achieving [metrics]. My [certifications] and hands-on experience mean I can [specific solution]. Available to start immediately."
+        ]
+      },
+      "VAPT": {
+        "references": [
+          "Penetration testing is my passion. For [Client], I uncovered X critical vulnerabilities using [JD tools], preventing potential [risk]. With ___ years in ethical hacking, I can help secure your systems. Let's schedule a consultation.",
+          "Your security needs align perfectly with my ___ years conducting 150+ engagements. My recent assessment for [industry] client identified [specific findings] using [JD frameworks]. I'm available for a quick discovery call."
+        ]
+      },
+      "Cybersecurity": {
+        "references": [
+          "Cybersecurity isn't just my job—it's my mission. For [Client], my [solution] reduced breach risk by X% through [specific controls]. With [certifications], I can help protect your organization. Let's connect.",
+          "Your security requirements match my ___ years protecting companies like [Client]. My work implementing [JD solutions] means I can [specific benefit]. Available to discuss your needs."
+        ]
+      },
+      "Data Engineering": {
+        "references": [
+          "Data pipelines are my specialty. For [Client], I built [solution] that processed [volume] with [metric] improvement. With ___ years using [JD technologies], I can help you [specific value prop]. Let's discuss.",
+          "Your data project caught my attention—I recently [achievement] for [Client] using [tools]. My ability to [JD-relevant skill] means I can [specific solution]. Available to start immediately."
+        ]
+      }
+    },
+    "prompt": "Draft a disruptive Upwork proposal using:\n1. HOOK: Start with a compelling opening from our references\n2. ALIGNMENT: Directly address top 3 JD requirements\n3. PROOF: Include quantifiable achievements from similar projects\n4. SKILLS: List only JD-relevant technologies\n5. CTA: Use action-oriented closing\n\nRules:\n- Include 1 industry metric\n- Maintain 2:1 'you:I' ratio\n- 200-250 words\n- Active voice\n- Mirror reference templates' style\n\nJob Description:\n[Paste JD here]"
+  }
+  , 
+  {
+  "linkedin": {
+    "services": {
+      "AI/ML": {
+        "references": [
+          "Drowning in unstructured data? Our NLP pipeline helped [Client] process 10K+ docs/day with 95% accuracy\nHi [Name],\nUnlike generic AI solutions, we specialize in [Industry]-specific models. Available for a quick call this Tuesday?\n\nBest regards,\n[Your Name]",
+          "AI prototypes not production-ready? We deployed [Client]'s LLM solution at 1/3 the cost of big tech\nHi [Name],\nOur MLOps expertise ensures scalable, maintainable AI. Shall we schedule a technical deep dive?\n\nRegards,\n[Your Name]"
+        ]
+      },
+      "QA": {
+        "automation": [
+          "Losing sleep over release deadlines? Our framework helped [Client] ship 60% faster with 40% fewer bugs\nHi [Name],\nWe combine Selenium/Cypress with AI-assisted maintenance. Free process audit available Thursday?\n\nBest regards,\n[Your Name]",
+          "QA team overwhelmed? We automated 80% of [Client]'s regression tests in 2 weeks\nHi [Name],\nOur managed service costs less than hiring 1 engineer. Can we compare options tomorrow?\n\nKind regards,\n[Your Name]"
+        ],
+        "performance": [
+          "Users complaining about slow load times? We boosted [Client]'s app speed by 3X\nHi [Name],\nOur load testing uncovers real-world bottlenecks. Free benchmark test this week?\n\nWarm regards,\n[Your Name]"
+        ]
+      },
+      "SoftwareDevelopment": {
+        "fullstack": [
+          "Feature delays hurting growth? We delivered [Client]'s MVP 30% ahead of schedule\nHi [Name],\nOur battle-tested MERN/MEAN process prevents technical debt. Free architecture review next Monday?\n\nBest regards,\n[Your Name]",
+          "Legacy system bleeding money? We modernized [Client]'s platform with 50% lower maintenance\nHi [Name],\nLet's discuss your migration path over a quick call?\n\nRegards,\n[Your Name]"
+        ]
+      },
+      "MobileAppDevelopment": {
+        "references": [
+          "App store ratings slipping? We helped [Client] achieve 4.9 stars with 80% crash reduction\nHi [Name],\nOur Flutter/React Native experts fix root causes. Free code audit available?\n\nBest regards,\n[Your Name]",
+          "Struggling with cross-platform? Our single codebase solution cut [Client]'s dev costs by 60%\nHi [Name],\nWould you like our performance optimization playbook?\n\nKind regards,\n[Your Name]"
+        ]
+      },
+      "UI/UX": {
+        "references": [
+          "Low conversion rates? Our redesign boosted [Client]'s signups by 120%\nHi [Name],\nWe combine behavioral analytics with lean UX principles. Free heuristic evaluation next week?\n\nBest regards,\n[Your Name]",
+          "Design-team bottleneck? We delivered [Client]'s complete design system in 2 weeks\nHi [Name],\nOur Figma-to-code handoff saves 40+ engineering hours. Demo slot available tomorrow?\n\nRegards,\n[Your Name]"
+        ]
+      },
+      "DevOps": {
+        "references": [
+          "Deployment nightmares? We reduced [Client]'s release cycles from weeks to hours\nHi [Name],\nOur GitOps approach eliminates 90% of rollbacks. Free pipeline assessment this Friday?\n\nBest regards,\n[Your Name]",
+          "Cloud costs spiraling? We saved [SaaS Client] $250K/year on AWS\nHi [Name],\nLet's audit your infrastructure for hidden savings. Available for a call?\n\nWarm regards,\n[Your Name]"
+        ]
+      },
+      "CloudDevOps": {
+        "references": [
+          "Multi-cloud complexity? We unified [Client]'s AWS/Azure setup with 99.99% uptime\nHi [Name],\nOur Terraform modules deploy production-ready infra in minutes. Technical briefing tomorrow?\n\nBest regards,\n[Your Name]",
+          "Security compliance headaches? We got [Client] audit-ready in half the time\nHi [Name],\nLet's discuss your CIS benchmark gaps over coffee next week?\n\nRegards,\n[Your Name]"
+        ]
+      },
+      "VAPT": {
+        "references": [
+          "Worried about hidden vulnerabilities? We found 50+ critical flaws for [Financial Client]\nHi [Name],\nOur white-hat hackers test like real attackers. Free threat matrix available?\n\nBest regards,\n[Your Name]",
+          "Pentest results overwhelming? Our prioritized remediation plan saved [Client] 200+ hours\nHi [Name],\nCan we discuss your most critical security gaps this Thursday?\n\nKind regards,\n[Your Name]"
+        ]
+      },
+      "Cybersecurity": {
+        "references": [
+          "Breach anxiety keeping you up? We blocked 10K+ attacks/month for [Healthcare Client]\nHi [Name],\nOur 24/7 SOC costs less than 1 in-house analyst. Security consultation next Monday?\n\nBest regards,\n[Your Name]",
+          "Compliance audit looming? We got [Client] ISO27001 certified in record time\nHi [Name],\nLet's review your control framework over a quick call?\n\nRegards,\n[Your Name]"
+        ]
+      },
+      "DataEngineering": {
+        "references": [
+          "Data pipelines failing? We achieved 99.999% uptime for [Client]'s 10TB/day system\nHi [Name],\nOur observability stack catches issues before impact. Pipeline health check available?\n\nBest regards,\n[Your Name]",
+          "Analytics delayed? We cut [Client]'s processing time from hours to minutes\nHi [Name],\nShall we architect your modern data stack together? Free consultation slot tomorrow.\n\nWarm regards,\n[Your Name]"
+        ]
+      }
+    },
+    "products": {
+      "Recruitinn": [
+        "Hiring the wrong candidates? Our AI screening reduced [Client]'s bad hires by 75%\nHi [Name],\nRecruitinn integrates with your ATS and learns from past decisions. Demo slot available Wednesday?\n\nBest regards,\n[Your Name]",
+        "Ghosted by top talent? Our engagement automation achieved 85% interview show-up rates\nHi [Name],\nLet me show you our candidate nurturing workflows. 15-minute call this week?\n\nRegards,\n[Your Name]"
+      ],
+      "SkillBuilder": [
+        "Upskilling not moving the needle? Our personalized paths drove 90% course completion\nHi [Name],\nSkillBuilder's AI coach adapts to each learner's pace. Case study walkthrough tomorrow?\n\nBest regards,\n[Your Name]",
+        "Remote team skills gaps? We reduced [Client]'s onboarding time by 40%\nHi [Name],\nLet's discuss competency mapping for your org. Available for a quick call?\n\nKind regards,\n[Your Name]"
+      ],
+      "CoVental": [
+        "Freelancer vetting taking weeks? Our AI+human process delivers talent in 72 hours\nHi [Name],\nCo-Vental's candidates have 95% technical accuracy. Immediate needs to discuss?\n\nBest regards,\n[Your Name]",
+        "Need niche skills fast? Our network includes 5000+ pre-vetted specialists\nHi [Name],\nLet me share available [Role] profiles today. Would 3 PM work for a quick chat?\n\nWarm regards,\n[Your Name]"
+      ]
+    },
+     "prompt": "Generate a 4-6 sentence LinkedIn outreach message by analyzing the job description deeply. Follow these NON-NEGOTIABLE rules:\n\n1. OPENING: Must always begin under any circumstances,  with 'Hi [First Name]' or 'Hey [First Name]' on a new line\n2. CONTENT: Create entirely original content based on the job's:\n   - Key pain points\n   - Required skills/technologies\n   - Industry context\n3. STRUCTURE:\n   - Sentence 1: Problem statement derived from JD\n   - Sentence 2: Value proposition tailored to JD\n   - Sentence 3: Quantifiable result (invent plausible %/$/time metric if needed)\n   - Sentence 4: Natural call-to-action\n4. CLOSING: Must end with 'Best regards,' 'Kind regards,' or 'Warm regards,' followed by '[Your Name]'\n\nGUIDELINES:\n- NEVER copy reference templates verbatim\n- Metrics should feel authentic to the job context\n- Maintain professional but conversational tone\n- Prioritize JD keywords over generic phrases\n\nOUTPUT FORMAT:\n[Problem insight from JD]\nHi [First Name],\n[Custom value prop + JD-specific solution]\n[Plausible metric demonstrating impact]\n[Natural next step invitation].\n\n[Professional closing]"
+    }
+  }
+]
+
+
+ 
