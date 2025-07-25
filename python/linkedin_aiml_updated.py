@@ -17,13 +17,13 @@ import string
 import os
 from datetime import datetime, timezone
 from rag_remark_generator import generate_ai_remark
-
+from proposal_generator import generate_linkedin_proposal
 
 # from IPython.print import print
 # file_path = r'C:\Users\Dell\Desktop\linkedin-scrape-data\data\apify_jobs_raw.json'  # <-- "r" handles backslashes'  # Use relative path for Node.js compatibility
 
 base_dir = os.path.dirname(__file__)
-file_path = os.path.join(base_dir, '..', 'data', 'apify_jobs_raw.json')
+file_path = os.path.join(base_dir, '..', 'data', 'filtered.json')
 
 #Load JSON data
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -670,3 +670,20 @@ with open("data/scored_jobs_output.json", "w", encoding="utf-8") as f:
 
 print("Final output with AI remarks saved to 'scored_jobs_output.json'")
 
+
+# Sample job coming from your LinkedIn scrape
+job = {
+    "title": "Pharmacist - AI Trainer",
+    "descriptionText": "Job Type: Part-time\nLocation: Remote\nJob Summary:Join our customer’s team as a Pharmacist - AI Trainer and play a pivotal role in shaping the accuracy and reliability of AI-powered medical platforms. Leverage your clinical expertise to review, train, and enhance artificial intelligence in delivering high-quality, medically-sound information for healthcare providers and patients.\nKey Responsibilities:Analyze and review AI-generated content related to prescriptions, drug interactions, and patient education for medical accuracy and clarity.Offer expert feedback to optimize AI responses aligned with current pharmaceutical standards and patient safety protocols.Collaborate with interdisciplinary teams to design training sets based on real-world pharmacy scenarios and best practices.Advise on medication selection, proper dosage, contraindications, and emerging pharmaceutical therapies to ensure comprehensive AI solutions.Contribute to continuous improvement by identifying gaps in AI knowledge and suggesting targeted educational content.Ensure all AI outputs adhere strictly to regulatory, ethical, and privacy guidelines in pharmacy practice.Communicate complex pharmacy concepts clearly through both written reports and virtual team discussions.\nRequired Skills and Qualifications:Active pharmacist license in good standing with substantial experience in drug dispensing and patient counseling.Thorough understanding of drug interactions, contraindications, side effects, and evidence-based medication use.Demonstrated excellence in both written and verbal communication, with a strong attention to detail.Experience advising physicians and collaborating with multidisciplinary medical teams.Keen interest in medical technology, clinical decision support, and AI solutions in healthcare.High standards for accuracy, ethics, and patient safety in all professional undertakings.Self-motivated, reliable, and comfortable working independently in a remote, part-time setting.\nPreferred Qualifications:Prior experience in AI training, healthcare informatics, or pharmacy-related software development.Advanced degree or certifications in clinical pharmacy, informatics, or a related field.Familiarity with regulatory requirements governing digital health and data privacy."
+}
+
+# Example category from frontend dropdown
+selected_category = "AI/ML"
+is_product = False  # True if user selected Recruitinn, SkillBuilder, etc.
+
+# Generate the proposal
+linkedin_pitch = generate_linkedin_proposal(job, selected_category, is_product)
+
+# Output to terminal / frontend
+print("\n--- LinkedIn Pitch Draft ---\n")
+print(linkedin_pitch)

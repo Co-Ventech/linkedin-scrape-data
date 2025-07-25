@@ -37,15 +37,19 @@ df = pd.json_normalize(jobs)
 def score_budget_attractiveness(row):
     min_rate = row.get("minHourlyRate")
     if min_rate is None:
-        return 0.3  # Fallback to red
-    if min_rate >= 40:
+        return 0.5  
+    if min_rate >= 30:
         return 1.0
-    elif 30 <= min_rate < 40:
+    elif 20 <= min_rate < 29:
         return 0.8
-    elif 20 <= min_rate < 30:
+    elif 15 <= min_rate < 19:
         return 0.6
-    else:
+    elif 10 <= min_rate < 14:
+        return 0.4
+    elif 8 <= min_rate < 10:
         return 0.3
+    else:
+        return 0.0
 
 def score_avg_hourly_rate(row):
     avg_rate = row.get("buyerAvgHourlyRate")
