@@ -4,7 +4,6 @@ import pandas as pd
 import re
 from datetime import datetime
 from rag_remark_generator import generate_ai_remark
-from proposal_generator import generate_upwork_proposal
 
 
 # === Setup path to load the Upwork job JSON file ===
@@ -397,6 +396,7 @@ for idx, job in enumerate(jobs):
         enriched[kpi] = df.loc[idx, kpi]
     enriched["final_weighted_score"] = df.loc[idx, "final_weighted_score"]
     enriched["tier"] = df.loc[idx, "tier"]
+    enriched["proposal"] = ""
     enriched_jobs.append(enriched)
 
 # --- AI REMARK GENERATION ---
@@ -410,21 +410,7 @@ output_path = os.path.join(base_dir, "..", "data", "final_jobs_upwork.json")
 with open(output_path, 'w', encoding='utf-8') as f: 
     json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
-# print(f"\nFinal output written to: {output_path}")
+print(f"\nFinal output written to: {output_path}")
 
 
 
-# # Let's assume we're triggering this from the front-end or logic
-# job = {
-#     "title": "Build a High-Converting Shopify Site for a Premium Coffee Subscription Brand",
-#     "descriptionText": "We’re launching Longshot — a next-gen coffee brand built for people who want wellness and performance without the “supplement” vibe.\n\nIt’s a lifestyle subscription brand, and the website needs to reflect that — clean, premium, bold, and conversion-focused.\n\n⸻\n\n✅ What We Need:\n\t1.\tShopify Website Setup\n\t•\tHome page, Product page (with subscription), FAQ, About, Contact\n\t•\tFast, responsive, mobile-optimised\n\t•\tLight customisation of a Shopify theme (we can purchase one if needed)\n\n\t2.\tRecharge Subscription Integration\n\t•\tMonthly subscription with ability to manage customer accounts\n\t•\tSeamless checkout and subscriber flow\n\n\t3.\tConversion-Driven Layout\n\t•\tIncorporate UGC, reviews, icons, benefits\n\t•\tSticky CTA buttons, simple nav, mobile-first layout\n\t•\tTrust-building elements (badges, customer promises)\n\n\t4.\tFigma Designs First\n\t•\tWe want clear wireframes and Figma mockups before development begins\n\t•\tEnsure brand identity and tone are locked in\n\n⸻\n\n📦 We’ll Provide:\n\t•\tBrand colours\n\t•\tCopy for each section (or we’ll collaborate)\n\t•\tInspiration websites."
-# }
-
-# # Real-time selected category (e.g., from dropdown)
-# selected_category = "Software Development"
-
-# # Generate draft
-# draft = generate_upwork_proposal(job, selected_category)
-
-# # Output the draft (or pass to frontend)
-# print(draft)

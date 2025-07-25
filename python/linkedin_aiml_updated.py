@@ -11,12 +11,12 @@ Original file is located at
 import math
 import json
 import pandas as pd
+import numpy as np
 import re
 import string
 import os
 from datetime import datetime, timezone
 from rag_remark_generator import generate_ai_remark
-from proposal_generator import generate_linkedin_proposal
 
 # from IPython.print import print
 # file_path = r'C:\Users\Dell\Desktop\linkedin-scrape-data\data\apify_jobs_raw.json'  # <-- "r" handles backslashes'  # Use relative path for Node.js compatibility
@@ -652,6 +652,8 @@ df['tier'] = df['final_score'].apply(assign_tier)
 # print final results
 print(df[['title', 'final_score', 'tier'] + kpi_columns].head(100))
 
+# --- Final Processing ---
+
 # Replace NaN/NaT with None (so JSON will use null)
 df = df.where(pd.notnull(df), None)
 
@@ -668,38 +670,24 @@ def clean_nans(obj):
     else:
         return obj
 
+# Clean NaN values and add empty proposal field
+enriched_jobs = []
 for job in job_list:
-    for k, v in job.items():
-        if isinstance(v, float) and np.isnan(v):
-            job[k] = None
+    # Clean NaN values
+    cleaned_job = clean_nans(job)
+    # Add empty proposal field
+    cleaned_job["proposal"] = ""
+    enriched_jobs.append(cleaned_job)
 
-# After you create job_list:
-job_list = [clean_nans(job) for job in job_list]
-# --- Generate AI Remarks ---
-print(">> Generating AI Remarks using RAG...")
-updated_jobs = generate_ai_remark(job_list)
+# --- AI REMARK GENERATION ---
+print("\n>> Generating AI Remarks using RAG...")
+enriched_jobs = generate_ai_remark(enriched_jobs)
 print(">> AI Remarks generation completed.")
 
-# Save final output
-with open("data/scored_jobs_output.json", "w", encoding="utf-8") as f:
-    json.dump(updated_jobs, f, ensure_ascii=False, indent=2)
+# Save to final output file
+output_path = os.path.join(base_dir, "..", "data", "scored_linkedin_jobs.json")
 
-print("Final output with AI remarks saved to 'scored_jobs_output.json'")
+with open(output_path, 'w', encoding='utf-8') as f: 
+    json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
-
-# Sample job coming from your LinkedIn scrape
-job = {
-    "title": "Pharmacist - AI Trainer",
-    "descriptionText": "Job Type: Part-time\nLocation: Remote\nJob Summary:Join our customer’s team as a Pharmacist - AI Trainer and play a pivotal role in shaping the accuracy and reliability of AI-powered medical platforms. Leverage your clinical expertise to review, train, and enhance artificial intelligence in delivering high-quality, medically-sound information for healthcare providers and patients.\nKey Responsibilities:Analyze and review AI-generated content related to prescriptions, drug interactions, and patient education for medical accuracy and clarity.Offer expert feedback to optimize AI responses aligned with current pharmaceutical standards and patient safety protocols.Collaborate with interdisciplinary teams to design training sets based on real-world pharmacy scenarios and best practices.Advise on medication selection, proper dosage, contraindications, and emerging pharmaceutical therapies to ensure comprehensive AI solutions.Contribute to continuous improvement by identifying gaps in AI knowledge and suggesting targeted educational content.Ensure all AI outputs adhere strictly to regulatory, ethical, and privacy guidelines in pharmacy practice.Communicate complex pharmacy concepts clearly through both written reports and virtual team discussions.\nRequired Skills and Qualifications:Active pharmacist license in good standing with substantial experience in drug dispensing and patient counseling.Thorough understanding of drug interactions, contraindications, side effects, and evidence-based medication use.Demonstrated excellence in both written and verbal communication, with a strong attention to detail.Experience advising physicians and collaborating with multidisciplinary medical teams.Keen interest in medical technology, clinical decision support, and AI solutions in healthcare.High standards for accuracy, ethics, and patient safety in all professional undertakings.Self-motivated, reliable, and comfortable working independently in a remote, part-time setting.\nPreferred Qualifications:Prior experience in AI training, healthcare informatics, or pharmacy-related software development.Advanced degree or certifications in clinical pharmacy, informatics, or a related field.Familiarity with regulatory requirements governing digital health and data privacy."
-}
-
-# Example category from frontend dropdown
-selected_category = "AI/ML"
-is_product = False  # True if user selected Recruitinn, SkillBuilder, etc.
-
-# Generate the proposal
-linkedin_pitch = generate_linkedin_proposal(job, selected_category, is_product)
-
-# Output to terminal / frontend
-print("\n--- LinkedIn Pitch Draft ---\n")
-print(linkedin_pitch)
+print(f"\nFinal output written to: {output_path}")
