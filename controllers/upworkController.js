@@ -1,7 +1,11 @@
 
 const fs = require('fs');
 const path = require('path');
+// const { PythonShell } = require('python-shell');
+const UpworkUserJobBatch = require('../models/upworkJobBatch');
+
 // const { fetchUpworkJobs } = require('../services/upworkService');
+
 const { fetchUpworkJobs, filterAndDeduplicateUpworkJobs } = require('../services/upworkService');
 
 // const UpworkJob = require('../models/upworkJobSchema');
@@ -84,7 +88,6 @@ const { fetchUpworkJobs, filterAndDeduplicateUpworkJobs } = require('../services
 // controllers/upworkJobBatchController.js
 // const fs = require('fs');
 // const path = require('path');
-const UpworkUserJobBatch = require('../models/upworkJobBatch');
 
 exports.saveUpworkJobsBatchFromFile = async (req, res) => {
   try {
@@ -524,6 +527,180 @@ exports.getJobById = async (req, res) => {
       }
     }
     return res.status(404).json({ message: 'Job not found for user.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+
+// exports.generateProposalForJob = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+//     const { jobId } = req.params;
+//     const { selectedCategory } = req.body; // <-- get from frontend
+
+//     // Find the latest batch with the job
+//     const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+//     if (!userJobBatch || !userJobBatch.batches.length) {
+//       return res.status(404).json({ message: 'No job batches found for user.' });
+//     }
+//     let jobToUpdate = null;
+//     for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+//       const batch = userJobBatch.batches[i];
+//       const job = batch.jobs.find(j => j.jobId === jobId);
+//       if (job) {
+//         jobToUpdate = job;
+//         break;
+//       }
+//     }
+//     if (!jobToUpdate) {
+//       return res.status(404).json({ message: 'Job not found for user.' });
+//     }
+
+//     // Call Python script to generate proposal
+//     const jobData = JSON.stringify(jobToUpdate);
+//     const options = {
+//       mode: 'json',
+//       pythonOptions: ['-u'],
+//       scriptPath: './python',
+//       args: [
+//         '--type', 'upwork',
+//         '--job', jobData,
+//         '--category', selectedCategory
+//       ]
+//     };
+
+//     PythonShell.run('proposal_generator.py', options, async (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ message: 'Proposal generation failed.' });
+//       }
+//       const proposal = results && results[0] && results[0].proposal;
+//       if (!proposal) {
+//         return res.status(500).json({ message: 'No proposal generated.' });
+//       }
+//       jobToUpdate.proposal = proposal;
+//       await userJobBatch.save();
+//       res.json({ proposal, job: jobToUpdate });
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server error.' });
+//   }
+// };
+
+const { spawn } = require('child_process');
+// const path = require('path');
+// const UpworkUserJobBatch = require('../models/upworkJobBatch'); // Adjust path if needed
+
+exports.generateProposalForJob = async (req, res) => {
+  try {
+    console.log('--- Upwork Proposal Generation Started ---');
+    const userId = req.user._id;
+    const { jobId } = req.params;
+    const { selectedCategory } = req.body;
+    console.log('User:', userId, 'Job ID:', jobId, 'Category:', selectedCategory);
+
+    // Find the latest batch with the job
+    console.log('Finding user job batch...');
+    const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+    if (!userJobBatch || !userJobBatch.batches.length) {
+      console.log('No job batches found for user.');
+      return res.status(404).json({ message: 'No job batches found for user.' });
+    }
+    let jobToUpdate = null;
+    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+      const batch = userJobBatch.batches[i];
+      const job = batch.jobs.find(j => j.jobId === jobId);
+      if (job) {
+        jobToUpdate = job;
+        break;
+      }
+    }
+    if (!jobToUpdate) {
+      console.log('Job not found for user.');
+      return res.status(404).json({ message: 'Job not found for user.' });
+    }
+    console.log('Job found:', jobToUpdate.title);
+
+    // Prepare arguments for Python script
+    const jobData = JSON.stringify(jobToUpdate);
+    const scriptPath = path.join(__dirname, '../python/proposal_generator.py');
+    const args = [
+      scriptPath,
+      '--type', 'upwork',
+      '--job', jobData,
+      '--category', selectedCategory
+    ];
+
+    console.log('Spawning Python process...');
+    const py = spawn('python', args);
+
+    let stdout = '';
+    let stderr = '';
+
+    py.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log('PYTHON STDOUT:', data.toString());
+    });
+
+    py.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error('PYTHON STDERR:', data.toString());
+    });
+
+    py.on('close', async (code) => {
+      if (code === 0) {
+        try {
+          const result = JSON.parse(stdout);
+          const proposal = result.proposal;
+          jobToUpdate.proposal = proposal;
+          await userJobBatch.save();
+          console.log('Proposal saved to DB.');
+          res.json({ proposal, job: jobToUpdate });
+        } catch (err) {
+          console.error('Error parsing Python output:', err);
+          res.status(500).json({ message: 'Error parsing proposal output.' });
+        }
+      } else {
+        console.error('Python script exited with code', code, stderr);
+        res.status(500).json({ message: 'Proposal generation failed.', error: stderr });
+      }
+    });
+  } catch (err) {
+    console.error('Server error:', err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+exports.updateProposalText = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { jobId } = req.params;
+    const { proposal } = req.body;
+    if (typeof proposal !== 'string') {
+      return res.status(400).json({ message: 'Proposal text is required.' });
+    }
+    const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+    if (!userJobBatch || !userJobBatch.batches.length) {
+      return res.status(404).json({ message: 'No job batches found for user.' });
+    }
+    let jobToUpdate = null;
+    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+      const batch = userJobBatch.batches[i];
+      const job = batch.jobs.find(j => j.jobId === jobId);
+      if (job) {
+        jobToUpdate = job;
+        break;
+      }
+    }
+    if (!jobToUpdate) {
+      return res.status(404).json({ message: 'Job not found for user.' });
+    }
+    jobToUpdate.proposal = proposal;
+    await userJobBatch.save();
+    res.json({ proposal, job: jobToUpdate });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error.' });

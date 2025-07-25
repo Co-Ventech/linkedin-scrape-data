@@ -39,5 +39,9 @@ router.get('/apify/job', authMiddleware, apifyController.getJobById);
 
 // ... existing code ...
 // ...existing code...
+router.post('/jobs/:jobId/generate-proposal', authMiddleware, apifyController.generateProposalForJob);
+
+router.patch('/jobs/:jobId/proposal', authMiddleware, apifyController.updateProposalText);
+
 
 module.exports = router;

@@ -26,6 +26,10 @@ router.patch('/upwork/job/:jobId',authMiddleware, upworkController.editJobById);
 // Get a specific upwork job by id for the authenticated user
 router.get('/upwork/job', authMiddleware, upworkController.getJobById);
 
+
+router.post('/upwork/job/:jobId/generate-proposal', authMiddleware, upworkController.generateProposalForJob);
 // ... existing code ...
+router.patch('/upwork/job/:jobId/proposal', authMiddleware, upworkController.updateProposalText);
+
 
 module.exports = router;
