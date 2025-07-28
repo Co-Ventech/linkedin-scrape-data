@@ -129,7 +129,7 @@ exports.uploadScoredJobsFromFile = async (req, res) => {
 exports.getJobsByDate = async (req, res) => {
   try {
     const userId = req.user._id;
-    let { date, startDate, endDate } = req.query;
+    let { date, start, end } = req.query; // Changed from startDate, endDate to start, end
 
     const userJobBatch = await UserJobBatch.findOne({ userId });
 
@@ -138,7 +138,7 @@ exports.getJobsByDate = async (req, res) => {
     }
 
     // No params: return latest batch
-    if (!date && !startDate && !endDate) {
+    if (!date && !start && !end) {
       const latestBatch = userJobBatch.batches.reduce((latest, current) =>
         !latest || new Date(current.timestamp) > new Date(latest.timestamp) ? current : latest, null
       );
@@ -150,15 +150,15 @@ exports.getJobsByDate = async (req, res) => {
 
     // If only date is provided, treat as both start and end
     if (date) {
-      startDate = endDate = date;
+      start = end = date;
     }
-    // If only one of startDate/endDate is provided, use it for both
-    if (startDate && !endDate) endDate = startDate;
-    if (endDate && !startDate) startDate = endDate;
+    // If only one of start/end is provided, use it for both
+    if (start && !end) end = start;
+    if (end && !start) start = end;
 
     // Get all batches within the date range (inclusive)
     const batchesInRange = userJobBatch.batches.filter(b =>
-      b.date >= startDate && b.date <= endDate
+      b.date >= start && b.date <= end
     );
 
     if (!batchesInRange.length) {
@@ -168,7 +168,7 @@ exports.getJobsByDate = async (req, res) => {
     // Merge all jobs from all batches in the range
     const jobs = batchesInRange.flatMap(b => b.jobs);
 
-    return res.json({ startDate, endDate, jobs });
+    res.json({ date: `${start} to ${end}`, jobs });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error.' });
@@ -314,10 +314,10 @@ exports.updateJobStatusAndComment = async (req, res) => {
     const userId = req.user._id;
     const { jobId } = req.params;
     // const { status, comment } = req.body;
-    const { status, comment, username, ae_comment } = req.body;
+    const { status, comment, username, ae_comment, ae_score, ae_pitched, estimated_budget } = req.body;
 
-    if (!status && !comment && ae_comment === undefined) {
-      return res.status(400).json({ message: 'At least one of status, comment, or ae_comment is required.' });
+    if (!status && !comment && ae_comment === undefined && ae_score === undefined && ae_pitched === undefined && estimated_budget === undefined) {
+      return res.status(400).json({ message: 'At least one of status, comment, ae_comment, or ae_score is required.' });
     }
 
     // Find the user's job batches
@@ -376,6 +376,28 @@ exports.updateJobStatusAndComment = async (req, res) => {
     if (ae_comment !== undefined) {
       jobToUpdate.ae_comment = ae_comment;
     }
+
+    
+    // --- AE Score with username ---
+    if (ae_score !== undefined && username) {
+      if (!Array.isArray(jobToUpdate.ae_score)) jobToUpdate.ae_score = [];
+      jobToUpdate.ae_score.push({
+        value: ae_score,
+        username,
+        date: new Date()
+      });
+    }
+    
+    // --- AE Pitched ---
+    if (ae_pitched !== undefined) {
+      jobToUpdate.ae_pitched = ae_pitched;
+    }
+
+    // --- Estimated Budget ---
+    if (estimated_budget !== undefined) {
+      jobToUpdate.estimated_budget = estimated_budget;
+    }
+
     // Save the updated userJobBatch
     await userJobBatch.save();
     return res.json({ message: 'Job updated successfully.' });

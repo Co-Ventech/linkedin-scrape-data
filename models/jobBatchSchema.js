@@ -107,7 +107,18 @@ ae_comment: {
   kpi_skills_explicitness: mongoose.Schema.Types.Mixed,
   kpi_experience_threshold: mongoose.Schema.Types.Mixed,
   proposal: { type: String, default: "" },
-  ae_score: { type: Number, default: 0 },
+  ae_score: {
+    type: [
+      {
+        value: Number,
+        username: String,
+        date: { type: Date, default: Date.now }
+      }
+    ],
+    default: []
+  },
+  ae_pitched: String,
+  estimated_budget: Number,
   // AI Prediction for domain and remarks by AI
   predicted_domain: String,
   ai_remark: String,

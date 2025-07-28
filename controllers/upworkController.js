@@ -367,10 +367,10 @@ exports.editJobById = async (req, res) => {
   try {
     const userId = req.user._id;
     const { jobId } = req.params;
-    const { status, comment, username, ae_comment } = req.body;
+    const { status, comment, username, ae_comment, ae_score, ae_pitched, estimated_budget } = req.body;
 
-    if (!status && !comment && ae_comment === undefined) {
-      return res.status(400).json({ message: 'At least one of status, comment, or ae_comment is required.' });
+    if (!status && !comment && ae_comment === undefined && ae_score === undefined && ae_pitched === undefined && estimated_budget === undefined) {
+      return res.status(400).json({ message: 'At least one field is required.' });
     }
 
     // Find the user's job batches
@@ -426,6 +426,27 @@ exports.editJobById = async (req, res) => {
       jobToUpdate.ae_comment = ae_comment;
     }
 
+
+    // --- AE Score with username ---
+    if (ae_score !== undefined && username) {
+      if (!Array.isArray(jobToUpdate.ae_score)) jobToUpdate.ae_score = [];
+      jobToUpdate.ae_score.push({
+        value: ae_score,
+        username,
+        date: new Date()
+      });
+    }
+
+    // --- AE Pitched ---
+    if (ae_pitched !== undefined) {
+      jobToUpdate.ae_pitched = ae_pitched;
+    }
+
+    // --- Estimated Budget ---
+    if (estimated_budget !== undefined) {
+      jobToUpdate.estimated_budget = estimated_budget;
+    }
+
     // Save the updated userJobBatch
     await userJobBatch.save();
     return res.json({ message: 'Upwork job updated successfully.' });
@@ -436,20 +457,68 @@ exports.editJobById = async (req, res) => {
 };
 
 
+// exports.fetchAndSaveJobs = async (req, res) => {
+//     try {
+//         const input = req.body; // Accepts JSON input from POST
+//         const { items, count } = await fetchUpworkJobs(input);
+//         res.json({
+//             message: 'Upwork jobs fetched and saved to JSON file',
+//             count,
+//         });
+//     } catch (error) {
+//         res.status(500).json({ message: 'Error fetching or saving jobs', error: error.message });
+//     }
+// };
+// Change this function:
 exports.fetchAndSaveJobs = async (req, res) => {
-    try {
-        const input = req.body; // Accepts JSON input from POST
-        const { items, count } = await fetchUpworkJobs(input);
-        res.json({
-            message: 'Upwork jobs fetched and saved to JSON file',
-            count,
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching or saving jobs', error: error.message });
-    }
+  try {
+      // For GET request, use query parameters instead of body
+      const queryInput = req.query;
+      
+      // Use default input if no query params
+      const input = (!queryInput || Object.keys(queryInput).length === 0) ? {
+          age: 24,
+          category: [
+              "qa-testing",
+              "ai-machine-learning",
+              "web-development",
+              "mobile-development",
+              "other-software-development",
+              "desktop-application-development",
+              "ecommerce-development",
+              "web-mobile-software-dev"
+          ],
+          contract_to_hire: false,
+          dev_dataset_clear: true,
+          dev_no_strip: false,
+          fixed: true,
+          hourly: true,
+          "includes.attachments": false,
+          "includes.history": false,
+          limit: 100,
+          location: [
+              "United States",
+              "United Kingdom",
+              "Saudia Arabia",
+              "United Arab Emirates",
+              "Europe"
+          ],
+          no_hires: false,
+          payment_verified: false,
+          previous_clients: false,
+          sort: "newest",
+          tier: ["2", "3", "1"]
+      } : queryInput;
+      
+      const { items, count } = await fetchUpworkJobs(input);
+      res.json({
+          message: 'Upwork jobs fetched and saved to JSON file',
+          count,
+      });
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching or saving jobs', error: error.message });
+  }
 };
-
-
 
 // ... existing exports ...
 

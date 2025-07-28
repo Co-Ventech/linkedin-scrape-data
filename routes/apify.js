@@ -6,42 +6,42 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 
 // Fetch jobs from Apify and save as raw JSON
-router.get('/apify', apifyController.fetchAndSaveJobs);
+router.get('/linkedin', apifyController.fetchAndSaveJobs);
 
-router.get('/apify/filtered', apifyController.getFilteredJobs);
+router.get('/linkedin/filtered', apifyController.getFilteredJobs);
 
 // Run AIML processing and return result
-router.get('/apify/score', apifyController.scoreJobs);
+router.get('/linkedin/score', apifyController.scoreJobs);
 
 // Get scored jobs as JSON
-router.get('/apify/scored', apifyController.getScoredJobs);
+router.get('/linkedin/scored', apifyController.getScoredJobs);
 
 // Return filtered jobs with only selected fields
 
 // save jobs to mongodb
-router.post('/save-jobs', authMiddleware, apifyController.uploadScoredJobsFromFile);
+router.post('/linkedin/save-jobs', authMiddleware, apifyController.uploadScoredJobsFromFile);
 
 //get data from mongodb
-router.get('/jobs-by-date', authMiddleware, apifyController.getJobsByDate);
+router.get('/linkedin/jobs-by-date', authMiddleware, apifyController.getJobsByDate);
 
 // Update job status and comments in a user's batch
-router.patch('/jobs/:jobId', authMiddleware, apifyController.updateJobStatusAndComment);
+router.patch('/linkedin/job/:jobId', authMiddleware, apifyController.updateJobStatusAndComment);
 
 // ...existing code...
 
 // Export jobs-by-date data to Excel
-router.get('/jobs-by-date/excel', authMiddleware, apifyController.exportJobsByDateToExcel);
+router.get('/linkedin/jobs-by-date/excel', authMiddleware, apifyController.exportJobsByDateToExcel);
 
 // ... existing code ...
 
 // Get a specific job by id for the authenticated user
-router.get('/apify/job', authMiddleware, apifyController.getJobById);
+router.get('/linkedin/job', authMiddleware, apifyController.getJobById);
 
 // ... existing code ...
 // ...existing code...
-router.post('/jobs/:jobId/generate-proposal', authMiddleware, apifyController.generateProposalForJob);
+router.post('/linkedin/job/:jobId/generate-proposal', authMiddleware, apifyController.generateProposalForJob);
 
-router.patch('/jobs/:jobId/proposal', authMiddleware, apifyController.updateProposalText);
+router.patch('/linkedin/job/:jobId/proposal', authMiddleware, apifyController.updateProposalText);
 
 
 module.exports = router;

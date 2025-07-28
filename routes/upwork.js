@@ -4,7 +4,7 @@ const upworkController = require('../controllers/upworkController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 // POST /api/upwork/fetch
-router.post('/upwork', upworkController.fetchAndSaveJobs);
+router.get('/upwork', upworkController.fetchAndSaveJobs);
 
 // GET /api/upwork/filter
 router.get('/upwork/filtered', upworkController.filterUpworkJobs);

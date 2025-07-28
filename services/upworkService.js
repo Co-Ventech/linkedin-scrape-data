@@ -36,7 +36,7 @@ const defaultInput = {
     tier: ["2", "3", "1"]
 };
 
-exports.fetchUpworkJobs = async (input = defaultInput) => {
+exports.fetchUpworkJobs = async (input) => {
     const APIFY_TOKEN = process.env.APIFY_API_TOKEN;
     const url = `https://api.apify.com/v2/acts/jupri~upwork/run-sync-get-dataset-items?token=${APIFY_TOKEN}`;
 

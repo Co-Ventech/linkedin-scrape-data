@@ -1,69 +1,4 @@
-// const mongoose = require('mongoose');
 
-// const UpworkJobSchema = new mongoose.Schema({
-//   jobId: { type: String, required: true, unique: true },
-//   title: String,
-//   description: String,
-//   isContractToHire: Boolean,
-//   isPaymentMethodVerified: Boolean,
-//   level: String,
-//   contractorTier: String,
-//   companyId: String,
-//   companyIndustry: String,
-//   companyContractDate: Date,
-//   buyerScore: Number,
-//   buyerTotalAssignments: Number,
-//   buyerTotalJobsWithHires: Number,
-//   buyerActiveAssignmentsCount: Number,
-//   buyerFeedbackCount: Number,
-//   buyerOpenJobsCount: Number,
-//   buyerPostedJobsCount: Number,
-//   buyerAvgHourlyRate: Number,
-//   minHourlyRate: Number,
-//   maxHourlyRate: Number,
-//   hourlyType: String,
-//   hourlyWeeks: Number,
-//   tags: [String],
-//   skills: [String],
-//   minHoursWeek: Number,
-//   lastBuyerActivity: String,
-
-//   // Additional fields
-//   city: String,
-//   country: String,
-//   countryTimezone: String,
-//   utcOffsetMillis: Number,
-//   companyName: String,
-//   companySize: Number,
-//   companyIsEDCReplicated: Boolean,
-//   clientTotalHours: Number,
-//   clientTotalSpend: Number,
-//   clientRisingTalent: Boolean,
-//   category: String,
-//   categoryGroup: String,
-//   occupation: String,
-//   jobType: String,
-//   fixedBudget: Number,
-//   fixedDurationLabel: String,
-//   numberOfPositionsToHire: Number,
-//   premium: Boolean,
-//   openJobs: [mongoose.Schema.Types.Mixed], // Array of objects
-//   questions: [String],
-//   status: String,
-//   url: String,
-//   qualificationsCountries: [String],
-//   qualificationsLanguages: [String],
-//   qualificationsMinJobSuccessScore: Number,
-//   qualificationsRisingTalent: Boolean,
-//   qualificationsLocationCheckRequired: Boolean,
-//   ts_create: Date,
-//   ts_publish: Date,
-//   ts_sourcing: Date
-// }, { timestamps: true });
-
-// module.exports = mongoose.model('UpworkJob', UpworkJobSchema);
-
-// models/upworkJobBatch.js
 const mongoose = require('mongoose');
 
 const UpworkJobSchema = new mongoose.Schema({
@@ -179,7 +114,18 @@ const UpworkJobSchema = new mongoose.Schema({
   kpi_payment_verification: mongoose.Schema.Types.Mixed,
   kpi_job_level_match: mongoose.Schema.Types.Mixed,
   proposal: { type: String, default: "" },
-  ae_score: { type: Number, default: 0 },
+  ae_score: {
+    type: [
+      {
+        value: Number,
+        username: String,
+        date: { type: Date, default: Date.now }
+      }
+    ],
+    default: []
+  },
+  ae_pitched: String,
+  estimated_budget: Number,
 
   final_weighted_score: mongoose.Schema.Types.Mixed,
   tier: String,
