@@ -13,16 +13,16 @@ function delay(ms) {
 async function runFullPipeline() {
   try {
     console.log('Pipeline started at', new Date().toISOString());
-    await axios.get(`${API_BASE_URL}/api/apify`);
+    await axios.get(`${API_BASE_URL}/api/linkedin`);
     await delay(10000);
 
-    await axios.get(`${API_BASE_URL}/api/apify/filtered`);
+    await axios.get(`${API_BASE_URL}/api/linkedin/filtered`);
     await delay(10000);
 
-    await axios.get(`${API_BASE_URL}/api/apify/score`);
+    await axios.get(`${API_BASE_URL}/api/linkedin/score`);
     await delay(10000);
 
-    await axios.post(`${API_BASE_URL}/api/save-jobs`, {}, {
+    await axios.post(`${API_BASE_URL}/api/linkedin/save-jobs`, {}, {
       headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }
     });
     await delay(10000);
