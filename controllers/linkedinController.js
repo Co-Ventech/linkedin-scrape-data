@@ -873,7 +873,7 @@ exports.updateProposalText = async (req, res) => {
     if (typeof proposal !== 'string') {
       return res.status(400).json({ message: 'Proposal text is required.' });
     }
-    const userJobBatch = await UserLinkedinJobBatch.findOne({ userId });
+    const userJobBatch = await UserJobBatch.findOne({ userId });
     if (!userJobBatch || !userJobBatch.batches.length) {
       return res.status(404).json({ message: 'No job batches found for user.' });
     }
