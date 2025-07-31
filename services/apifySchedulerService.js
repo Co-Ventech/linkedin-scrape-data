@@ -34,12 +34,12 @@ async function runFullPipeline() {
 }
 
 
-// cron.schedule('30 6 * * *', () => {
-//   console.log('Cron job is running at:', new Date());
-//   runFullPipeline();
-// });
-
-cron.schedule('1 12 * * *', () => {
+cron.schedule('30 6 * * *', () => {
   console.log('Cron job is running at:', new Date());
   runFullPipeline();
 });
+
+// cron.schedule('1 12 * * *', () => {
+//   console.log('Cron job is running at:', new Date());
+//   runFullPipeline();
+// });
