@@ -8,4 +8,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 router.get('/linkedin/status-history', authMiddleware, adminController.getLinkedinStatusHistory);
 router.get('/upwork/status-history', authMiddleware, adminController.getUpworkStatusHistory);
 
+// router.post('/cleanup-old-data', authMiddleware, adminController.cleanupOldData);
+
+
 module.exports = router;

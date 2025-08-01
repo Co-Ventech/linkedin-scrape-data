@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const ExcelJS = require('exceljs');
 // const { PythonShell } = require('python-shell');
+const { cleanupOldBatches } = require('../utils/dataCleanup');
 
 const { spawn } = require('child_process');
 // const path = require('path');
@@ -75,6 +76,7 @@ exports.getScoredJobs = (req, res) => {
   }
 };
 
+// ... existing code ...
 
 exports.uploadScoredJobsFromFile = async (req, res) => {
   try {
@@ -113,12 +115,70 @@ exports.uploadScoredJobsFromFile = async (req, res) => {
       await userJobBatch.save();
     }
 
-    return res.status(201).json({ message: 'Jobs batch uploaded from file successfully.' });
+    // Clean up old batches (older than 7 days)
+    const cleanupResult = await cleanupOldBatches(UserJobBatch, 7);
+    
+    if (!cleanupResult.success) {
+      console.warn('Data cleanup failed:', cleanupResult.error);
+    }
+
+    return res.status(201).json({ 
+      message: 'Jobs batch uploaded from file successfully.',
+      cleanupResult: cleanupResult.success ? {
+        batchesRemoved: cleanupResult.totalBatchesRemoved,
+        usersProcessed: cleanupResult.totalUsersProcessed
+      } : null
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error.' });
   }
 };
+
+// ... existing code ...
+// exports.uploadScoredJobsFromFile = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+//     const filePath = path.join(__dirname, '../data/scored_linkedin_jobs.json');
+
+//     // Read and parse the JSON file (which is an array)
+//     const fileContent = fs.readFileSync(filePath, 'utf-8');
+//     const jobs = JSON.parse(fileContent);
+
+//     if (!Array.isArray(jobs) || jobs.length === 0) {
+//       return res.status(400).json({ message: 'Jobs array is empty or invalid in the file.' });
+//     }
+
+//     // Use today's date as the batch date
+//     const date = new Date().toISOString().split('T')[0];
+
+//     // Prepare the new batch
+//     const newBatch = {
+//       date,
+//       jobs,
+//       timestamp: new Date()
+//     };
+
+//     // Find or create UserJobBatch
+//     let userJobBatch = await UserJobBatch.findOne({ userId });
+
+//     if (userJobBatch) {
+//       userJobBatch.batches.push(newBatch);
+//       await userJobBatch.save();
+//     } else {
+//       userJobBatch = new UserJobBatch({
+//         userId,
+//         batches: [newBatch]
+//       });
+//       await userJobBatch.save();
+//     }
+
+//     return res.status(201).json({ message: 'Jobs batch uploaded from file successfully.' });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server error.' });
+//   }
+// };
 
 /**
  * Get jobs for a user by date or date range.

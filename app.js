@@ -16,7 +16,6 @@ app.use(cors());
 app.use(express.json());
 
 
-
 app.use('/api', authRoutes);  // Your existing auth routes
 
 app.use('/api', upworkRoutes);

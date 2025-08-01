@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 // const { PythonShell } = require('python-shell');
 const UpworkUserJobBatch = require('../models/upworkJobBatch');
+const { cleanupOldBatches } = require('../utils/dataCleanup');
 
 // const { fetchUpworkJobs } = require('../services/upworkService');
 
@@ -88,10 +89,11 @@ const { fetchUpworkJobs, filterAndDeduplicateUpworkJobs } = require('../services
 // controllers/upworkJobBatchController.js
 // const fs = require('fs');
 // const path = require('path');
+// ... existing code ...
 
 exports.saveUpworkJobsBatchFromFile = async (req, res) => {
   try {
-    const userId = req.user._id; // Provided by JWT auth middleware
+    const userId = req.user._id;
     const filePath = path.join(__dirname, '../data/final_jobs_upwork.json');
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     let jobs = JSON.parse(fileContent);
@@ -123,16 +125,73 @@ exports.saveUpworkJobsBatchFromFile = async (req, res) => {
       await userJobBatch.save();
     }
 
+    // Clean up old batches (older than 7 days)
+    const cleanupResult = await cleanupOldBatches(UpworkUserJobBatch, 7);
+    
+    if (!cleanupResult.success) {
+      console.warn('Data cleanup failed:', cleanupResult.error);
+    }
+
     res.status(201).json({
       message: 'Jobs batch uploaded from file successfully.',
       userId: userJobBatch.userId,
       batch: newBatch,
-      totalBatches: userJobBatch.batches.length
+      totalBatches: userJobBatch.batches.length,
+      cleanupResult: cleanupResult.success ? {
+        batchesRemoved: cleanupResult.totalBatchesRemoved,
+        usersProcessed: cleanupResult.totalUsersProcessed
+      } : null
     });
   } catch (error) {
     res.status(500).json({ message: 'Error saving jobs batch from file', error: error.message });
   }
 };
+
+// ... existing code ...
+// exports.saveUpworkJobsBatchFromFile = async (req, res) => {
+//   try {
+//     const userId = req.user._id; // Provided by JWT auth middleware
+//     const filePath = path.join(__dirname, '../data/final_jobs_upwork.json');
+//     const fileContent = fs.readFileSync(filePath, 'utf-8');
+//     let jobs = JSON.parse(fileContent);
+
+//     if (!Array.isArray(jobs) || jobs.length === 0) {
+//       return res.status(400).json({ message: 'Jobs array is empty or invalid in the file.' });
+//     }
+
+//     // Prepare batch
+//     const now = new Date();
+//     const date = now.toISOString().split('T')[0];
+//     const newBatch = {
+//       timestamp: now,
+//       date,
+//       jobs
+//     };
+
+//     // Find or create the user's batch document
+//     let userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+
+//     if (userJobBatch) {
+//       userJobBatch.batches.push(newBatch);
+//       await userJobBatch.save();
+//     } else {
+//       userJobBatch = new UpworkUserJobBatch({
+//         userId,
+//         batches: [newBatch]
+//       });
+//       await userJobBatch.save();
+//     }
+
+//     res.status(201).json({
+//       message: 'Jobs batch uploaded from file successfully.',
+//       userId: userJobBatch.userId,
+//       batch: newBatch,
+//       totalBatches: userJobBatch.batches.length
+//     });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error saving jobs batch from file', error: error.message });
+//   }
+// };
 
 // Get jobs by date (ts_create)
 // exports.getJobsByDate = async (req, res) => {

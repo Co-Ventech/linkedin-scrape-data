@@ -1,125 +1,5 @@
-// // controllers/adminController.js
-// // const User = require('../models/userModel'); // adjust path as needed
-// const UserLinkedinJobBatch = require('../models/jobBatchSchema');
-// const UpworkUserJobBatch = require('../models/upworkJobBatch');
+const { cleanupOldBatches } = require('../utils/dataCleanup');
 
-// exports.getLinkedinStatusHistory = async (req, res) => {
-//   try {
-//     let { date, start, end } = req.query;
-
-//     let startDate, endDate;
-
-//     if (date) {
-//       // Single day mode
-//       startDate = new Date(date);
-//       endDate = new Date(date);
-//       endDate.setHours(23, 59, 59, 999);
-//     } else if (start && end) {
-//       // Range mode
-//       startDate = new Date(start);
-//       endDate = new Date(end);
-//       endDate.setHours(23, 59, 59, 999);
-//     } else {
-//       // Default to today
-//       const today = new Date();
-//       startDate = new Date(today.toISOString().split('T')[0]);
-//       endDate = new Date(today.toISOString().split('T')[0]);
-//       endDate.setHours(23, 59, 59, 999);
-//     }
-
-//     const userBatch = await UserLinkedinJobBatch.findOne();
-//     if (!userBatch) {
-//       return res.status(404).json({ message: 'No user batch found' });
-//     }
-
-//     const userStatusCounts = {};
-
-//     for (const batch of userBatch.batches) {
-//       for (const job of batch.jobs) {
-//         for (const entry of job.statusHistory) {
-//           const entryDate = new Date(entry.date);
-//           if (entryDate >= startDate && entryDate <= endDate) {
-//             const username = entry.username || 'Unknown';
-//             const status = entry.status;
-//             if (!userStatusCounts[username]) userStatusCounts[username] = {};
-//             userStatusCounts[username][status] = (userStatusCounts[username][status] || 0) + 1;
-//           }
-//         }
-//       }
-//     }
-
-//     const result = Object.entries(userStatusCounts).map(([username, statuses]) => ({
-//       username,
-//       statuses
-//     }));
-
-//     res.json(result);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
-// exports.getUpworkStatusHistory = async (req, res) => {
-//   try {
-//     let { date, start, end } = req.query;
-
-//     let startDate, endDate;
-
-//     if (date) {
-//       // Single day mode
-//       startDate = new Date(date);
-//       endDate = new Date(date);
-//       endDate.setHours(23, 59, 59, 999);
-//     } else if (start && end) {
-//       // Range mode
-//       startDate = new Date(start);
-//       endDate = new Date(end);
-//       endDate.setHours(23, 59, 59, 999);
-//     } else {
-//       // Default to today
-//       const today = new Date();
-//       startDate = new Date(today.toISOString().split('T')[0]);
-//       endDate = new Date(today.toISOString().split('T')[0]);
-//       endDate.setHours(23, 59, 59, 999);
-//     }
-
-//     const userBatch = await UpworkUserJobBatch.findOne();
-//     if (!userBatch) {
-//       return res.status(404).json({ message: 'No user batch found' });
-//     }
-
-//     const userStatusCounts = {};
-
-//     for (const batch of userBatch.batches) {
-//       for (const job of batch.jobs) {
-//         for (const entry of job.statusHistory) {
-//           const entryDate = new Date(entry.date);
-//           if (entryDate >= startDate && entryDate <= endDate) {
-//             const username = entry.username || 'Unknown';
-//             const status = entry.status;
-//             if (!userStatusCounts[username]) userStatusCounts[username] = {};
-//             userStatusCounts[username][status] = (userStatusCounts[username][status] || 0) + 1;
-//           }
-//         }
-//       }
-//     }
-
-//     const result = Object.entries(userStatusCounts).map(([username, statuses]) => ({
-//       username,
-//       statuses
-//     }));
-
-//     res.json(result);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
-
-// controllers/adminController.js
-// const User = require('../models/userModel'); // adjust path as needed
 const UserLinkedinJobBatch = require('../models/jobBatchSchema');
 const UpworkUserJobBatch = require('../models/upworkJobBatch');
 
@@ -311,3 +191,44 @@ exports.getUpworkStatusHistory = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// ... existing code ...
+
+// ... existing functions ...
+
+// Manual cleanup endpoint
+exports.cleanupOldData = async (req, res) => {
+  try {
+    const { daysOld = 7, platform } = req.body; // platform: 'linkedin', 'upwork', or 'all'
+    
+    if (!platform || !['linkedin', 'upwork', 'all'].includes(platform)) {
+      return res.status(400).json({ 
+        message: 'Platform parameter is required. Must be "linkedin", "upwork", or "all"' 
+      });
+    }
+    
+    let results = {};
+    
+    if (platform === 'linkedin' || platform === 'all') {
+      console.log('Starting LinkedIn data cleanup...');
+      results.linkedin = await cleanupOldBatches(UserLinkedinJobBatch, daysOld);
+    }
+    
+    if (platform === 'upwork' || platform === 'all') {
+      console.log('Starting Upwork data cleanup...');
+      results.upwork = await cleanupOldBatches(UpworkUserJobBatch, daysOld);
+    }
+    
+    res.json({
+      message: 'Data cleanup completed',
+      daysOld,
+      platform,
+      results
+    });
+  } catch (error) {
+    console.error('Error during cleanup:', error);
+    res.status(500).json({ message: 'Error during cleanup', error: error.message });
+  }
+};
+
+// ... existing code ...
