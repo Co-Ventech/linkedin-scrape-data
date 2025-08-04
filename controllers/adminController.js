@@ -196,6 +196,435 @@ exports.getUpworkStatusHistory = async (req, res) => {
 
 // ... existing functions ...
 
+// ... existing code ...
+
+// Combined status history for both LinkedIn and Upwork
+// ... existing code ...
+
+// Combined status history for both LinkedIn and Upwork
+// exports.getCombinedStatusHistory = async (req, res) => {
+//   try {
+//     let { date, start, end } = req.query;
+
+//     let startDate, endDate;
+
+//     if (date) {
+//       // Single day mode
+//       startDate = new Date(date);
+//       endDate = new Date(date);
+//       endDate.setHours(23, 59, 59, 999);
+//     } else if (start && end) {
+//       // Range mode
+//       startDate = new Date(start);
+//       endDate = new Date(end);
+//       endDate.setHours(23, 59, 59, 999);
+//     } else {
+//       // Default to today
+//       const today = new Date();
+//       startDate = new Date(today.toISOString().split('T')[0]);
+//       endDate = new Date(today.toISOString().split('T')[0]);
+//       endDate.setHours(23, 59, 59, 999);
+//     }
+
+//     // Get data from both platforms
+//     const linkedinBatch = await UserLinkedinJobBatch.findOne();
+//     const upworkBatch = await UpworkUserJobBatch.findOne();
+
+//     const combinedUserStatusCounts = {};
+//     const combinedDailyStatusCounts = {};
+
+//     // Process LinkedIn data
+//     if (linkedinBatch) {
+//       for (const batch of linkedinBatch.batches) {
+//         for (const job of batch.jobs) {
+//           for (const entry of job.statusHistory) {
+//             const entryDate = new Date(entry.date);
+//             if (entryDate >= startDate && entryDate <= endDate) {
+//               const username = entry.username || 'Unknown';
+//               const status = entry.status;
+//               const dateKey = entryDate.toISOString().split('T')[0];
+              
+//               // User-based counts with platform prefix
+//               const userKey = `linkedin_${username}`;
+//               if (!combinedUserStatusCounts[userKey]) {
+//                 combinedUserStatusCounts[userKey] = { platform: 'linkedin', username, statuses: {} };
+//               }
+//               combinedUserStatusCounts[userKey].statuses[status] = (combinedUserStatusCounts[userKey].statuses[status] || 0) + 1;
+              
+//               // Daily counts
+//               if (!combinedDailyStatusCounts[dateKey]) {
+//                 combinedDailyStatusCounts[dateKey] = {
+//                   date: dateKey,
+//                   linkedin: {
+//                     total_engagement: 0,
+//                     not_engaged: 0,
+//                     applied: 0,
+//                     engaged: 0,
+//                     interview: 0,
+//                     offer: 0,
+//                     rejected: 0,
+//                     archived: 0
+//                   },
+//                   upwork: {
+//                     total_engagement: 0,
+//                     not_engaged: 0,
+//                     applied: 0,
+//                     engaged: 0,
+//                     interview: 0,
+//                     offer: 0,
+//                     rejected: 0,
+//                     archived: 0
+//                   }
+//                 };
+//               }
+//               combinedDailyStatusCounts[dateKey].linkedin[status] = (combinedDailyStatusCounts[dateKey].linkedin[status] || 0) + 1;
+//               if (status !== 'not_engaged') {
+//                 combinedDailyStatusCounts[dateKey].linkedin.total_engagement += 1;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+
+//     // Process Upwork data
+//     if (upworkBatch) {
+//       for (const batch of upworkBatch.batches) {
+//         for (const job of batch.jobs) {
+//           for (const entry of job.statusHistory) {
+//             const entryDate = new Date(entry.date);
+//             if (entryDate >= startDate && entryDate <= endDate) {
+//               const username = entry.username || 'Unknown';
+//               const status = entry.status;
+//               const dateKey = entryDate.toISOString().split('T')[0];
+
+//               // User-based counts with platform prefix
+//               const userKey = `upwork_${username}`;
+//               if (!combinedUserStatusCounts[userKey]) {
+//                 combinedUserStatusCounts[userKey] = { platform: 'upwork', username, statuses: {} };
+//               }
+//               combinedUserStatusCounts[userKey].statuses[status] = (combinedUserStatusCounts[userKey].statuses[status] || 0) + 1;
+
+//               // Daily counts
+//               if (!combinedDailyStatusCounts[dateKey]) {
+//                 combinedDailyStatusCounts[dateKey] = {
+//                   date: dateKey,
+//                   linkedin: {
+//                     total_engagement: 0,
+//                     not_engaged: 0,
+//                     applied: 0,
+//                     engaged: 0,
+//                     interview: 0,
+//                     offer: 0,
+//                     rejected: 0,
+//                     archived: 0
+//                   },
+//                   upwork: {
+//                     total_engagement: 0,
+//                     not_engaged: 0,
+//                     applied: 0,
+//                     engaged: 0,
+//                     interview: 0,
+//                     offer: 0,
+//                     rejected: 0,
+//                     archived: 0
+//                   }
+//                 };
+//               }
+//               combinedDailyStatusCounts[dateKey].upwork[status] = (combinedDailyStatusCounts[dateKey].upwork[status] || 0) + 1;
+//               if (status !== 'not_engaged') {
+//                 combinedDailyStatusCounts[dateKey].upwork.total_engagement += 1;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+
+//     // Prepare user-based result
+//     const userResult = Object.values(combinedUserStatusCounts);
+
+//     // Prepare daily totals result, sorted by date
+//     const dailyTotals = Object.values(combinedDailyStatusCounts).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+//     res.json({
+//       users: userResult,
+//       dailyTotals
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+// ... existing code ...
+
+// ... existing code ...
+// ... existing code ...
+
+// Combined status history for both LinkedIn and Upwork
+// ... existing code ...
+// ... existing code ...
+
+// Combined status history for both LinkedIn and Upwork
+
+// Helper function to process status history for any platform
+const processStatusHistory = (userBatch, startDate, endDate) => {
+  const userStatusCounts = {};
+  const dailyStatusCounts = {};
+
+  if (!userBatch) return { userStatusCounts, dailyStatusCounts };
+
+  for (const batch of userBatch.batches) {
+    for (const job of batch.jobs) {
+      for (const entry of job.statusHistory) {
+        const entryDate = new Date(entry.date);
+        if (entryDate >= startDate && entryDate <= endDate) {
+          const username = entry.username || 'Unknown';
+          const status = entry.status;
+          const dateKey = entryDate.toISOString().split('T')[0];
+          
+          // User-based counts
+          if (!userStatusCounts[username]) userStatusCounts[username] = {};
+          userStatusCounts[username][status] = (userStatusCounts[username][status] || 0) + 1;
+          
+          // Daily counts
+          if (!dailyStatusCounts[dateKey]) {
+            dailyStatusCounts[dateKey] = {
+              date: dateKey,
+              total_engagement: 0,
+              not_engaged: 0,
+              applied: 0,
+              engaged: 0,
+              interview: 0,
+              offer: 0,
+              rejected: 0,
+              archived: 0
+            };
+          }
+          dailyStatusCounts[dateKey][status] = (dailyStatusCounts[dateKey][status] || 0) + 1;
+          
+          if (status !== 'not_engaged') {
+            dailyStatusCounts[dateKey].total_engagement += 1;
+          }
+        }
+      }
+    }
+  }
+
+  return { userStatusCounts, dailyStatusCounts };
+};
+exports.getCombinedStatusHistory = async (req, res) => {
+  try {
+    let { date, start, end } = req.query;
+
+    let startDate, endDate;
+
+    if (date) {
+      startDate = new Date(date);
+      endDate = new Date(date);
+      endDate.setHours(23, 59, 59, 999);
+    } else if (start && end) {
+      startDate = new Date(start);
+      endDate = new Date(end);
+      endDate.setHours(23, 59, 59, 999);
+    } else {
+      const today = new Date();
+      startDate = new Date(today.toISOString().split('T')[0]);
+      endDate = new Date(today.toISOString().split('T')[0]);
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    // Fetch both batches
+    const linkedinBatch = await UserLinkedinJobBatch.findOne();
+    const upworkBatch = await UpworkUserJobBatch.findOne();
+
+    // Process both
+    const { userStatusCounts: linkedinUsers, dailyStatusCounts: linkedinDaily } = processStatusHistory(linkedinBatch, startDate, endDate);
+    const { userStatusCounts: upworkUsers, dailyStatusCounts: upworkDaily } = processStatusHistory(upworkBatch, startDate, endDate);
+
+    // Combine user results by username (not by platform)
+    const combinedUsers = {};
+    
+    // Process LinkedIn users
+    Object.entries(linkedinUsers).forEach(([username, statuses]) => {
+      if (!combinedUsers[username]) {
+        combinedUsers[username] = { username, statuses: {} };
+      }
+      Object.entries(statuses).forEach(([status, count]) => {
+        combinedUsers[username].statuses[status] = (combinedUsers[username].statuses[status] || 0) + count;
+      });
+    });
+
+    // Process Upwork users
+    Object.entries(upworkUsers).forEach(([username, statuses]) => {
+      if (!combinedUsers[username]) {
+        combinedUsers[username] = { username, statuses: {} };
+      }
+      Object.entries(statuses).forEach(([status, count]) => {
+        combinedUsers[username].statuses[status] = (combinedUsers[username].statuses[status] || 0) + count;
+      });
+    });
+
+    // Convert to array format
+    const users = Object.values(combinedUsers);
+
+    // Combine daily totals (sum both platforms for each date)
+    const allDates = new Set([...Object.keys(linkedinDaily), ...Object.keys(upworkDaily)]);
+    const dailyTotals = Array.from(allDates).sort().map(dateKey => {
+      const linkedinData = linkedinDaily[dateKey] || {
+        total_engagement: 0,
+        not_engaged: 0,
+        applied: 0,
+        engaged: 0,
+        interview: 0,
+        offer: 0,
+        rejected: 0,
+        archived: 0
+      };
+      
+      const upworkData = upworkDaily[dateKey] || {
+        total_engagement: 0,
+        not_engaged: 0,
+        applied: 0,
+        engaged: 0,
+        interview: 0,
+        offer: 0,
+        rejected: 0,
+        archived: 0
+      };
+
+      return {
+        date: dateKey,
+        total_engagement: linkedinData.total_engagement + upworkData.total_engagement,
+        not_engaged: linkedinData.not_engaged + upworkData.not_engaged,
+        applied: linkedinData.applied + upworkData.applied,
+        engaged: linkedinData.engaged + upworkData.engaged,
+        interview: linkedinData.interview + upworkData.interview,
+        offer: linkedinData.offer + upworkData.offer,
+        rejected: linkedinData.rejected + upworkData.rejected,
+        archived: linkedinData.archived + upworkData.archived
+      };
+    });
+
+    res.json({
+      users,
+      dailyTotals
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// ... existing code ...
+// Combined status history for both LinkedIn and Upwork
+exports.getCombinedStatusHistory = async (req, res) => {
+  try {
+    let { date, start, end } = req.query;
+
+    let startDate, endDate;
+
+    if (date) {
+      startDate = new Date(date);
+      endDate = new Date(date);
+      endDate.setHours(23, 59, 59, 999);
+    } else if (start && end) {
+      startDate = new Date(start);
+      endDate = new Date(end);
+      endDate.setHours(23, 59, 59, 999);
+    } else {
+      const today = new Date();
+      startDate = new Date(today.toISOString().split('T')[0]);
+      endDate = new Date(today.toISOString().split('T')[0]);
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    // Fetch both batches
+    const linkedinBatch = await UserLinkedinJobBatch.findOne();
+    const upworkBatch = await UpworkUserJobBatch.findOne();
+
+    // Process both
+    const { userStatusCounts: linkedinUsers, dailyStatusCounts: linkedinDaily } = processStatusHistory(linkedinBatch, startDate, endDate);
+    const { userStatusCounts: upworkUsers, dailyStatusCounts: upworkDaily } = processStatusHistory(upworkBatch, startDate, endDate);
+
+    // Combine user results by username (not by platform)
+    const combinedUsers = {};
+    
+    // Process LinkedIn users
+    Object.entries(linkedinUsers).forEach(([username, statuses]) => {
+      if (!combinedUsers[username]) {
+        combinedUsers[username] = { username, statuses: {} };
+      }
+      Object.entries(statuses).forEach(([status, count]) => {
+        combinedUsers[username].statuses[status] = (combinedUsers[username].statuses[status] || 0) + count;
+      });
+    });
+
+    // Process Upwork users
+    Object.entries(upworkUsers).forEach(([username, statuses]) => {
+      if (!combinedUsers[username]) {
+        combinedUsers[username] = { username, statuses: {} };
+      }
+      Object.entries(statuses).forEach(([status, count]) => {
+        combinedUsers[username].statuses[status] = (combinedUsers[username].statuses[status] || 0) + count;
+      });
+    });
+
+    // Convert to array format
+    const users = Object.values(combinedUsers);
+
+    // Combine daily totals (sum both platforms for each date)
+    const allDates = new Set([...Object.keys(linkedinDaily), ...Object.keys(upworkDaily)]);
+    const dailyTotals = Array.from(allDates).sort().map(dateKey => {
+      const linkedinData = linkedinDaily[dateKey] || {
+        total_engagement: 0,
+        not_engaged: 0,
+        applied: 0,
+        engaged: 0,
+        interview: 0,
+        offer: 0,
+        rejected: 0,
+        archived: 0
+      };
+      
+      const upworkData = upworkDaily[dateKey] || {
+        total_engagement: 0,
+        not_engaged: 0,
+        applied: 0,
+        engaged: 0,
+        interview: 0,
+        offer: 0,
+        rejected: 0,
+        archived: 0
+      };
+
+      return {
+        date: dateKey,
+        total_engagement: linkedinData.total_engagement + upworkData.total_engagement,
+        not_engaged: linkedinData.not_engaged + upworkData.not_engaged,
+        applied: linkedinData.applied + upworkData.applied,
+        engaged: linkedinData.engaged + upworkData.engaged,
+        interview: linkedinData.interview + upworkData.interview,
+        offer: linkedinData.offer + upworkData.offer,
+        rejected: linkedinData.rejected + upworkData.rejected,
+        archived: linkedinData.archived + upworkData.archived
+      };
+    });
+
+    res.json({
+      users,
+      dailyTotals
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// ... existing code ...
+
+// ... existing code ...
 // Manual cleanup endpoint
 exports.cleanupOldData = async (req, res) => {
   try {

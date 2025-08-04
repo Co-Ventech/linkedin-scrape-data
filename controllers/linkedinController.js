@@ -717,6 +717,128 @@ exports.exportJobsByDateToExcel = async (req, res) => {
   }
 };
 
+// updated excel file for getting jobs for older dates.
+
+
+// exports.exportJobsByDateToExcel = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+//     let { date, start, end } = req.query; // Add date range parameters
+    
+//     const userJobBatch = await UserJobBatch.findOne({ userId });
+//     if (!userJobBatch || !userJobBatch.batches.length) {
+//       return res.status(404).json({ message: 'No job batches found for user.' });
+//     }
+
+//     let jobs = [];
+//     let dateRange = '';
+
+//     // Handle date range parameters
+//     if (date) {
+//       // Single date mode
+//       const batchesForDate = userJobBatch.batches.filter(batch => batch.date === date);
+//       jobs = batchesForDate.flatMap(batch => batch.jobs);
+//       dateRange = date;
+//     } else if (start && end) {
+//       // Date range mode
+//       const batchesInRange = userJobBatch.batches.filter(batch => 
+//         batch.date >= start && batch.date <= end
+//       );
+//       jobs = batchesInRange.flatMap(batch => batch.jobs);
+//       dateRange = `${start}_to_${end}`;
+//     } else {
+//       // Default: latest batch (existing behavior)
+//       const latestBatch = userJobBatch.batches.reduce((latest, current) =>
+//         !latest || new Date(current.timestamp) > new Date(latest.timestamp) ? current : latest, null
+//       );
+//       if (!latestBatch || !latestBatch.jobs.length) {
+//         return res.status(404).json({ message: 'No jobs found in the latest batch.' });
+//       }
+//       jobs = latestBatch.jobs;
+//       dateRange = latestBatch.date;
+//     }
+
+//     if (jobs.length === 0) {
+//       return res.status(404).json({ message: 'No jobs found for the specified date range.' });
+//     }
+
+//     // Define columns as per your requirements
+//     const columns = [
+//       { header: 'ZoomInfo Contact ID', key: 'id', width: 20 },
+//       { header: 'Job Title', key: 'title', width: 30 },
+//       { header: 'Employment & Workplace', key: 'employmentAndWorkplace', width: 30 },
+//       { header: 'Job Start Date', key: 'postedDate', width: 20 },
+//       { header: 'Job Function', key: 'descriptionText', width: 40 },
+//       { header: 'LinkedIn Contact Profile URL', key: 'linkedinUrl', width: 40 },
+//       { header: 'Email Address', key: 'email', width: 30 },
+//       { header: 'City', key: 'city', width: 20 },
+//       { header: 'Country', key: 'company_country', width: 20 },
+//       { header: 'Company Name', key: 'company_name', width: 30 },
+//       { header: 'Website', key: 'company_website', width: 30 },
+//       { header: 'Employees', key: 'company_employeeCount', width: 15 },
+//       { header: 'Employee Range', key: 'employee_range', width: 15 },
+//       { header: 'Primary Industry', key: 'company_industry', width: 20 },
+//       { header: 'LinkedIn Company Profile URL', key: 'company_linkedinUrl', width: 40 },
+//       { header: 'Company City', key: 'company_city', width: 20 },
+//       { header: 'Company State', key: 'company_state', width: 20 },
+//       { header: 'Batch Date', key: 'batchDate', width: 15 } // Add batch date for multi-day exports
+//     ];
+
+//     const workbook = new ExcelJS.Workbook();
+//     const worksheet = workbook.addWorksheet('Jobs');
+
+//     worksheet.columns = columns;
+
+//     // Add job rows
+//     jobs.forEach(job => {
+//       const company = job.company || {};
+//       const location = (company.locations && company.locations[0]) || {};
+      
+//       // Find the batch date for this job
+//       let batchDate = '';
+//       for (const batch of userJobBatch.batches) {
+//         if (batch.jobs.some(batchJob => batchJob.id === job.id)) {
+//           batchDate = batch.date;
+//           break;
+//         }
+//       }
+
+//       worksheet.addRow({
+//         id: job.id,
+//         title: job.title,
+//         employmentAndWorkplace: `${job.employmentType || ''} - (${job.workplaceType || ''})`,
+//         postedDate: job.postedDate ? job.postedDate.toISOString().split('T')[0] : '',
+//         descriptionText: job.descriptionText,
+//         linkedinUrl: job.linkedinUrl,
+//         email: '', // Not present in schema
+//         city: location.city || '',  
+//         company_city: location.city || '',
+//         company_country: location.country || '',
+//         company_name: company.name || '',
+//         company_website: company.website || '',
+//         company_employeeCount: company.employeeCount || '',
+//         employee_range: '', // Not present, can be derived from employeeCount
+//         company_industry: (company.industries && company.industries[0]) || '',
+//         company_linkedinUrl: company.linkedinUrl || '',
+//         company_state: location.state || '',
+//         batchDate: batchDate // Add batch date
+//       });
+//     });
+
+//     // Generate filename based on date range
+//     const filename = `linkedin_jobs_${dateRange}.xlsx`;
+
+//     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//     res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+
+//     await workbook.xlsx.write(res);
+//     res.end();
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Error generating Excel file.' });
+//   }
+// };
+
 
 
 // exports.generateProposalForJob = async (req, res) => {

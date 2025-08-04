@@ -135,7 +135,7 @@ exports.saveUpworkJobsBatchFromFile = async (req, res) => {
     res.status(201).json({
       message: 'Jobs batch uploaded from file successfully.',
       userId: userJobBatch.userId,
-      batch: newBatch,
+      // batch: newBatch, 
       totalBatches: userJobBatch.batches.length,
       cleanupResult: cleanupResult.success ? {
         batchesRemoved: cleanupResult.totalBatchesRemoved,
