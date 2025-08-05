@@ -20,8 +20,8 @@ is_product = False  # True if user selected Recruitinn, SkillBuilder, etc.
 linkedin_pitch = generate_linkedin_proposal(job, selected_category, is_product)
 
 # Output to terminal / frontend
-print("\n--- LinkedIn Pitch Draft ---\n")
-print(linkedin_pitch)
+# print("\n--- LinkedIn Pitch Draft ---\n")
+# print(linkedin_pitch)
 
 
 
@@ -40,4 +40,4 @@ selected_category = "Software Development"
 draft = generate_upwork_proposal(job, selected_category)
 
 # Output the draft (or pass to frontend)
-print(draft)
+# print(draft)

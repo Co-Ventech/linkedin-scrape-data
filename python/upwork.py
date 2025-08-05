@@ -410,7 +410,7 @@ output_path = os.path.join(base_dir, "..", "data", "final_jobs_upwork.json")
 with open(output_path, 'w', encoding='utf-8') as f: 
     json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
-print(f"\nFinal output written to: {output_path}")
+# print(f"\nFinal output written to: {output_path}")
 
 
 

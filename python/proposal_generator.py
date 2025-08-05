@@ -6,13 +6,13 @@ import os
 from config import openai_client
 
 # --- Debug print: script started ---
-print("PYTHON: Script started", file=sys.stderr)
+# print("PYTHON: Script started", file=sys.stderr)
 sys.stderr.flush()
 
 # Load and merge templates using absolute path
 base_dir = os.path.dirname(__file__)
 template_path = os.path.join(base_dir, "templates", "email_templates.json")
-print(f"PYTHON: Loading templates from {template_path}", file=sys.stderr)
+# print(f"PYTHON: Loading templates from {template_path}", file=sys.stderr)
 sys.stderr.flush()
 with open(template_path, "r", encoding="utf-8") as f:
     raw_templates = json.load(f)
@@ -52,14 +52,14 @@ def generate_upwork_proposal(job_data: dict, category: str) -> str:
         f"Please draft accordingly."
     )
 
-    print("PYTHON: Before OpenAI call (Upwork)", file=sys.stderr)
+    # print("PYTHON: Before OpenAI call (Upwork)", file=sys.stderr)
     sys.stderr.flush()
     response = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )
-    print("PYTHON: After OpenAI call (Upwork)", file=sys.stderr)
+    # print("PYTHON: After OpenAI call (Upwork)", file=sys.stderr)
     sys.stderr.flush()
 
     return response.choices[0].message.content.strip()
@@ -114,14 +114,14 @@ def generate_linkedin_proposal(job_data: dict, category: str, is_product: bool =
         f"- Prioritize JD keywords over generic phrases"
     )
 
-    print("PYTHON: Before OpenAI call (LinkedIn)", file=sys.stderr)
+    # print("PYTHON: Before OpenAI call (LinkedIn)", file=sys.stderr)
     sys.stderr.flush()
     response = openai_client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.7
     )
-    print("PYTHON: After OpenAI call (LinkedIn)", file=sys.stderr)
+    # print("PYTHON: After OpenAI call (LinkedIn)", file=sys.stderr)
     sys.stderr.flush()
 
     return response.choices[0].message.content.strip()
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         parser.add_argument("--is_product", action="store_true")
         args = parser.parse_args()
 
-        print("PYTHON: Arguments parsed", file=sys.stderr)
+        # print("PYTHON: Arguments parsed", file=sys.stderr)
         sys.stderr.flush()
 
         job = json.loads(args.job)
@@ -144,11 +144,11 @@ if __name__ == "__main__":
             result = generate_linkedin_proposal(job, args.category, args.is_product)
         else:
             result = generate_upwork_proposal(job, args.category)
-        print(json.dumps({"proposal": result}))
+        # print(json.dumps({"proposal": result}))
         sys.stdout.flush()
-        print("PYTHON: Script finished", file=sys.stderr)
+        # print("PYTHON: Script finished", file=sys.stderr)
         sys.stderr.flush()
     except Exception as e:
-        print("PYTHON ERROR:", e, file=sys.stderr)
+        # print("PYTHON ERROR:", e, file=sys.stderr)
         traceback.print_exc()
         sys.exit(1)

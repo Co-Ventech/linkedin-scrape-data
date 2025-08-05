@@ -178,4 +178,4 @@ for doc in tqdm(all_docs, desc=f"Uploading chunks to {INDEX_NAME}"):
         )
     ])
 
-print("All service and product chunks uploaded to Pinecone.")
+# print("All service and product chunks uploaded to Pinecone.")

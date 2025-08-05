@@ -1,6 +1,6 @@
 const cron = require('node-cron');
 const axios = require('axios');
-
+const { sendSuccessEmail, sendErrorEmail } = require('./emailService');
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000';
 const AUTOMATION_JWT_TOKEN = process.env.AUTOMATION_JWT_TOKEN;
 console.log(API_BASE_URL);
@@ -9,12 +9,14 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+const jobName = 'Upwork Jobs Pipeline';
 
 async function runUpworkPipeline() {
   try {
     console.log('Pipeline started at', new Date().toISOString());
+        console.log(`${jobName} started at`, new Date().toISOString());
+    
         await delay(10000);
-
     // 1. Fetch jobs from Upwork
     await axios.get(`${API_BASE_URL}/api/upwork`);
     console.log('Upwork jobs fetched');
@@ -38,13 +40,21 @@ async function runUpworkPipeline() {
     await delay(10000);
 
     console.log('Pipeline complete at', new Date().toISOString());
+    console.log(`${jobName} complete at`, new Date().toISOString());
+    await sendSuccessEmail(
+      jobName,
+      'All Upwork pipeline steps (fetch, filter, score, save) completed successfully.'
+    )
   } catch (err) {
     console.error('Upwork pipeline error:', err.message);
+    await sendErrorEmail(jobName, err.message);
   }
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
 cron.schedule('0 */6 * * *', () => {
+  // cron.schedule('57 19 * * *', () => {
+
   console.log('Upwork cron job started at:', new Date());
   runUpworkPipeline();
 });

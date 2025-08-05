@@ -41,7 +41,7 @@ df = pd.json_normalize(jobs)
 
 
 # Preview
-print(f" Remote jobs found: {df.shape[0]}")
+# print(f" Remote jobs found: {df.shape[0]}")
 # print(df[['id', 'title', 'company.name', 'location.linkedinText', 'workRemoteAllowed']].head())
 
 """## KPI 1: Job Description Quality KPI"""
@@ -650,7 +650,7 @@ def assign_tier(score):
 df['tier'] = df['final_score'].apply(assign_tier)
 
 # print final results
-print(df[['title', 'final_score', 'tier'] + kpi_columns].head(100))
+# print(df[['title', 'final_score', 'tier'] + kpi_columns].head(100))
 
 # --- Final Processing ---
 
@@ -680,9 +680,9 @@ for job in job_list:
     enriched_jobs.append(cleaned_job)
 
 # --- AI REMARK GENERATION ---
-print("\n>> Generating AI Remarks using RAG...")
+# print("\n>> Generating AI Remarks using RAG...")
 enriched_jobs = generate_ai_remark(enriched_jobs)
-print(">> AI Remarks generation completed.")
+# print(">> AI Remarks generation completed.")
 
 # Save to final output file
 output_path = os.path.join(base_dir, "..", "data", "scored_linkedin_jobs.json")
@@ -690,4 +690,4 @@ output_path = os.path.join(base_dir, "..", "data", "scored_linkedin_jobs.json")
 with open(output_path, 'w', encoding='utf-8') as f: 
     json.dump(enriched_jobs, f, indent=2, ensure_ascii=False)
 
-print(f"\nFinal output written to: {output_path}")
+# print(f"\nFinal output written to: {output_path}")

@@ -169,7 +169,7 @@ def create_job_excel(job_data, filename="job_data.xlsx"):
             kpi_df = pd.DataFrame([kpi_data])
             kpi_df.to_excel(writer, sheet_name='KPI Metrics', index=False)
     
-    print(f"Excel file '{filename}' created successfully!")
+    # print(f"Excel file '{filename}' created successfully!")
     return filename
 
 # Execute the function
