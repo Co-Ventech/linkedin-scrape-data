@@ -18,23 +18,23 @@ async function runUpworkPipeline() {
     
         await delay(10000);
     // 1. Fetch jobs from Upwork
-    await axios.get(`${API_BASE_URL}/api/upwork`);
+    await axios.get(`${API_BASE_URL}/api/upwork`,{ timeout: 900000 });
     console.log('Upwork jobs fetched');
     await delay(10000);
 
     // 2. Filter jobs
-    await axios.get(`${API_BASE_URL}/api/upwork/filtered`);
+    await axios.get(`${API_BASE_URL}/api/upwork/filtered`,{ timeout: 900000 });
     console.log('Upwork jobs filtered');
     await delay(10000);
 
     // 3. Score jobs
-    await axios.get(`${API_BASE_URL}/api/upwork/score`);
+    await axios.get(`${API_BASE_URL}/api/upwork/score`,{ timeout: 900000 });
     console.log('Upwork jobs scored');
     await delay(10000);
 
     // 4. Save jobs to MongoDB (requires auth)
     await axios.post(`${API_BASE_URL}/api/upwork/save-jobs`, {}, {
-      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }
+      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` },timeout: 900000
     });
     console.log('Upwork jobs saved to DB');
     await delay(10000);
@@ -52,7 +52,7 @@ async function runUpworkPipeline() {
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
-cron.schedule('0 */6 * * *', () => {
+cron.schedule('55 13 * * *', () => {
   // cron.schedule('57 19 * * *', () => {
 
   console.log('Upwork cron job started at:', new Date());

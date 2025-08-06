@@ -21,23 +21,23 @@ async function runlinkedinPipeline() {
         await delay(10000);
 
     // 1. Fetch jobs from Upwork
-    await axios.get(`${API_BASE_URL}/api/linkedin`);
+    await axios.get(`${API_BASE_URL}/api/linkedin`,{ timeout: 900000 });
     console.log('linkedin jobs fetched');
     await delay(10000);
 
     // 2. Filter jobs
-    await axios.get(`${API_BASE_URL}/api/linkedin/filtered`);
+    await axios.get(`${API_BASE_URL}/api/linkedin/filtered`,{ timeout: 900000 });
     console.log('linkedin jobs filtered');
     await delay(10000);
 
     // 3. Score jobs
-    await axios.get(`${API_BASE_URL}/api/linkedin/score`);
+    await axios.get(`${API_BASE_URL}/api/linkedin/score`,{ timeout: 900000 });
     console.log('linkedin jobs scored');
     await delay(10000);
 
     // 4. Save jobs to MongoDB (requires auth)
     await axios.post(`${API_BASE_URL}/api/linkedin/save-jobs`, {}, {
-      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }
+      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }, timeout: 900000 
     });
     console.log('linkedin jobs saved to DB');
     await delay(10000);
@@ -55,7 +55,7 @@ async function runlinkedinPipeline() {
 
 // Run the linkedin pipeline every day at midnight (00:00)
 // cron.schedule('1 5 * * *', () => {
-  cron.schedule('1 5 * * *', () => {
+  cron.schedule('45 13 * * *', () => {
 
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();
