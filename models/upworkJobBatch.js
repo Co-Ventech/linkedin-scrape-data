@@ -63,7 +63,7 @@ const UpworkJobSchema = new mongoose.Schema({
 
   currentStatus: {
     type: String,
-    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'archived'],
+    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard'],
     default: 'not_engaged'
   },
   statusHistory: {
@@ -71,7 +71,7 @@ const UpworkJobSchema = new mongoose.Schema({
       {
         status: {
           type: String,
-          enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'archived']
+          enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard']
         },
         username: String,
         date: { type: Date, default: Date.now }
