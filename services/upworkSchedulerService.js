@@ -46,13 +46,13 @@ async function runUpworkPipeline() {
       'All Upwork pipeline steps (fetch, filter, score, save) completed successfully.'
     )
   } catch (err) {
-    console.error('Upwork pipeline error:', err.message);
-    await sendErrorEmail(jobName, err.message);
+    console.error('Pipeline error:', err.message, err.stack, err.response?.data);
+    await sendErrorEmail(jobName, `Error: ${err.message}\nStack: ${err.stack}\nResponse: ${JSON.stringify(err.response?.data)}`);
   }
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
-cron.schedule('55 13 * * *', () => {
+cron.schedule('55 14 * * *', () => {
   // cron.schedule('57 19 * * *', () => {
 
   console.log('Upwork cron job started at:', new Date());

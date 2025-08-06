@@ -48,14 +48,14 @@ async function runlinkedinPipeline() {
       'All LinkedIn pipeline steps (fetch, filter, score, save) completed successfully.'
     );
   } catch (err) {
-    console.error('linkedin pipeline error:', err.message);
-    await sendErrorEmail(jobName, err.message);
+    console.error('Pipeline error:', err.message, err.stack, err.response?.data);
+    await sendErrorEmail(jobName, `Error: ${err.message}\nStack: ${err.stack}\nResponse: ${JSON.stringify(err.response?.data)}`);
   }
 }
 
 // Run the linkedin pipeline every day at midnight (00:00)
 // cron.schedule('1 5 * * *', () => {
-  cron.schedule('45 13 * * *', () => {
+  cron.schedule('45 14 * * *', () => {
 
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();

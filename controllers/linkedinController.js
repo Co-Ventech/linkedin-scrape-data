@@ -130,8 +130,8 @@ exports.uploadScoredJobsFromFile = async (req, res) => {
       } : null
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error.' });
+    console.error('uploadScoredJobsFromFile error:', err.message, err.stack);
+    res.status(500).json({ message: 'Server error.', error: err.message });
   }
 };
 
