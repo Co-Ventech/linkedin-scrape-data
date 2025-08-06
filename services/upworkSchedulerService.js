@@ -52,7 +52,7 @@ async function runUpworkPipeline() {
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
-cron.schedule('19 15 * * *', () => {
+cron.schedule('0 */6 * * *', () => {
   // cron.schedule('57 19 * * *', () => {
 
   console.log('Upwork cron job started at:', new Date());

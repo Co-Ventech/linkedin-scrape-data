@@ -55,7 +55,7 @@ async function runlinkedinPipeline() {
 
 // Run the linkedin pipeline every day at midnight (00:00)
 // cron.schedule('1 5 * * *', () => {
-  cron.schedule('26 15 * * *', () => {
+  cron.schedule('30 6 * * *', () => {
 
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();
