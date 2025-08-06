@@ -52,7 +52,7 @@ require('./services/upworkSchedulerService');
 connectDB();
 // Use environment PORT or fallback to 3000
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`\n:rocket: Server running on port ${PORT}\n`);
+const server = app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 server.setTimeout(15 * 60 * 1000); // 15 minutes
