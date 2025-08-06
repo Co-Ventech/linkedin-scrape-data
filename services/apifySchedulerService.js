@@ -20,10 +20,10 @@ async function runlinkedinPipeline() {
     console.log('Pipeline started at', new Date().toISOString());
         await delay(10000);
 
-    // 1. Fetch jobs from Upwork
-    await axios.get(`${API_BASE_URL}/api/linkedin`,{ timeout: 900000 });
-    console.log('linkedin jobs fetched');
-    await delay(10000);
+    // // 1. Fetch jobs from Upwork
+    // await axios.get(`${API_BASE_URL}/api/linkedin`,{ timeout: 900000 });
+    // console.log('linkedin jobs fetched');
+    // await delay(10000);
 
     // 2. Filter jobs
     await axios.get(`${API_BASE_URL}/api/linkedin/filtered`,{ timeout: 900000 });
@@ -55,7 +55,7 @@ async function runlinkedinPipeline() {
 
 // Run the linkedin pipeline every day at midnight (00:00)
 // cron.schedule('1 5 * * *', () => {
-  cron.schedule('45 14 * * *', () => {
+  cron.schedule('20 15 * * *', () => {
 
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();

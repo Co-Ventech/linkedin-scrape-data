@@ -55,3 +55,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`\n:rocket: Server running on port ${PORT}\n`);
 });
+server.setTimeout(15 * 60 * 1000); // 15 minutes

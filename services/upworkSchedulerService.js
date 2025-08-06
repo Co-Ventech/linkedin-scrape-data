@@ -17,10 +17,10 @@ async function runUpworkPipeline() {
         console.log(`${jobName} started at`, new Date().toISOString());
     
         await delay(10000);
-    // 1. Fetch jobs from Upwork
-    await axios.get(`${API_BASE_URL}/api/upwork`,{ timeout: 900000 });
-    console.log('Upwork jobs fetched');
-    await delay(10000);
+    // // 1. Fetch jobs from Upwork
+    // await axios.get(`${API_BASE_URL}/api/upwork`,{ timeout: 900000 });
+    // console.log('Upwork jobs fetched');
+    // await delay(10000);
 
     // 2. Filter jobs
     await axios.get(`${API_BASE_URL}/api/upwork/filtered`,{ timeout: 900000 });
@@ -52,7 +52,7 @@ async function runUpworkPipeline() {
 }
 
 // Run the Upwork pipeline every day at midnight (00:00)
-cron.schedule('55 14 * * *', () => {
+cron.schedule('10 15 * * *', () => {
   // cron.schedule('57 19 * * *', () => {
 
   console.log('Upwork cron job started at:', new Date());
