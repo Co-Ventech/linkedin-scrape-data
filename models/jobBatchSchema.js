@@ -35,6 +35,62 @@ const JobSchema = new mongoose.Schema({
   applyMethod: String,
   salary: mongoose.Schema.Types.Mixed,
   company: CompanySchema,
+  jobId: String,
+  title: String,
+  description: String,
+  isContractToHire: Boolean,
+  isPaymentMethodVerified: Boolean,
+  level: String,
+  contractorTier: String,
+  companyId: String,
+  companyIndustry: String,
+  companyContractDate: Date,
+  buyerScore: Number,
+  buyerTotalAssignments: Number,
+  buyerTotalJobsWithHires: Number,
+  buyerActiveAssignmentsCount: Number,
+  buyerFeedbackCount: Number,
+  buyerOpenJobsCount: Number,
+  buyerPostedJobsCount: Number,
+  buyerAvgHourlyRate: Number,
+  minHourlyRate: Number,
+  maxHourlyRate: Number,
+  hourlyType: String,
+  hourlyWeeks: Number,
+  tags: [String],
+  skills: [String],
+  minHoursWeek: Number,
+  lastBuyerActivity: String,
+  city: String,
+  country: String,
+  countryTimezone: String,
+  utcOffsetMillis: Number,
+  companyName: String,
+  companySize: Number,
+  companyIsEDCReplicated: Boolean,
+  clientTotalHours: Number,
+  clientTotalSpend: Number,
+  clientRisingTalent: Boolean,
+  category: String,
+  categoryGroup: String,
+  occupation: String,
+  jobType: String,
+  fixedBudget: Number,
+  fixedDurationLabel: String,
+  numberOfPositionsToHire: Number,
+  premium: Boolean,
+  openJobs: [mongoose.Schema.Types.Mixed],
+  questions: [String],
+  status: String,
+  url: String,
+  qualificationsCountries: [String],
+  qualificationsLanguages: [String],
+  qualificationsMinJobSuccessScore: Number,
+  qualificationsRisingTalent: Boolean,
+  qualificationsLocationCheckRequired: Boolean,
+  ts_create: Date,
+  ts_publish: Date,
+  ts_sourcing: Date,
 
   // Status and comments fields
   status: {
@@ -42,21 +98,7 @@ const JobSchema = new mongoose.Schema({
     enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'archived'],
     default: 'not_engaged'
   },
-  // comments: {
-  //   type: [String],
-  //   default: []
-  // },
-  // comments: {
-  //   type: [
-  //     {
-  //       username: String,
-  //       comment: String,
-  //       date: { type: Date, default: Date.now }
-  //     }
-  //   ],
-  //   default: []
-  // },
-// ... existing code ...
+
 currentStatus: {
   type: String,
   enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard'],

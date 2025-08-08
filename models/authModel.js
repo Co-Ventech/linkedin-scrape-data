@@ -8,4 +8,4 @@ const userSchema = new mongoose.Schema({
   timestamps: true // Add this for createdAt/updatedAt
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UserOld', userSchema);
