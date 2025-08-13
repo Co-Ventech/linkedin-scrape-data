@@ -8,9 +8,11 @@ const {
   updateSubscription,
   getSubscription
 } = require('../controllers/companySubscriptionController');
+const { getCompanyUserPerformance } = require('../controllers/companyJobController');
 const router = express.Router();
 // Update company subscription
 router.put('/:companyId/subscription', authenticateToken, requireRole(['super_admin', 'company_admin']), updateSubscription);
+router.get('/:companyId/user-performance', authenticateToken, requireRole(['super_admin', 'company_admin']), getCompanyUserPerformance);
 
 // Get subscription details
 router.get('/:companyId/subscription', authenticateToken, getSubscription);

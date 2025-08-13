@@ -1,81 +1,354 @@
+//   // const MasterJob = require('../models/MasterJob');
+// // const CompanyJob = require('../models/CompanyJob');
+// // const Company = require('../models/Company');
+// // const JobCustomization = require('../models/JobCustomization');
+
+// // class JobDistributionService {
+  
+// //   async distributeNewJobs() {
+// //     try {
+// //       // Get active companies with valid subscriptions
+// //       const activeCompanies = await Company.find({
+// //         subscriptionStatus: 'active',
+// //         isActive: true,
+// //         subscriptionEndDate: { $gt: new Date() }
+// //       });
+
+// //       // Get new jobs that haven't been distributed
+// //       const newJobs = await MasterJob.find({
+// //         distributedTo: { $size: 0 } // No distributions yet
+// //       });
+
+// //       console.log(`Distributing ${newJobs.length} new jobs to ${activeCompanies.length} companies`);
+
+// //       for (const company of activeCompanies) {
+// //         await this.distributeJobsToCompany(company, newJobs);
+// //       }
+
+// //     } catch (error) {
+// //       console.error('Job distribution error:', error);
+// //     }
+// //   }
+
+// //   async distributeJobsToCompany(company, jobs) {
+// //     try {
+// //       // Get company customization
+// //       const customization = await JobCustomization.findOne({ companyId: company._id });
+      
+// //       // Filter jobs based on company preferences
+// //       const filteredJobs = customization ? this.filterJobsForCompany(jobs, customization) : jobs;
+      
+// //       // Check quota limits
+// //       const remainingQuota = company.jobsQuota - company.jobsUsed;
+// //       const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
+
+// //       // Create CompanyJob entries
+// //       for (const masterJob of jobsToDistribute) {
+// //         await this.createCompanyJob(company._id, masterJob);
+        
+// //         // Update master job distribution tracking
+// //         await MasterJob.findByIdAndUpdate(masterJob._id, {
+// //           $push: {
+// //             distributedTo: {
+// //               companyId: company._id,
+// //               distributedAt: new Date(),
+// //               status: 'delivered'
+// //             }
+// //           }
+// //         });
+// //       }
+
+// //       // Update company job usage
+// //       await Company.findByIdAndUpdate(company._id, {
+// //         $inc: { jobsUsed: jobsToDistribute.length },
+// //         lastJobSync: new Date()
+// //       });
+
+// //       console.log(`Distributed ${jobsToDistribute.length} jobs to ${company.name}`);
+
+// //     } catch (error) {
+// //       console.error(`Error distributing jobs to ${company.name}:`, error);
+// //     }
+// //   }
+
+// //   filterJobsForCompany(jobs, customization) {
+// //     return jobs.filter(job => {
+// //       const filters = customization.filters;
+      
+// //       // Platform filter
+// //       const enabledPlatforms = customization.enabledPlatforms
+// //         .filter(p => p.isEnabled)
+// //         .map(p => p.platform);
+      
+// //       if (!enabledPlatforms.includes(job.platform)) {
+// //         return false;
+// //       }
+
+// //       // Skills filter
+// //       if (filters.requiredSkills && filters.requiredSkills.length > 0) {
+// //         const hasRequiredSkill = filters.requiredSkills.some(skill => 
+// //           job.skills.some(jobSkill => 
+// //             jobSkill.toLowerCase().includes(skill.toLowerCase())
+// //           )
+// //         );
+// //         if (!hasRequiredSkill) return false;
+// //       }
+
+// //       // Budget filter
+// //       if (filters.budgetRange && filters.budgetRange.min) {
+// //         if (!job.budget || job.budget.min < filters.budgetRange.min) {
+// //           return false;
+// //         }
+// //       }
+
+// //       // Score filter
+// //       if (filters.minimumScores && filters.minimumScores.overall) {
+// //         if (!job.scores || job.scores.overall < filters.minimumScores.overall) {
+// //           return false;
+// //         }
+// //       }
+
+// //       return true;
+// //     });
+// //   }
+
+// //   async createCompanyJob(companyId, masterJob) {
+// //     const companyJob = new CompanyJob({
+// //       masterJobId: masterJob._id,
+// //       companyId: companyId,
+// //       jobId: masterJob.jobId,
+// //       platform: masterJob.platform,
+// //       title: masterJob.title,
+// //       companyName: masterJob.companyName,
+// //       location: `${masterJob.city}, ${masterJob.country}`,
+// //       postedDate: masterJob.postedDate,
+// //       distributedAt: new Date()
+// //     });
+
+// //     await companyJob.save();
+// //     return companyJob;
+// //   }
+// // }
+
+// // module.exports = new JobDistributionService();
 // const MasterJob = require('../models/MasterJob');
 // const CompanyJob = require('../models/CompanyJob');
 // const Company = require('../models/Company');
 // const JobCustomization = require('../models/JobCustomization');
+// const JobBatch = require('../models/JobBatch');
 
-// class JobDistributionService {
-  
-//   async distributeNewJobs() {
-//     try {
-//       // Get active companies with valid subscriptions
-//       const activeCompanies = await Company.find({
+// // Distribute jobs from specific batch to companies
+// const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
+//   try {
+//     console.log(`Starting distribution for batch: ${batchId}`);
+
+//     // Get jobs from the specific batch
+//     const batchJobs = await MasterJob.find({ 
+//       batchId,
+//       isActive: true 
+//     });
+
+//     if (batchJobs.length === 0) {
+//       console.log(`No jobs found in batch ${batchId}`);
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0,
+//         error: 'No jobs found in batch'
+//       };
+//     }
+
+//     // Get target companies
+//     let targetCompanies;
+//     if (specificCompanyIds && specificCompanyIds.length > 0) {
+//       targetCompanies = await Company.find({
+//         _id: { $in: specificCompanyIds },
+//         subscriptionStatus: 'active',
+//         isActive: true
+//       });
+//     } else {
+//       targetCompanies = await Company.find({
 //         subscriptionStatus: 'active',
 //         isActive: true,
-//         subscriptionEndDate: { $gt: new Date() }
+//         $or: [
+//           { subscriptionEndDate: { $exists: false } },
+//           { subscriptionEndDate: { $gt: new Date() } }
+//         ]
 //       });
-
-//       // Get new jobs that haven't been distributed
-//       const newJobs = await MasterJob.find({
-//         distributedTo: { $size: 0 } // No distributions yet
-//       });
-
-//       console.log(`Distributing ${newJobs.length} new jobs to ${activeCompanies.length} companies`);
-
-//       for (const company of activeCompanies) {
-//         await this.distributeJobsToCompany(company, newJobs);
-//       }
-
-//     } catch (error) {
-//       console.error('Job distribution error:', error);
 //     }
-//   }
 
-//   async distributeJobsToCompany(company, jobs) {
-//     try {
-//       // Get company customization
-//       const customization = await JobCustomization.findOne({ companyId: company._id });
-      
-//       // Filter jobs based on company preferences
-//       const filteredJobs = customization ? this.filterJobsForCompany(jobs, customization) : jobs;
-      
-//       // Check quota limits
-//       const remainingQuota = company.jobsQuota - company.jobsUsed;
-//       const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
+//     if (targetCompanies.length === 0) {
+//       console.log('No active companies found for distribution');
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0,
+//         error: 'No active companies found'
+//       };
+//     }
 
-//       // Create CompanyJob entries
-//       for (const masterJob of jobsToDistribute) {
-//         await this.createCompanyJob(company._id, masterJob);
-        
-//         // Update master job distribution tracking
-//         await MasterJob.findByIdAndUpdate(masterJob._id, {
-//           $push: {
-//             distributedTo: {
-//               companyId: company._id,
-//               distributedAt: new Date(),
-//               status: 'delivered'
-//             }
-//           }
-//         });
+//     console.log(`Found ${batchJobs.length} jobs and ${targetCompanies.length} companies`);
+
+//     let totalDistributed = 0;
+//     let companiesNotified = 0;
+
+//     // Distribute jobs to each company
+//     for (const company of targetCompanies) {
+//       const result = await distributeJobsToSingleCompany(company, batchJobs);
+//       if (result.distributed > 0) {
+//         totalDistributed += result.distributed;
+//         companiesNotified++;
 //       }
+//     }
 
-//       // Update company job usage
+//     // Update batch distribution info
+//     await JobBatch.findOneAndUpdate(
+//       { batchId },
+//       {
+//         $set: {
+//           'distribution.companiesNotified': companiesNotified,
+//           'distribution.jobsDistributed': totalDistributed
+//         }
+//       }
+//     );
+
+//     return {
+//       companiesNotified,
+//       jobsDistributed: totalDistributed
+//     };
+
+//   } catch (error) {
+//     console.error('Distribution error:', error);
+//     throw error;
+//   }
+// };
+
+// // Distribute all undistributed jobs
+// const distributeNewJobs = async () => {
+//   try {
+//     console.log('Starting distribution of all undistributed jobs');
+
+//     // Get all jobs that haven't been distributed yet
+//     const undistributedJobs = await MasterJob.find({
+//       isActive: true,
+//       distributedTo: { $size: 0 }
+//     });
+
+//     if (undistributedJobs.length === 0) {
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0
+//       };
+//     }
+
+//     // Get all active companies
+//     const activeCompanies = await Company.find({
+//       subscriptionStatus: 'active',
+//       isActive: true,
+//       $or: [
+//         { subscriptionEndDate: { $exists: false } },
+//         { subscriptionEndDate: { $gt: new Date() } }
+//       ]
+//     });
+
+//     if (activeCompanies.length === 0) {
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0
+//       };
+//     }
+
+//     let totalDistributed = 0;
+//     let companiesNotified = 0;
+
+//     // Distribute to all companies
+//     for (const company of activeCompanies) {
+//       const result = await distributeJobsToSingleCompany(company, undistributedJobs);
+//       if (result.distributed > 0) {
+//         totalDistributed += result.distributed;
+//         companiesNotified++;
+//       }
+//     }
+
+//     return {
+//       companiesNotified,
+//       jobsDistributed: totalDistributed
+//     };
+
+//   } catch (error) {
+//     console.error('Distribution error:', error);
+//     throw error;
+//   }
+// };
+
+// // Helper function to distribute jobs to a single company
+// const distributeJobsToSingleCompany = async (company, availableJobs) => {
+//   try {
+//     // Get company customization/preferences
+//     const customization = await JobCustomization.findOne({ companyId: company._id });
+
+//     // Filter jobs based on company preferences
+//     const filteredJobs = filterJobsForCompany(availableJobs, customization);
+
+//     // Check quota limits
+//     const remainingQuota = Math.max(0, (company.jobsQuota || 100) - (company.jobsUsed || 0));
+//     const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
+
+//     let distributed = 0;
+
+//     // Create CompanyJob entries
+//     for (const masterJob of jobsToDistribute) {
+//       try {
+//         const companyJob = await createCompanyJobEntry(company._id, masterJob);
+//         if (companyJob) {
+//           distributed++;
+
+//           // Update master job distribution tracking
+//           await MasterJob.findByIdAndUpdate(masterJob._id, {
+//             $push: {
+//               distributedTo: {
+//                 companyId: company._id,
+//                 distributedAt: new Date(),
+//                 status: 'delivered'
+//               }
+//             }
+//           });
+//         }
+//       } catch (error) {
+//         console.error(`Error distributing job ${masterJob.jobId} to ${company.name}:`, error.message);
+//       }
+//     }
+
+//     // Update company job usage
+//     if (distributed > 0) {
 //       await Company.findByIdAndUpdate(company._id, {
-//         $inc: { jobsUsed: jobsToDistribute.length },
+//         $inc: { jobsUsed: distributed },
 //         lastJobSync: new Date()
 //       });
-
-//       console.log(`Distributed ${jobsToDistribute.length} jobs to ${company.name}`);
-
-//     } catch (error) {
-//       console.error(`Error distributing jobs to ${company.name}:`, error);
 //     }
+
+//     return {
+//       distributed,
+//       available: availableJobs.length,
+//       filtered: filteredJobs.length,
+//       quotaRemaining: remainingQuota - distributed
+//     };
+
+//   } catch (error) {
+//     console.error(`Error distributing jobs to company ${company.name}:`, error);
+//     return { distributed: 0 };
+//   }
+// };
+
+// // Filter jobs based on company preferences
+// const filterJobsForCompany = (jobs, customization) => {
+//   if (!customization || !customization.filters) {
+//     return jobs; // Return all jobs if no customization
 //   }
 
-//   filterJobsForCompany(jobs, customization) {
-//     return jobs.filter(job => {
-//       const filters = customization.filters;
-      
-//       // Platform filter
+//   const filters = customization.filters;
+
+//   return jobs.filter(job => {
+//     // Platform filter
+//     if (customization.enabledPlatforms && customization.enabledPlatforms.length > 0) {
 //       const enabledPlatforms = customization.enabledPlatforms
 //         .filter(p => p.isEnabled)
 //         .map(p => p.platform);
@@ -83,64 +356,324 @@
 //       if (!enabledPlatforms.includes(job.platform)) {
 //         return false;
 //       }
+//     }
 
-//       // Skills filter
-//       if (filters.requiredSkills && filters.requiredSkills.length > 0) {
-//         const hasRequiredSkill = filters.requiredSkills.some(skill => 
-//           job.skills.some(jobSkill => 
-//             jobSkill.toLowerCase().includes(skill.toLowerCase())
-//           )
-//         );
-//         if (!hasRequiredSkill) return false;
-//       }
+//     // Skills filter
+//     if (filters.requiredSkills && filters.requiredSkills.length > 0) {
+//       const hasRequiredSkill = filters.requiredSkills.some(skill => 
+//         job.skills && job.skills.some(jobSkill => 
+//           jobSkill.toLowerCase().includes(skill.toLowerCase())
+//         )
+//       );
+//       if (!hasRequiredSkill) return false;
+//     }
 
-//       // Budget filter
-//       if (filters.budgetRange && filters.budgetRange.min) {
-//         if (!job.budget || job.budget.min < filters.budgetRange.min) {
-//           return false;
-//         }
-//       }
+//     return true;
+//   });
+// };
 
-//       // Score filter
-//       if (filters.minimumScores && filters.minimumScores.overall) {
-//         if (!job.scores || job.scores.overall < filters.minimumScores.overall) {
-//           return false;
-//         }
-//       }
-
-//       return true;
+// // Create CompanyJob entry
+// const createCompanyJobEntry = async (companyId, masterJob) => {
+//   try {
+//     // Check if already exists
+//     const existingJob = await CompanyJob.findOne({
+//       masterJobId: masterJob._id,
+//       companyId
 //     });
-//   }
 
-//   async createCompanyJob(companyId, masterJob) {
+//     if (existingJob) {
+//       return null; // Already distributed
+//     }
+
 //     const companyJob = new CompanyJob({
 //       masterJobId: masterJob._id,
-//       companyId: companyId,
+//       companyId,
 //       jobId: masterJob.jobId,
 //       platform: masterJob.platform,
 //       title: masterJob.title,
 //       companyName: masterJob.companyName,
-//       location: `${masterJob.city}, ${masterJob.country}`,
-//       postedDate: masterJob.postedDate,
+//       location: `${masterJob.city || ''}, ${masterJob.country || ''}`.trim().replace(/^,\s*/, ''),
+//       postedDate: masterJob.postedDate || masterJob.ts_publish,
+//       distributedAt: new Date(),
+//       currentStatus: 'not_engaged',
+//       statusHistory: [{
+//         status: 'not_engaged',
+//         date: new Date(),
+//         username: 'system'
+//       }]
+//     });
+
+//     await companyJob.save();
+//     return companyJob;
+//   } catch (error) {
+//     console.error(`Error creating company job entry:`, error);
+//     return null;
+//   }
+// };
+
+// module.exports = {
+//   distributeJobsFromBatch,
+//   distributeNewJobs
+// };
+// const MasterJob = require('../models/MasterJob');
+// const CompanyJob = require('../models/CompanyJob');
+// const Company = require('../models/Company');
+// const JobCustomization = require('../models/JobCustomization');
+// const JobBatch = require('../models/JobBatch');
+
+// // Distribute jobs from specific batch to companies (SHADOW VIEW)
+// const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
+//   try {
+//     console.log(`Starting SHADOW VIEW distribution for batch: ${batchId}`);
+
+//     // Get jobs from the specific batch
+//     const batchJobs = await MasterJob.find({ 
+//       batchId,
+//       isActive: true 
+//     });
+
+//     if (batchJobs.length === 0) {
+//       console.log(`No jobs found in batch ${batchId}`);
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0,
+//         error: 'No jobs found in batch'
+//       };
+//     }
+
+//     // Get target companies
+//     let targetCompanies;
+//     if (specificCompanyIds && specificCompanyIds.length > 0) {
+//       targetCompanies = await Company.find({
+//         _id: { $in: specificCompanyIds },
+//         subscriptionStatus: 'active',
+//         isActive: true
+//       });
+//     } else {
+//       targetCompanies = await Company.find({
+//         subscriptionStatus: 'active',
+//         isActive: true,
+//         $or: [
+//           { subscriptionEndDate: { $exists: false } },
+//           { subscriptionEndDate: { $gt: new Date() } }
+//         ]
+//       });
+//     }
+
+//     if (targetCompanies.length === 0) {
+//       console.log('No active companies found for distribution');
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0,
+//         error: 'No active companies found'
+//       };
+//     }
+
+//     console.log(`Found ${batchJobs.length} jobs and ${targetCompanies.length} companies`);
+
+//     let totalDistributed = 0;
+//     let companiesNotified = 0;
+
+//     // Distribute jobs to each company (SHADOW VIEW - NO DATA DUPLICATION)
+//     for (const company of targetCompanies) {
+//       const result = await distributeJobsToSingleCompanyShadow(company, batchJobs);
+//       if (result.distributed > 0) {
+//         totalDistributed += result.distributed;
+//         companiesNotified++;
+//       }
+//     }
+
+//     // Update batch distribution info
+//     await JobBatch.findOneAndUpdate(
+//       { batchId },
+//       {
+//         $set: {
+//           'distribution.companiesNotified': companiesNotified,
+//           'distribution.jobsDistributed': totalDistributed
+//         }
+//       }
+//     );
+
+//     return {
+//       companiesNotified,
+//       jobsDistributed: totalDistributed
+//     };
+
+//   } catch (error) {
+//     console.error('Distribution error:', error);
+//     throw error;
+//   }
+// };
+
+// // Distribute jobs to single company (SHADOW VIEW)
+// const distributeJobsToSingleCompanyShadow = async (company, availableJobs) => {
+//   try {
+//     // Get company customization/preferences
+//     const customization = await JobCustomization.findOne({ companyId: company._id });
+
+//     // Filter jobs based on company preferences
+//     const filteredJobs = filterJobsForCompany(availableJobs, customization);
+
+//     // Check quota limits
+//     const remainingQuota = Math.max(0, (company.jobsQuota || 100) - (company.jobsUsed || 0));
+//     const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
+
+//     let distributed = 0;
+
+//     // Create SHADOW VIEW entries (ONLY REFERENCES + COMPANY DATA)
+//     for (const masterJob of jobsToDistribute) {
+//       try {
+//         const companyJob = await createShadowJobEntry(company._id, masterJob);
+//         if (companyJob) {
+//           distributed++;
+
+//           // Update master job distribution tracking
+//           await MasterJob.findByIdAndUpdate(masterJob._id, {
+//             $push: {
+//               distributedTo: {
+//                 companyId: company._id,
+//                 distributedAt: new Date(),
+//                 status: 'delivered'
+//               }
+//             }
+//           });
+//         }
+//       } catch (error) {
+//         console.error(`Error distributing job ${masterJob.jobId} to ${company.name}:`, error.message);
+//       }
+//     }
+
+//     // Update company job usage
+//     if (distributed > 0) {
+//       await Company.findByIdAndUpdate(company._id, {
+//         $inc: { jobsUsed: distributed },
+//         lastJobSync: new Date()
+//       });
+//     }
+
+//     return {
+//       distributed,
+//       available: availableJobs.length,
+//       filtered: filteredJobs.length,
+//       quotaRemaining: remainingQuota - distributed
+//     };
+
+//   } catch (error) {
+//     console.error(`Error distributing jobs to company ${company.name}:`, error);
+//     return { distributed: 0 };
+//   }
+// };
+
+// // Create SHADOW VIEW entry (MINIMAL DATA)
+// const createShadowJobEntry = async (companyId, masterJob) => {
+//   try {
+//     // Check if already exists
+//     const existingJob = await CompanyJob.findOne({
+//       masterJobId: masterJob._id,
+//       companyId
+//     });
+
+//     if (existingJob) {
+//       return null; // Already distributed
+//     }
+
+//     // Create SHADOW VIEW entry (ONLY REFERENCES + COMPANY DATA)
+//     const companyJob = new CompanyJob({
+//       masterJobId: masterJob._id, // Reference to MasterJob
+//       companyId, // Reference to Company
+//       currentStatus: 'not_engaged',
+//       statusHistory: [{
+//         status: 'not_engaged',
+//         username: 'system',
+//         date: new Date(),
+//         notes: 'Job distributed via shadow view'
+//       }],
 //       distributedAt: new Date()
 //     });
 
 //     await companyJob.save();
 //     return companyJob;
+//   } catch (error) {
+//     console.error(`Error creating shadow job entry:`, error);
+//     return null;
 //   }
-// }
+// };
 
-// module.exports = new JobDistributionService();
+// // Filter jobs based on company preferences
+// const filterJobsForCompany = (jobs, customization) => {
+//   if (!customization || !customization.filters) {
+//     return jobs;
+//   }
+
+//   const filters = customization.filters;
+
+//   return jobs.filter(job => {
+//     // Platform filter
+//     if (customization.enabledPlatforms && customization.enabledPlatforms.length > 0) {
+//       const enabledPlatforms = customization.enabledPlatforms
+//         .filter(p => p.isEnabled)
+//         .map(p => p.platform);
+      
+//       if (!enabledPlatforms.includes(job.platform)) {
+//         return false;
+//       }
+//     }
+
+//     // Skills filter
+//     if (filters.requiredSkills && filters.requiredSkills.length > 0) {
+//       const hasRequiredSkill = filters.requiredSkills.some(skill => 
+//         job.skills && job.skills.some(jobSkill => 
+//           jobSkill.toLowerCase().includes(skill.toLowerCase())
+//         )
+//       );
+//       if (!hasRequiredSkill) return false;
+//     }
+
+//     // Budget/Salary filter
+//     if (filters.budgetRange && filters.budgetRange.min) {
+//       let jobBudget = 0;
+//       if (job.salary && job.salary.min) {
+//         jobBudget = job.salary.min;
+//       } else if (job.minHourlyRate) {
+//         jobBudget = job.minHourlyRate;
+//       } else if (job.fixedBudget) {
+//         jobBudget = job.fixedBudget;
+//       }
+      
+//       if (jobBudget < filters.budgetRange.min) {
+//         return false;
+//       }
+//     }
+
+//     // Minimum scores filter
+//     if (filters.minimumScores) {
+//       if (filters.minimumScores.overall) {
+//         const jobScore = job.final_score || job.final_weighted_score || 0;
+//         if (jobScore < filters.minimumScores.overall) {
+//           return false;
+//         }
+//       }
+//     }
+
+//     return true;
+//   });
+// };
+
+// module.exports = {
+//   distributeJobsFromBatch,
+//   distributeNewJobs: distributeJobsFromBatch
+// };
+
 const MasterJob = require('../models/MasterJob');
 const CompanyJob = require('../models/CompanyJob');
 const Company = require('../models/Company');
 const JobCustomization = require('../models/JobCustomization');
 const JobBatch = require('../models/JobBatch');
 
-// Distribute jobs from specific batch to companies
+// Distribute jobs from specific batch to companies (SHADOW VIEW)
 const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
   try {
-    console.log(`Starting distribution for batch: ${batchId}`);
+    console.log(`Starting SHADOW VIEW distribution for batch: ${batchId}`);
 
     // Get jobs from the specific batch
     const batchJobs = await MasterJob.find({ 
@@ -190,9 +723,9 @@ const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
     let totalDistributed = 0;
     let companiesNotified = 0;
 
-    // Distribute jobs to each company
+    // Distribute jobs to each company (SHADOW VIEW - NO DATA DUPLICATION)
     for (const company of targetCompanies) {
-      const result = await distributeJobsToSingleCompany(company, batchJobs);
+      const result = await distributeJobsToSingleCompanyShadow(company, batchJobs);
       if (result.distributed > 0) {
         totalDistributed += result.distributed;
         companiesNotified++;
@@ -221,7 +754,7 @@ const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
   }
 };
 
-// Distribute all undistributed jobs
+// Distribute all undistributed jobs (FIXED LOGIC)
 const distributeNewJobs = async () => {
   try {
     console.log('Starting distribution of all undistributed jobs');
@@ -229,13 +762,16 @@ const distributeNewJobs = async () => {
     // Get all jobs that haven't been distributed yet
     const undistributedJobs = await MasterJob.find({
       isActive: true,
-      distributedTo: { $size: 0 }
+      distributedTo: { $size: 0 } // No distributions yet
     });
+
+    console.log(`Found ${undistributedJobs.length} undistributed jobs`);
 
     if (undistributedJobs.length === 0) {
       return {
         companiesNotified: 0,
-        jobsDistributed: 0
+        jobsDistributed: 0,
+        error: 'No undistributed jobs found'
       };
     }
 
@@ -249,10 +785,13 @@ const distributeNewJobs = async () => {
       ]
     });
 
+    console.log(`Found ${activeCompanies.length} active companies`);
+
     if (activeCompanies.length === 0) {
       return {
         companiesNotified: 0,
-        jobsDistributed: 0
+        jobsDistributed: 0,
+        error: 'No active companies found'
       };
     }
 
@@ -261,7 +800,7 @@ const distributeNewJobs = async () => {
 
     // Distribute to all companies
     for (const company of activeCompanies) {
-      const result = await distributeJobsToSingleCompany(company, undistributedJobs);
+      const result = await distributeJobsToSingleCompanyShadow(company, undistributedJobs);
       if (result.distributed > 0) {
         totalDistributed += result.distributed;
         companiesNotified++;
@@ -279,9 +818,11 @@ const distributeNewJobs = async () => {
   }
 };
 
-// Helper function to distribute jobs to a single company
-const distributeJobsToSingleCompany = async (company, availableJobs) => {
+// Distribute jobs to single company (SHADOW VIEW)
+const distributeJobsToSingleCompanyShadow = async (company, availableJobs) => {
   try {
+    console.log(`Distributing jobs to company: ${company.name}`);
+
     // Get company customization/preferences
     const customization = await JobCustomization.findOne({ companyId: company._id });
 
@@ -292,12 +833,14 @@ const distributeJobsToSingleCompany = async (company, availableJobs) => {
     const remainingQuota = Math.max(0, (company.jobsQuota || 100) - (company.jobsUsed || 0));
     const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
 
+    console.log(`Company ${company.name}: ${filteredJobs.length} filtered, ${jobsToDistribute.length} to distribute (quota remaining: ${remainingQuota})`);
+
     let distributed = 0;
 
-    // Create CompanyJob entries
+    // Create SHADOW VIEW entries (ONLY REFERENCES + COMPANY DATA)
     for (const masterJob of jobsToDistribute) {
       try {
-        const companyJob = await createCompanyJobEntry(company._id, masterJob);
+        const companyJob = await createShadowJobEntry(company._id, masterJob);
         if (companyJob) {
           distributed++;
 
@@ -338,10 +881,45 @@ const distributeJobsToSingleCompany = async (company, availableJobs) => {
   }
 };
 
+// Create SHADOW VIEW entry (MINIMAL DATA)
+const createShadowJobEntry = async (companyId, masterJob) => {
+  try {
+    // Check if already exists
+    const existingJob = await CompanyJob.findOne({
+      masterJobId: masterJob._id,
+      companyId
+    });
+
+    if (existingJob) {
+      return null; // Already distributed
+    }
+
+    // Create SHADOW VIEW entry (ONLY REFERENCES + COMPANY DATA)
+    const companyJob = new CompanyJob({
+      masterJobId: masterJob._id, // Reference to MasterJob
+      companyId, // Reference to Company
+      currentStatus: 'not_engaged',
+      statusHistory: [{
+        status: 'not_engaged',
+        username: 'system',
+        date: new Date(),
+        notes: 'Job distributed via shadow view'
+      }],
+      distributedAt: new Date()
+    });
+
+    await companyJob.save();
+    return companyJob;
+  } catch (error) {
+    console.error(`Error creating shadow job entry:`, error);
+    return null;
+  }
+};
+
 // Filter jobs based on company preferences
 const filterJobsForCompany = (jobs, customization) => {
   if (!customization || !customization.filters) {
-    return jobs; // Return all jobs if no customization
+    return jobs;
   }
 
   const filters = customization.filters;
@@ -368,50 +946,38 @@ const filterJobsForCompany = (jobs, customization) => {
       if (!hasRequiredSkill) return false;
     }
 
-    return true;
-  });
-};
-
-// Create CompanyJob entry
-const createCompanyJobEntry = async (companyId, masterJob) => {
-  try {
-    // Check if already exists
-    const existingJob = await CompanyJob.findOne({
-      masterJobId: masterJob._id,
-      companyId
-    });
-
-    if (existingJob) {
-      return null; // Already distributed
+    // Budget/Salary filter
+    if (filters.budgetRange && filters.budgetRange.min) {
+      let jobBudget = 0;
+      if (job.salary && job.salary.min) {
+        jobBudget = job.salary.min;
+      } else if (job.minHourlyRate) {
+        jobBudget = job.minHourlyRate;
+      } else if (job.fixedBudget) {
+        jobBudget = job.fixedBudget;
+      }
+      
+      if (jobBudget < filters.budgetRange.min) {
+        return false;
+      }
     }
 
-    const companyJob = new CompanyJob({
-      masterJobId: masterJob._id,
-      companyId,
-      jobId: masterJob.jobId,
-      platform: masterJob.platform,
-      title: masterJob.title,
-      companyName: masterJob.companyName,
-      location: `${masterJob.city || ''}, ${masterJob.country || ''}`.trim().replace(/^,\s*/, ''),
-      postedDate: masterJob.postedDate || masterJob.ts_publish,
-      distributedAt: new Date(),
-      currentStatus: 'not_engaged',
-      statusHistory: [{
-        status: 'not_engaged',
-        date: new Date(),
-        username: 'system'
-      }]
-    });
+    // Minimum scores filter
+    if (filters.minimumScores) {
+      if (filters.minimumScores.overall) {
+        const jobScore = job.final_score || job.final_weighted_score || 0;
+        if (jobScore < filters.minimumScores.overall) {
+          return false;
+        }
+      }
+    }
 
-    await companyJob.save();
-    return companyJob;
-  } catch (error) {
-    console.error(`Error creating company job entry:`, error);
-    return null;
-  }
+    return true;
+  });
 };
 
 module.exports = {
   distributeJobsFromBatch,
   distributeNewJobs
 };
+

@@ -95,7 +95,7 @@ const JobSchema = new mongoose.Schema({
   // Status and comments fields
   status: {
     type: String,
-    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'archived'],
+    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard'],
     default: 'not_engaged'
   },
 

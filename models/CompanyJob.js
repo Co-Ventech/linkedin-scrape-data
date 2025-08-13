@@ -1,7 +1,109 @@
+// const mongoose = require('mongoose');
+
+// const CompanyJobSchema = new mongoose.Schema({
+//   // Reference to master job
+//   masterJobId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'MasterJob',
+//     required: true
+//   },
+  
+//   // Company reference
+//   companyId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Company',
+//     required: true
+//   },
+  
+//   // Copy of essential job data for faster queries
+//   jobId: String,
+//   platform: String,
+//   title: String,
+//   companyName: String,
+//   location: String,
+//   postedDate: Date,
+  
+//   // Company-specific fields
+//   currentStatus: {
+//     type: String,
+//     enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived'],
+//     default: 'not_engaged'
+//   },
+  
+//   statusHistory: [{
+//     status: {
+//       type: String,
+//       enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived']
+//     },
+//     changedBy: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: 'User'
+//     },
+//     username: String,
+//     date: { type: Date, default: Date.now },
+//     notes: String
+//   }],
+  
+//   comments: [{
+//     author: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: 'User'
+//     },
+//     username: String,
+//     comment: String,
+//     date: { type: Date, default: Date.now },
+//     isPrivate: { type: Boolean, default: false }
+//   }],
+  
+//   // Proposal and application tracking
+//   proposal: { type: String, default: "" },
+//   applicationDate: Date,
+//   responseDate: Date,
+  
+//   // Company scoring
+//   companyScore: {
+//     type: [{
+//       value: Number,
+//       scoredBy: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: 'User'
+//       },
+//       username: String,
+//       date: { type: Date, default: Date.now },
+//       notes: String
+//     }],
+//     default: []
+//   },
+  
+//   // Custom fields per company
+//   customFields: mongoose.Schema.Types.Mixed,
+  
+//   // Tracking
+//   viewedBy: [{
+//     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+//     viewedAt: { type: Date, default: Date.now }
+//   }],
+  
+//   isBookmarked: { type: Boolean, default: false },
+//   bookmarkedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  
+//   // Distribution metadata
+//   distributedAt: { type: Date, default: Date.now },
+//   lastUpdated: { type: Date, default: Date.now }
+// }, {
+//   timestamps: true
+// });
+
+// // Compound index for efficient querying
+// CompanyJobSchema.index({ companyId: 1, currentStatus: 1 });
+// CompanyJobSchema.index({ companyId: 1, platform: 1 });
+// CompanyJobSchema.index({ masterJobId: 1, companyId: 1 }, { unique: true });
+
+// module.exports = mongoose.model('CompanyJob', CompanyJobSchema);
 const mongoose = require('mongoose');
 
 const CompanyJobSchema = new mongoose.Schema({
-  // Reference to master job
+  // Reference to master job (NO DATA DUPLICATION)
   masterJobId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'MasterJob',
@@ -15,15 +117,7 @@ const CompanyJobSchema = new mongoose.Schema({
     required: true
   },
   
-  // Copy of essential job data for faster queries
-  jobId: String,
-  platform: String,
-  title: String,
-  companyName: String,
-  location: String,
-  postedDate: Date,
-  
-  // Company-specific fields
+  // Company-specific fields ONLY (no job data duplication)
   currentStatus: {
     type: String,
     enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived'],
@@ -55,25 +149,21 @@ const CompanyJobSchema = new mongoose.Schema({
     isPrivate: { type: Boolean, default: false }
   }],
   
-  // Proposal and application tracking
+  // Company-specific tracking
   proposal: { type: String, default: "" },
   applicationDate: Date,
   responseDate: Date,
   
-  // Company scoring
-  companyScore: {
-    type: [{
-      value: Number,
-      scoredBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      },
-      username: String,
-      date: { type: Date, default: Date.now },
-      notes: String
-    }],
-    default: []
-  },
+  companyScore: [{
+    value: Number,
+    scoredBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    username: String,
+    date: { type: Date, default: Date.now },
+    notes: String
+  }],
   
   // Custom fields per company
   customFields: mongoose.Schema.Types.Mixed,
@@ -94,7 +184,7 @@ const CompanyJobSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Compound index for efficient querying
+// Indexes for performance
 CompanyJobSchema.index({ companyId: 1, currentStatus: 1 });
 CompanyJobSchema.index({ companyId: 1, platform: 1 });
 CompanyJobSchema.index({ masterJobId: 1, companyId: 1 }, { unique: true });

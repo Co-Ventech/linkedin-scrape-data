@@ -33,13 +33,56 @@
 // router.delete('/jobadmin/batches/:batchId', authenticateToken, requireRole(['super_admin']), deleteBatch);
 
 // module.exports = router;
+// const express = require('express');
+// const { authenticateToken, requireRole } = require('../middleware/auth');
+// const {
+//   uploadScoredJobsFromFile,
+//   getMasterJobs,
+//   getJobBatches,
+//   deleteBatch,distributeToSpecificCompanies
+// } = require('../controllers/masterJobController');
+
+// const {
+//   distributeJobsFromBatch,
+//   distributeAllJobs,
+//   getDistributionStats
+// } = require('../controllers/jobDistributionController');
+
+// const router = express.Router();
+
+// // Upload scored jobs from file (Super Admin or system)
+// router.post('/upload', authenticateToken, requireRole(['super_admin']), uploadScoredJobsFromFile);
+
+// // Get master jobs with filtering
+// router.get('/', authenticateToken, requireRole(['super_admin']), getMasterJobs);
+
+// // Get job batches
+// router.get('/batches', authenticateToken, requireRole(['super_admin']), getJobBatches);
+
+// // Delete batch
+// router.delete('/batches/:batchId', authenticateToken, requireRole(['super_admin']), deleteBatch);
+
+// // Distribution routes
+// router.post('/distribute/:batchId', authenticateToken, requireRole(['super_admin']), distributeJobsFromBatch);
+// router.post('/distribute', authenticateToken, requireRole(['super_admin']), distributeAllJobs);
+
+// // Distribution stats route
+// router.get('/distribution-stats', authenticateToken, requireRole(['super_admin']), getDistributionStats);
+
+
+
+
+
+
 const express = require('express');
 const { authenticateToken, requireRole } = require('../middleware/auth');
 const {
   uploadScoredJobsFromFile,
   getMasterJobs,
   getJobBatches,
-  deleteBatch,distributeToSpecificCompanies
+  deleteBatch,
+  distributeToSpecificCompanies,
+  getBatchDetails
 } = require('../controllers/masterJobController');
 
 const {
@@ -50,7 +93,7 @@ const {
 
 const router = express.Router();
 
-// Upload scored jobs from file (Super Admin or system)
+// Upload scored jobs from file (Super Admin only) - NO AUTO-DISTRIBUTION
 router.post('/upload', authenticateToken, requireRole(['super_admin']), uploadScoredJobsFromFile);
 
 // Get master jobs with filtering
@@ -59,21 +102,27 @@ router.get('/', authenticateToken, requireRole(['super_admin']), getMasterJobs);
 // Get job batches
 router.get('/batches', authenticateToken, requireRole(['super_admin']), getJobBatches);
 
+router.get('/batches/:batchId', authenticateToken, requireRole(['super_admin']), getBatchDetails);
+
 // Delete batch
 router.delete('/batches/:batchId', authenticateToken, requireRole(['super_admin']), deleteBatch);
 
-// Distribution routes
-router.post('/distribute/:batchId', authenticateToken, requireRole(['super_admin']), distributeJobsFromBatch);
-router.post('/distribute', authenticateToken, requireRole(['super_admin']), distributeAllJobs);
+// DISTRIBUTION ROUTES
+// Distribute jobs from specific batch to all active companies
+router.post('/distribute/batch/:batchId', authenticateToken, requireRole(['super_admin']), distributeJobsFromBatch);
 
-// Distribution stats route
-router.get('/distribution-stats', authenticateToken, requireRole(['super_admin']), getDistributionStats);
+// Distribute jobs from specific batch to specific companies
+router.post('/distribute/batch/:batchId/companies', authenticateToken, requireRole(['super_admin']), distributeJobsFromBatch);
 
+// Distribute all undistributed jobs to all active companies
+router.post('/distribute/all',
+   authenticateToken, requireRole(['super_admin']), distributeAllJobs);
 
+// Distribute to specific companies (all undistributed jobs)
+router.post('/distribute/companies', authenticateToken, requireRole(['super_admin']), distributeToSpecificCompanies);
 
-
-
-
+// Get distribution statistics
+router.get('/distribute/stats', authenticateToken, requireRole(['super_admin']), getDistributionStats);
 
 
 // Distribute to selected companies - THIS WAS MISSING

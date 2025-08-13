@@ -1,0 +1,74 @@
+{
+    "_id": {
+      "$oid": "689b71403baae8d37b1c33f6"
+    },
+    "platform": "linkedin",
+    "jobId": "4283192192",
+    "__v": 0,
+    "ae_comment": "",
+    "ae_score": [],
+    "ai_remark": "Recommend AI/ML services for developing cutting-edge Vertical LLMs and AI Agents, integrating seamlessly with various tools on the warpSpeed Open Source Platform.",
+    "applicants": 65,
+    "applyMethod": null,
+    "batchId": "linkedin_20250812_215104",
+    "comments": [],
+    "createdAt": {
+      "$date": "2025-08-12T16:52:17.814Z"
+    },
+    "currentStatus": "not_engaged",
+    "descriptionText": "Role Title:\nAI Developer - warpSpeed Open Source Platform (Remote/Global) Company Description:\nAt WarpSpeed, we believe advanced AI should enhance human productivity while respecting user privacy. Our platform serves 2.8M+ users with cutting-edge Vertical LLMs and AI Agents that integrate seamlessly with 120+ tools. We're launching an ambitious open-source initiative that combines bounty-based compensation with mentorship opportunities to build the world's leading ethical AI productivity platform. Join us in creating technology that truly empowers users.\nRole Description:\nJoin a global community shaping the world’s most advanced AI productivity partner. Work with cutting-edge AI agents and VLLMs in an ethical and transparent ecosystem. Help us build the world's leading open-source AI productivity platform, serving 2.8M+ users who've chosen privacy-first AI enhancement over exploitative alternatives.\n🎯 The Technical Challenge:\nAdvanced AI Architecture Work: • Proprietary Vertical LLMs: Optimise domain-specific language models that outperform generic LLMs in productivity contexts • Intelligent AI Agents: Design autonomous systems coordinating 120+ tool integrations with contextual awareness • Privacy-Preserving ML: Implement cutting-edge techniques ensuring user data control while maintaining AI effectiveness • Cross-Platform Innovation: Build React Native solutions that deliver consistent experiences across mobile and web • Production-Scale Impact: Your contributions directly enhance productivity for millions of global users\nOpen-Source Leadership: • Influence architectural decisions for next-generation AI productivity tools • Mentor a growing community of contributors through office hours and technical guidance • Shape community governance and establish ethical AI development standards • Lead RFC processes for significant platform enhancements and integrations\n🎯 Who We're Seeking:\nTechnical Foundation (Required): • 3+ years development experience in AI/ML, full-stack development, or distributed systems • Proficiency in Python, JavaScript/TypeScript or equivalent modern programming languages • AI/ML framework experience with TensorFlow, PyTorch, Hugging Face, or similar platforms • API development expertise for complex integration challenges • Software engineering best practices including version control, testing, and code review\nProfessional Qualities (Essential): • Productivity enhancement passion - genuine interest in building tools that improve human capabilities • Ethical AI commitment - dedication to privacy-preserving and transparent AI development • Collaborative mindset - enthusiasm for mentoring others and building inclusive technical communities • Remote collaboration skills - effective async communication across global time zones • 5-15 hours/week availability for meaningful project contributions\nBonus Experience (Valued but not required): • Previous work with Vertical LLMs, transformer architectures, or custom AI model development • Experience with AI Agent systems, autonomous workflows, or intelligent automation • Background in privacy-preserving ML techniques (differential privacy, federated learning) • Cross-platform development experience (React Native, Flutter, or similar) • Open source contribution history and community involvement • DevOps and AI/ML system deployment experience\n🎯 What We Offer:\n💰 Financial & Career Benefits: • Bounty compensation: $500-$5,000+ based on contribution scope and technical impact • Professional development acceleration through advanced AI technology experience • Portfolio enhancement with contributions to cutting-edge, production-scale AI systems • Clear advancement pathways to technical leadership and community governance roles • Industry recognition through association with leading ethical AI platform\n🧠 Learning & Growth Opportunities: • Weekly office hours with AI experts and productivity tool specialists • Direct mentorship from industry leaders • Cutting-edge technology access to proprietary VLLM and AI Agent architectures • Conference and speaking opportunities representing WarpSpeed at industry events • Academic collaboration potential with university research partners\n🌍 Community & Impact: • Global developer community united by shared ethical AI mission • Real-world impact improving productivity for millions of users worldwide • Privacy-first movement leadership proving ethical AI can achieve technical excellence • Collaborative rather than competitive environment focused on collective success • Flexible, remote-first collaboration accommodating global contributors\n🔒 Why This Matters: In an industry dominated by exploitative AI platforms, warpSpeed proves that advanced technology can respect user privacy while delivering superior productivity enhancement. Join us in building the future where AI genuinely serves humanity.\n🚀 Ready to Pioneer Ethical AI?\nThis is your opportunity to work on production AI systems serving millions while building the most advanced open-source AI productivity platform ever created.\n🌐 WarpSpeed Open Source: https://www.warpspeedopen.org \n📱 Experience our platform:Android: https://play.google.com/store/apps/details?id=com.iamwarpspeed.ai&pcampaignid=web_shareiOS: https://apps.apple.com/gb/app/warpspeed/id6744610457\nWe're selecting our founding open-source community now. Don't miss this opportunity to shape the future of AI productivity tools.\nWarpSpeed is an equal opportunity initiative welcoming contributors from all backgrounds, experience levels, and global locations.",
+    "distributedTo": [],
+    "easyApplyUrl": null,
+    "employmentType": "part_time",
+    "expireAt": {
+      "$date": "2026-02-07T18:34:18.000Z"
+    },
+    "final_score": 0.59,
+    "id": "4283192192",
+    "isActive": true,
+    "jobApplicationLimitReached": false,
+    "kpi_company_popularity": 0.4,
+    "kpi_company_size": 0.4,
+    "kpi_company_specialties": 0,
+    "kpi_contact_info": 0.66,
+    "kpi_domain_fit": 1,
+    "kpi_employment_type": 0.5,
+    "kpi_experience_threshold": 1,
+    "kpi_industry_match": 0,
+    "kpi_jd_quality": 1,
+    "kpi_job_freshness": 0.1,
+    "kpi_job_popularity": 0.8,
+    "kpi_location_priority": 0.5,
+    "kpi_salary": 0.5,
+    "kpi_seniority_alignment": 1,
+    "kpi_skills_explicitness": 1,
+    "linkedinUrl": "https://www.linkedin.com/jobs/view/4283192192/",
+    "openJobs": [],
+    "postedDate": {
+      "$date": "2025-08-11T18:34:18.000Z"
+    },
+    "predicted_domain": "development",
+    "processed": true,
+    "proposal": "",
+    "qualificationsCountries": [],
+    "qualificationsLanguages": [],
+    "questions": [],
+    "salary": null,
+    "scrapedAt": {
+      "$date": "2025-08-12T16:52:17.814Z"
+    },
+    "skills": [],
+    "source": "file_upload",
+    "statusHistory": [],
+    "tags": [],
+    "tier": "Yellow",
+    "title": "AI Developer - warpSpeed Open Source Platform (Remote, Bounties $5K+)",
+    "updatedAt": {
+      "$date": "2025-08-12T16:52:17.814Z"
+    },
+    "url": "https://www.linkedin.com/jobs/view/4283192192/",
+    "views": 195,
+    "workplaceType": "remote"
+  }
+
+  
