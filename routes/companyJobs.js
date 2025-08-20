@@ -622,6 +622,7 @@ const {
   getCompanyUserPerformance
 } = require('../controllers/companyJobController');
 const CompanyJob = require('../models/CompanyJob');
+const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 

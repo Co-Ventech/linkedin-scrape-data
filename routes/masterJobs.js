@@ -90,6 +90,8 @@ const {
   distributeAllJobs,
   getDistributionStats
 } = require('../controllers/jobDistributionController');
+const MasterJob = require('../models/MasterJob');
+const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 

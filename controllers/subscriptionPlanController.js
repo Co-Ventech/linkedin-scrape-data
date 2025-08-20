@@ -1,5 +1,6 @@
 const SubscriptionPlan = require('../models/SubscriptionPlan');
 const Company = require('../models/Company');
+const { default: mongoose } = require('mongoose');
 
 // Create a new subscription plan
 // const createPlan = async (req, res) => {
