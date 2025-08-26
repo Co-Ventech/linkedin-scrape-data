@@ -623,6 +623,7 @@ const {
 } = require('../controllers/companyJobController');
 const CompanyJob = require('../models/CompanyJob');
 const User = require('../models/User');
+const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 
