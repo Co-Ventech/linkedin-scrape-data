@@ -622,6 +622,7 @@ const {
   getCompanyUserPerformance
 } = require('../controllers/companyJobController');
 const CompanyJob = require('../models/CompanyJob');
+const User = require('../models/User');
 
 const router = express.Router();
 
@@ -633,62 +634,427 @@ router.get('/user-jobs', authenticateToken, requireRole(['company_user']), getUs
 // ✅ Get company-wide job statistics for all users (company_admin only) - uses controller function
 router.get('/company-stats', authenticateToken, requireRole(['company_admin']), getCompanyWideStats);
 
+// const userActivityStats = await CompanyJob.aggregate([
+//   { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+//   {
+//     $group: {
+//       _id: { companyId: '$companyId', username: '$statusHistory.username', status: '$statusHistory.status' },
+//       statusChanges: { $sum: 1 },
+//       lastActivity: { $max: '$statusHistory.date' }
+//     }
+//   },
+//   {
+//     $group: {
+//       _id: '$_id.companyId',
+//       userActivity: {
+//         $push: {
+//           username: '$_id.username',
+//           status: '$_id.status',
+//           statusChanges: '$statusChanges',
+//           lastActivity: '$lastActivity'
+//         }
+//       }
+//     }
+//   }
+// ]);
+
+// const allUsers = await User.aggregate([
+//   {
+//     $group: {
+//       _id: '$companyId',
+//       totalUsers: { $sum: 1 },
+//       users: { $push: { username: '$username', email: '$email' } }
+//     }
+//   }
+// ]);
+
 // Get company job statistics (existing route for admin overview)
+// router.get('/stats/overview', authenticateToken, requireRole(['company_admin', 'super_admin']), async (req, res) => {
+//   try {
+//     let companyFilter = {};
+    
+//     if (req.user.role === 'company_admin') {
+//       companyFilter.companyId = req.user.company._id;
+//     }
+
+//     // Get status breakdown
+//     const statusBreakdown = await CompanyJob.aggregate([
+//       { $match: companyFilter },
+//       {
+//         $group: {
+//           _id: '$currentStatus',
+//           count: { $sum: 1 }
+//         }
+//       }
+//     ]);
+
+//     // Convert to object
+//     const statusBreakdownObj = {};
+//     statusBreakdown.forEach(item => {
+//       statusBreakdownObj[item._id] = item.count;
+//     });
+
+//     // Get user activity stats
+//     const userActivity = await CompanyJob.aggregate([
+//       { $match: companyFilter },
+//       { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+//       {
+//         $group: {
+//           _id: '$statusHistory.username',
+//           statusChanges: { $sum: 1 },
+//           lastActivity: { $max: '$statusHistory.date' }
+//         }
+//       },
+//       {
+//         $project: {
+//           userId: '$_id',
+//           username: '$_id',
+//           statusChanges: 1,
+//           lastActivity: 1
+//         }
+//       }
+//     ]);
+
+//     res.json({
+//       statusBreakdown: statusBreakdownObj,
+//       userActivity: userActivity || []
+//     });
+
+//   } catch (error) {
+//     console.error('Get company jobs stats error:', error);
+//     res.status(500).json({
+//       error: 'Failed to get statistics',
+//       details: error.message
+//     });
+//   }
+// });
+
+// router.get('/stats/overview', authenticateToken, requireRole(['company_admin', 'super_admin']), async (req, res) => {
+//   try {
+//     let companyFilter = {};
+
+//     if (req.user.role === 'company_admin') {
+//       companyFilter.companyId = req.user.company._id;
+//     }
+
+//     // Get status breakdown
+//     const statusBreakdown = await CompanyJob.aggregate([
+//       { $match: companyFilter },
+//       {
+//         $group: {
+//           _id: '$currentStatus',
+//           count: { $sum: 1 }
+//         }
+//       }
+//     ]);
+
+//     // Convert to object
+//     const statusBreakdownObj = {};
+//     statusBreakdown.forEach(item => {
+//       statusBreakdownObj[item._id] = item.count;
+//     });
+
+//     // Get user activity stats
+//     const userActivity = await CompanyJob.aggregate([
+//       { $match: companyFilter },
+//       { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+//       {
+//         $group: {
+//           _id: { username: '$statusHistory.username', date: { $dateToString: { format: '%Y-%m-%d', date: '$statusHistory.date' } } },
+//           status: { $first: '$statusHistory.status' },
+//           count: { $sum: 1 }
+//         }
+//       },
+//       {
+//         $group: {
+//           _id: '$_id.username',
+//           dailyTotals: {
+//             $push: {
+//               date: '$_id.date',
+//               status: '$status',
+//               count: '$count'
+//             }
+//           },
+//           totalEngagement: { $sum: '$count' }
+//         }
+//       },
+//       {
+//         $project: {
+//           username: '$_id',
+//           dailyTotals: 1,
+//           totalEngagement: 1
+//         }
+//       }
+//     ]);
+
+//     // Calculate grand totals
+//     const grandTotal = await CompanyJob.aggregate([
+//       { $match: companyFilter },
+//       { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+//       {
+//         $group: {
+//           _id: '$statusHistory.status',
+//           count: { $sum: 1 }
+//         }
+//       }
+//     ]);
+
+//     const grandTotalObj = {
+//       total_engagement: 0,
+//       not_engaged: 0,
+//       applied: 0,
+//       engaged: 0,
+//       interview: 0,
+//       offer: 0,
+//       rejected: 0,
+//       archived: 0
+//     };
+
+//     grandTotal.forEach(item => {
+//       if (grandTotalObj.hasOwnProperty(item._id)) {
+//         grandTotalObj[item._id] = item.count;
+//         grandTotalObj.total_engagement += item.count;
+//       }
+//     });
+
+//     res.json({
+//       users: userActivity || [],
+//       dailyTotals: userActivity.map(user => user.dailyTotals) || [],
+//       grandTotal: grandTotalObj
+//     });
+//   } catch (error) {
+//     console.error('Get company jobs stats error:', error);
+//     res.status(500).json({
+//       error: 'Failed to get statistics',
+//       details: error.message
+//     });
+//   }
+// });
+
 router.get('/stats/overview', authenticateToken, requireRole(['company_admin', 'super_admin']), async (req, res) => {
   try {
     let companyFilter = {};
-    
+
     if (req.user.role === 'company_admin') {
       companyFilter.companyId = req.user.company._id;
     }
 
-    // Get status breakdown
-    const statusBreakdown = await CompanyJob.aggregate([
+    // Get user statuses
+    const userStatuses = await CompanyJob.aggregate([
       { $match: companyFilter },
+      { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
       {
         $group: {
-          _id: '$currentStatus',
+          _id: { username: '$statusHistory.username', status: '$statusHistory.status' },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $group: {
+          _id: '$_id.username',
+          statuses: {
+            $push: {
+              status: '$_id.status',
+              count: '$count'
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          username: '$_id',
+          statuses: {
+            $arrayToObject: {
+              $map: {
+                input: '$statuses',
+                as: 'status',
+                in: { k: '$$status.status', v: '$$status.count' }
+              }
+            }
+          }
+        }
+      }
+    ]);
+
+    // Get daily totals
+    const dailyTotals = await CompanyJob.aggregate([
+      { $match: companyFilter },
+      { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+      {
+        $group: {
+          _id: { date: { $dateToString: { format: '%Y-%m-%d', date: '$statusHistory.date' } }, status: '$statusHistory.status' },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $group: {
+          _id: '$_id.date',
+          statuses: {
+            $push: {
+              status: '$_id.status',
+              count: '$count'
+            }
+          },
+          total_engagement: { $sum: '$count' }
+        }
+      },
+      {
+        $project: {
+          date: '$_id',
+          total_engagement: 1,
+          statuses: {
+            $arrayToObject: {
+              $map: {
+                input: '$statuses',
+                as: 'status',
+                in: { k: '$$status.status', v: '$$status.count' }
+              }
+            }
+          }
+        }
+      }
+    ]);
+
+    // Format daily totals
+    const formattedDailyTotals = dailyTotals.map(day => ({
+      date: day.date,
+      total_engagement: day.total_engagement,
+      not_engaged: day.statuses.not_engaged || 0,
+      applied: day.statuses.applied || 0,
+      engaged: day.statuses.engaged || 0,
+      interview: day.statuses.interview || 0,
+      offer: day.statuses.offer || 0,
+      rejected: day.statuses.rejected || 0,
+      onboard: day.statuses.onboard || 0
+    }));
+
+    // Get grand totals
+    const grandTotal = await CompanyJob.aggregate([
+      { $match: companyFilter },
+      { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+      {
+        $group: {
+          _id: '$statusHistory.status',
           count: { $sum: 1 }
         }
       }
     ]);
 
-    // Convert to object
-    const statusBreakdownObj = {};
-    statusBreakdown.forEach(item => {
-      statusBreakdownObj[item._id] = item.count;
-    });
+    // Format grand totals
+    const grandTotalObj = {
+      total_engagement: 0,
+      not_engaged: 0,
+      applied: 0,
+      engaged: 0,
+      interview: 0,
+      offer: 0,
+      rejected: 0,
+      onboard: 0
+    };
 
-    // Get user activity stats
-    const userActivity = await CompanyJob.aggregate([
-      { $match: companyFilter },
-      { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
-      {
-        $group: {
-          _id: '$statusHistory.username',
-          statusChanges: { $sum: 1 },
-          lastActivity: { $max: '$statusHistory.date' }
-        }
-      },
-      {
-        $project: {
-          userId: '$_id',
-          username: '$_id',
-          statusChanges: 1,
-          lastActivity: 1
-        }
+    grandTotal.forEach(item => {
+      if (grandTotalObj.hasOwnProperty(item._id)) {
+        grandTotalObj[item._id] = item.count;
+        grandTotalObj.total_engagement += item.count;
       }
-    ]);
+    });
 
     res.json({
-      statusBreakdown: statusBreakdownObj,
-      userActivity: userActivity || []
+      users: userStatuses || [],
+      dailyTotals: formattedDailyTotals || [],
+      grandTotal: grandTotalObj
     });
-
   } catch (error) {
     console.error('Get company jobs stats error:', error);
     res.status(500).json({
       error: 'Failed to get statistics',
+      details: error.message
+    });
+  }
+});
+
+router.get('/stats/all-companies', authenticateToken, requireRole(['super_admin']), async (req, res) => {
+  console.log('Request received at /stats/all-companies');
+  try {
+    // Aggregate job stats for all companies
+    const allCompaniesStats = await CompanyJob.aggregate([
+      {
+        $group: {
+          _id: '$companyId',
+          totalJobs: { $sum: 1 },
+          leadsQualified: { $sum: { $cond: [{ $eq: ['$currentStatus', 'onboard'] }, 1, 0] } }, // Count jobs with 'onboard' status
+          statusBreakdown: {
+            $push: {
+              status: '$currentStatus',
+              count: { $sum: 1 }
+            }
+          }
+        }
+      }
+    ]);
+
+    // Aggregate user stats for all companies
+    const allUsers = await User.aggregate([
+      {
+        $group: {
+          _id: '$companyId',
+          totalUsers: { $sum: 1 },
+          users: { $push: { username: '$username', email: '$email' } }
+        }
+      }
+    ]);
+
+    // Aggregate user activity stats for all companies
+   const userActivityStats = await CompanyJob.aggregate([
+  { $unwind: { path: '$statusHistory', preserveNullAndEmptyArrays: true } },
+  {
+    $group: {
+      _id: { companyId: '$companyId', username: '$statusHistory.username', status: '$statusHistory.status' },
+      statusChanges: { $sum: 1 },
+      lastActivity: { $max: '$statusHistory.date' }
+    }
+  },
+  {
+    $group: {
+      _id: '$_id.companyId',
+      userActivity: {
+        $push: {
+          username: '$_id.username',
+          status: '$_id.status',
+          statusChanges: '$statusChanges',
+          lastActivity: '$lastActivity'
+        }
+      }
+    }
+  }
+]);
+
+    // Combine stats into a single response
+    const combinedData = allCompaniesStats.map(companyStat => {
+      const userData = allUsers.find(user => user._id && user._id.toString() === companyStat._id.toString());
+      const userActivity = userActivityStats.find(activity => activity._id && activity._id.toString() === companyStat._id.toString());
+
+      return {
+        companyId: companyStat._id,
+        totalJobs: companyStat.totalJobs,
+        leadsQualified: companyStat.leadsQualified,
+        statusBreakdown: companyStat.statusBreakdown.reduce((acc, item) => {
+          acc[item.status] = (acc[item.status] || 0) + item.count;
+          return acc;
+        }, {}),
+        totalUsers: userData ? userData.totalUsers : 0,
+        users: userData ? userData.users : [],
+        userActivity: userActivity ? userActivity.userActivity : []
+      };
+    });
+
+    res.json({
+      companies: combinedData
+    });
+  } catch (error) {
+    console.error('Error fetching all companies stats:', error);
+    res.status(500).json({
+      error: 'Failed to fetch all companies statistics',
       details: error.message
     });
   }
