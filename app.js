@@ -29,7 +29,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/jobadmin', masterJobRoutes); // Add this line
 app.use('/api/subscriptions', subscriptionPlanRoutes); // Add this
 app.use('/api/company-jobs', companyJobRoutes);
-
+const upworkSchedulerRoutes = require('./services/upworkSchedulerService');
+app.use('/api/upwork-scheduler', upworkSchedulerRoutes);
 
 // app.use('/api', authRoutes);  // Your existing auth routes
 

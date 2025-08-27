@@ -60,3 +60,4 @@ async function runlinkedinPipeline() {
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();
 });
+
