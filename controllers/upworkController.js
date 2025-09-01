@@ -3,7 +3,11 @@ const fs = require('fs');
 const path = require('path');
 // const { PythonShell } = require('python-shell');
 const UpworkUserJobBatch = require('../models/upworkJobBatch');
+const CompanyJob = require('../models/CompanyJob');
 const { cleanupOldBatches } = require('../utils/dataCleanup');
+const { spawn } = require('child_process');
+// const Job = require('../models/upworkJobBatch'); // Ensure the Job model is imported
+
 
 // const { fetchUpworkJobs } = require('../services/upworkService');
 
@@ -718,42 +722,138 @@ exports.getJobById = async (req, res) => {
 //   }
 // };
 
-const { spawn } = require('child_process');
+
 // const path = require('path');
 // const UpworkUserJobBatch = require('../models/upworkJobBatch'); // Adjust path if needed
+// exports.generateProposalForJob = async (req, res) => {
+//   try {
+//     console.log('--- Upwork Proposal Generation Started ---');
 
+//     const { jobId } = req.params; // Extract jobId from the route parameter
+//     console.log('user:', req?.user);
+//     const userId = req?.user._id; // Ensure this is set by authMiddleware
+//     const { selectedCategory } = req.body;
+
+//     console.log('User:', userId, 'Job ID:', jobId, 'Category:', selectedCategory);
+
+//     // Find the job by its _id and ensure it belongs to the authenticated user
+//     const job = await Job.findOne({ _id: jobId });
+
+//     if (!job) {
+//       return res.status(404).json({ message: 'No job found for the given jobId.' });
+//     }
+
+//     // Find the latest batch with the job
+//     console.log('Finding user job batch...');
+//     const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+//     if (!userJobBatch || !userJobBatch.batches.length) {
+//       console.log('No job batches found for user.');
+//       return res.status(404).json({ message: 'No job batches found for user.' });
+//     }
+
+//     let jobToUpdate = null;
+//     for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+//       const batch = userJobBatch.batches[i];
+//       const batchJob = batch.jobs.find(j => j.jobId === jobId);
+//       if (batchJob) {
+//         jobToUpdate = batchJob;
+//         break;
+//       }
+//     }
+
+//     if (!jobToUpdate) {
+//       console.log('Job not found for user.');
+//       return res.status(404).json({ message: 'Job not found for user.' });
+//     }
+
+//     console.log('Job found:', jobToUpdate.title);
+
+//     // Prepare arguments for Python script
+//     const jobData = JSON.stringify(jobToUpdate);
+//     const scriptPath = path.join(__dirname, '../python/proposal_generator.py');
+//     const args = [
+//       scriptPath,
+//       '--type', 'upwork',
+//       '--job', jobData,
+//       '--category', selectedCategory
+//     ];
+
+//     console.log('Spawning Python process...');
+//     const py = spawn('python', args);
+
+//     let stdout = '';
+//     let stderr = '';
+
+//     py.stdout.on('data', (data) => {
+//       stdout += data.toString();
+//       console.log('PYTHON STDOUT:', data.toString());
+//     });
+
+//     py.stderr.on('data', (data) => {
+//       stderr += data.toString();
+//       console.error('PYTHON STDERR:', data.toString());
+//     });
+
+//     py.on('close', async (code) => {
+//       if (code === 0) {
+//         try {
+//           const result = JSON.parse(stdout);
+//           const proposal = result.proposal;
+//           jobToUpdate.proposal = proposal;
+//           await userJobBatch.save();
+//           console.log('Proposal saved to DB.');
+//           res.json({ proposal, job: jobToUpdate });
+//         } catch (err) {
+//           console.error('Error parsing Python output:', err);
+//           res.status(500).json({ message: 'Error parsing proposal output.' });
+//         }
+//       } else {
+//         console.error('Python script exited with code', code, stderr);
+//         res.status(500).json({ message: 'Proposal generation failed.', error: stderr });
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error generating proposal:', error);
+//     res.status(500).json({
+//       message: 'Failed to generate proposal.',
+//       error: error.message,
+//     });
+//   }
+// };
+
+// In upworkController.js
 exports.generateProposalForJob = async (req, res) => {
-  try {
-    console.log('--- Upwork Proposal Generation Started ---');
-    const userId = req.user._id;
+   try {
+    console.log('--- Generating Proposal for Job ---');
+
     const { jobId } = req.params;
+    const username = req.user.username; // Now reliably available
     const { selectedCategory } = req.body;
-    console.log('User:', userId, 'Job ID:', jobId, 'Category:', selectedCategory);
 
-    // Find the latest batch with the job
-    console.log('Finding user job batch...');
-    const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
-    if (!userJobBatch || !userJobBatch.batches.length) {
-      console.log('No job batches found for user.');
-      return res.status(404).json({ message: 'No job batches found for user.' });
+    // Safe company check (req.user.company is now populated)
+    if (!req.user.company || !req.user.company._id) {
+      return res.status(400).json({ message: 'Company ID is missing for the user.' });
     }
-    let jobToUpdate = null;
-    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
-      const batch = userJobBatch.batches[i];
-      const job = batch.jobs.find(j => j.jobId === jobId);
-      if (job) {
-        jobToUpdate = job;
-        break;
-      }
-    }
-    if (!jobToUpdate) {
-      console.log('Job not found for user.');
-      return res.status(404).json({ message: 'Job not found for user.' });
-    }
-    console.log('Job found:', jobToUpdate.title);
+    const companyId = req.user.company._id;
 
-    // Prepare arguments for Python script
-    const jobData = JSON.stringify(jobToUpdate);
+    console.log('User:', username, 'Job ID:', jobId, 'Category:', selectedCategory);
+
+    // Find the job and populate masterJobId for full details (including title)
+    const job = await CompanyJob.findOne({
+      _id: jobId,
+      companyId
+    }).populate('masterJobId'); // Populate to get title, description, etc. from MasterJob
+
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found for the given jobId and companyId.' });
+    }
+
+    // Now job.masterJobId should have the populated data
+    const jobTitle = job.masterJobId ? job.masterJobId.title : 'Untitled'; // Fallback if not populated
+    console.log('Job found:', jobTitle);
+
+    // Prepare arguments for Python script (use populated job)
+    const jobData = JSON.stringify(job); // Now includes masterJobId fields
     const scriptPath = path.join(__dirname, '../python/proposal_generator.py');
     const args = [
       scriptPath,
@@ -761,7 +861,6 @@ exports.generateProposalForJob = async (req, res) => {
       '--job', jobData,
       '--category', selectedCategory
     ];
-
     console.log('Spawning Python process...');
     const py = spawn('python', args);
 
@@ -778,27 +877,39 @@ exports.generateProposalForJob = async (req, res) => {
       console.error('PYTHON STDERR:', data.toString());
     });
 
-    py.on('close', async (code) => {
-      if (code === 0) {
-        try {
-          const result = JSON.parse(stdout);
-          const proposal = result.proposal;
-          jobToUpdate.proposal = proposal;
-          await userJobBatch.save();
-          console.log('Proposal saved to DB.');
-          res.json({ proposal, job: jobToUpdate });
-        } catch (err) {
-          console.error('Error parsing Python output:', err);
-          res.status(500).json({ message: 'Error parsing proposal output.' });
-        }
-      } else {
-        console.error('Python script exited with code', code, stderr);
-        res.status(500).json({ message: 'Proposal generation failed.', error: stderr });
+   py.on('close', async (code) => {
+  if (code === 0) {
+    try {
+      if (!stdout.trim()) {
+        throw new Error('Python script produced empty output.');
       }
+      const result = JSON.parse(stdout);
+      if (result.error) {
+        throw new Error(`Python script error: ${result.error}`);
+      }
+      const proposal = result.proposal;
+
+      // Update the job with the generated proposal
+      job.proposal = proposal;
+      await job.save();
+
+      console.log('Proposal saved to DB.');
+      res.json({ proposal, job });
+    } catch (err) {
+      console.error('Error parsing Python output:', err);
+      res.status(500).json({ message: 'Error parsing proposal output.', details: err.message });
+    }
+  } else {
+    console.error('Python script exited with code', code, stderr);
+    res.status(500).json({ message: 'Proposal generation failed.', error: stderr });
+  }
+});
+  } catch (error) {
+    console.error('Error generating proposal:', error);
+    res.status(500).json({
+      message: 'Failed to generate proposal.',
+      error: error.message,
     });
-  } catch (err) {
-    console.error('Server error:', err);
-    res.status(500).json({ message: 'Server error.' });
   }
 };
 

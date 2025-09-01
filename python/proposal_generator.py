@@ -126,6 +126,33 @@ def generate_linkedin_proposal(job_data: dict, category: str, is_product: bool =
 
     return response.choices[0].message.content.strip()
 
+# if __name__ == "__main__":
+#     try:
+#         import argparse
+#         parser = argparse.ArgumentParser()
+#         parser.add_argument("--type", choices=["linkedin", "upwork"], required=True)
+#         parser.add_argument("--job", type=str, required=True)
+#         parser.add_argument("--category", type=str, required=True)
+#         parser.add_argument("--is_product", action="store_true")
+#         args = parser.parse_args()
+
+#         # print("PYTHON: Arguments parsed", file=sys.stderr)
+#         sys.stderr.flush()
+
+#         job = json.loads(args.job)
+#         if args.type == "linkedin":
+#             result = generate_linkedin_proposal(job, args.category, args.is_product)
+#         else:
+#             result = generate_upwork_proposal(job, args.category)
+#         # print(json.dumps({"proposal": result}))
+#         sys.stdout.flush()
+#         # print("PYTHON: Script finished", file=sys.stderr)
+#         sys.stderr.flush()
+#     except Exception as e:
+#         # print("PYTHON ERROR:", e, file=sys.stderr)
+#         traceback.print_exc()
+#         sys.exit(1)
+
 if __name__ == "__main__":
     try:
         import argparse
@@ -136,19 +163,25 @@ if __name__ == "__main__":
         parser.add_argument("--is_product", action="store_true")
         args = parser.parse_args()
 
-        # print("PYTHON: Arguments parsed", file=sys.stderr)
+        # print("PYTHON: Arguments parsed", file=sys.stderr)  # Keep for debugging
         sys.stderr.flush()
 
         job = json.loads(args.job)
+
         if args.type == "linkedin":
             result = generate_linkedin_proposal(job, args.category, args.is_product)
         else:
             result = generate_upwork_proposal(job, args.category)
-        # print(json.dumps({"proposal": result}))
+
+        # Output the result as JSON (uncommented and ensured)
+        print(json.dumps({"proposal": result}))
         sys.stdout.flush()
-        # print("PYTHON: Script finished", file=sys.stderr)
+
+        # print("PYTHON: Script finished", file=sys.stderr)  # Keep for debugging
         sys.stderr.flush()
     except Exception as e:
-        # print("PYTHON ERROR:", e, file=sys.stderr)
+        # Output error as JSON for better Node.js handling
+        print(json.dumps({"error": str(e)}))
+        sys.stdout.flush()
         traceback.print_exc()
         sys.exit(1)

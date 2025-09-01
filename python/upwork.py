@@ -71,24 +71,24 @@ def score_avg_hourly_rate(row):
     else:
         return 0.2
 
-def score_contract_to_hire(row):
-    is_cth = row.get("isContractToHire", False)
-    tags = row.get("tags", [])
-    if is_cth or ("contractToHireSet" in tags):
-        return 1.0
-    else:
-        return 0.6
+# def score_contract_to_hire(row):
+#     is_cth = row.get("isContractToHire", False)
+#     tags = row.get("tags", [])
+#     if is_cth or ("contractToHireSet" in tags):
+#         return 1.0
+#     else:
+#         return 0.6
 
-def score_enterprise_heuristic(row):
-    description = row.get("description", "").lower()
-    enterprise_keywords = [
-        "fortune 500", "enterprise-grade", "enterprise saas",
-        "corporate clients", "serving global teams", "subsidiary of", "multinational"
-    ]
-    for kw in enterprise_keywords:
-        if re.search(rf"\b{re.escape(kw)}\b", description):
-            return 1.0
-    return 0.5
+# def score_enterprise_heuristic(row):
+#     description = row.get("description", "").lower()
+#     enterprise_keywords = [
+#         "fortune 500", "enterprise-grade", "enterprise saas",
+#         "corporate clients", "serving global teams", "subsidiary of", "multinational"
+#     ]
+#     for kw in enterprise_keywords:
+#         if re.search(rf"\b{re.escape(kw)}\b", description):
+#             return 1.0
+#     return 0.5
 
 def score_hiring_rate(row):
     hires = row.get("buyerTotalJobsWithHires")
@@ -173,16 +173,16 @@ def score_active_assignments(row):
 
 def score_feedback_volume(row):
     count = row.get("buyerFeedbackCount", 0)
-    if count >= 10:
+    if count >= 25:
         return 1.0
-    elif 7 <= count <= 9:
+    elif 16 <= count < 25:
         return 0.8
-    elif 4 <= count <= 6:
-        return 0.6
-    elif 1 <= count <= 3:
-        return 0.4
-    else:
+    elif 6 <= count <= 15:
+        return 0.5
+    elif 1 <= count <= 5:
         return 0.2
+    else:
+        return 0.3
 
 def score_open_jobs(row):
     count = row.get("buyerOpenJobsCount", 0)
@@ -304,8 +304,8 @@ def score_job_level_match(row, user_level="EXPERT"):
 # Apply the KPI functions and store scores
 df["kpi_budget_attractiveness"] = df.apply(score_budget_attractiveness, axis=1)
 df["kpi_avg_hourly_rate"] = df.apply(score_avg_hourly_rate, axis=1)
-df["kpi_contract_to_hire"] = df.apply(score_contract_to_hire, axis=1)
-df["kpi_enterprise_heuristic"] = df.apply(score_enterprise_heuristic, axis=1)
+# df["kpi_contract_to_hire"] = df.apply(score_contract_to_hire, axis=1)
+# df["kpi_enterprise_heuristic"] = df.apply(score_enterprise_heuristic, axis=1)
 df["kpi_hiring_rate"] = df.apply(score_hiring_rate, axis=1)
 df["kpi_job_engagement"] = df.apply(score_job_engagement, axis=1)
 df["kpi_job_title_relevance"] = df.apply(score_job_title_relevance, axis=1)
@@ -326,8 +326,8 @@ df["kpi_job_level_match"] = df.apply(score_job_level_match, axis=1)
 kpi_columns = [
     "kpi_budget_attractiveness",           # Critical
     "kpi_avg_hourly_rate",                 # High
-    "kpi_contract_to_hire",                # Critical if green
-    "kpi_enterprise_heuristic",            # Critical if green
+    # "kpi_contract_to_hire",                # Critical if green
+    # "kpi_enterprise_heuristic",            # Critical if green
     "kpi_hiring_rate",                     # High
     "kpi_job_engagement",
     "kpi_job_title_relevance",
@@ -348,8 +348,8 @@ kpi_columns = [
 weights = {
     "kpi_budget_attractiveness": 2.0,         # Critical
     "kpi_avg_hourly_rate": 1.5,              # High
-    "kpi_contract_to_hire": 1.5,             # Critical if green
-    "kpi_enterprise_heuristic": 2.0,         # Critical if green
+    # "kpi_contract_to_hire": 1.5,             # Critical if green
+    # "kpi_enterprise_heuristic": 2.0,         # Critical if green
     "kpi_hiring_rate": 1.5,                  # High
 }
 
