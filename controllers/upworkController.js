@@ -913,35 +913,80 @@ exports.generateProposalForJob = async (req, res) => {
   }
 };
 
+// exports.updateProposalText = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+//     const { jobId } = req.params;
+//     const { proposal } = req.body;
+//     if (typeof proposal !== 'string') {
+//       return res.status(400).json({ message: 'Proposal text is required.' });
+//     }
+//     const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
+//     if (!userJobBatch || !userJobBatch.batches.length) {
+//       return res.status(404).json({ message: 'No job batches found for user.' });
+//     }
+//     let jobToUpdate = null;
+//     for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
+//       const batch = userJobBatch.batches[i];
+//       const job = batch.jobs.find(j => j.jobId === jobId);
+//       if (job) {
+//         jobToUpdate = job;
+//         break;
+//       }
+//     }
+//     if (!jobToUpdate) {
+//       return res.status(404).json({ message: 'Job not found for user.' });
+//     }
+//     jobToUpdate.proposal = proposal;
+//     await userJobBatch.save();
+//     res.json({ proposal, job: jobToUpdate });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server error.' });
+//   }
+// };
+
+
 exports.updateProposalText = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const username = req.user.username; // For logging/reference
     const { jobId } = req.params;
     const { proposal } = req.body;
-    if (typeof proposal !== 'string') {
-      return res.status(400).json({ message: 'Proposal text is required.' });
+
+    if (typeof proposal !== 'string' || proposal.trim() === '') {
+      return res.status(400).json({ message: 'Proposal text is required and must not be empty.' });
     }
-    const userJobBatch = await UpworkUserJobBatch.findOne({ userId });
-    if (!userJobBatch || !userJobBatch.batches.length) {
-      return res.status(404).json({ message: 'No job batches found for user.' });
+
+    // Safe company check (req.user.company is populated via middleware)
+    if (!req.user.company || !req.user.company._id) {
+      return res.status(400).json({ message: 'Company ID is missing for the user.' });
     }
-    let jobToUpdate = null;
-    for (let i = userJobBatch.batches.length - 1; i >= 0; i--) {
-      const batch = userJobBatch.batches[i];
-      const job = batch.jobs.find(j => j.jobId === jobId);
-      if (job) {
-        jobToUpdate = job;
-        break;
-      }
+    const companyId = req.user.company._id;
+
+    console.log('User:', username, 'Updating proposal for Job ID:', jobId);
+
+    // Find the job and populate masterJobId (for full details, if needed in response)
+    const job = await CompanyJob.findOne({
+      _id: jobId,
+      companyId
+    }).populate('masterJobId'); // Optional: Populate for title/description in response
+
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found for the given jobId and companyId.' });
     }
-    if (!jobToUpdate) {
-      return res.status(404).json({ message: 'Job not found for user.' });
-    }
-    jobToUpdate.proposal = proposal;
-    await userJobBatch.save();
-    res.json({ proposal, job: jobToUpdate });
+
+    // Update the proposal
+    job.proposal = proposal.trim();
+    await job.save();
+
+    console.log(`Proposal updated for job ${jobId} by user ${req.user._id}`);
+    res.json({ 
+      message: 'Proposal updated successfully', 
+      proposal, 
+      job 
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error.' });
+    console.error('Error updating proposal:', err);
+    res.status(500).json({ message: 'Server error.', details: err.message });
   }
 };
