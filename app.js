@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 app.use('/api/auth', authRoutesnew);
 app.use('/api/companies', companyRoutes);
 app.use('/api/users', userRoutes);
