@@ -3,6 +3,9 @@ const CompanyJob = require('../models/CompanyJob');
 const MasterJob = require('../models/MasterJob');
 const Company = require('../models/Company');
 const mongoose = require('mongoose');
+const { spawn } = require('child_process');
+const path = require('path');
+const fs = require('fs');
 
 // Helper function to safely convert to ObjectId
 const toObjectId = (val) => {
@@ -16,26 +19,123 @@ const toObjectId = (val) => {
 };
 
 // Helper function to clean MasterJob data for user display
+// const cleanMasterJobData = (masterJob) => {
+//   if (!masterJob) return null;
+  
+//   // Remove internal/technical fields that users don't need
+//   const {
+//     _id,
+//     scrapedAt,
+//     isActive,
+//     distributedTo,
+//     source,
+//     processed,
+//     createdAt,
+//     updatedAt,
+//     __v,
+//     batchId,
+//     // Remove other internal fields
+//     ...cleanData
+//   } = masterJob.toObject();
+  
+//   return cleanData;
+// };
 const cleanMasterJobData = (masterJob) => {
   if (!masterJob) return null;
   
-  // Remove internal/technical fields that users don't need
-  const {
-    _id,
-    scrapedAt,
-    isActive,
-    distributedTo,
-    source,
-    processed,
-    createdAt,
-    updatedAt,
-    __v,
-    batchId,
-    // Remove other internal fields
-    ...cleanData
-  } = masterJob.toObject();
+  // Handle both Mongoose documents and plain objects
+  const jobObj = masterJob.toObject ? masterJob.toObject() : masterJob;
   
-  return cleanData;
+  // Remove MongoDB internal fields
+  delete jobObj._id;
+  delete jobObj.__v;
+  delete jobObj.createdAt;
+  delete jobObj.updatedAt;
+  
+  // Remove company-managed fields
+  delete jobObj.currentStatus;
+  delete jobObj.statusHistory;
+  delete jobObj.comments;
+  delete jobObj.distributedTo;
+  
+  // Convert nested company objects to safe display format
+  if (jobObj['company.specialities']) {
+    jobObj.companySpecialities = Array.isArray(jobObj['company.specialities']) 
+      ? jobObj['company.specialities'] 
+      : [];
+    delete jobObj['company.specialities'];
+  }
+  
+  if (jobObj['company.industries']) {
+    jobObj.companyIndustries = Array.isArray(jobObj['company.industries']) 
+      ? jobObj['company.industries'] 
+      : [];
+    delete jobObj['company.industries'];
+  }
+  
+  if (jobObj['company.locations']) {
+    jobObj.companyLocations = Array.isArray(jobObj['company.locations']) 
+      ? jobObj['company.locations'] 
+      : [];
+    delete jobObj['company.locations'];
+  }
+  
+  // Handle other company fields safely
+  if (jobObj['company.name']) {
+    jobObj.companyDisplayName = jobObj['company.name'];
+  }
+  
+  if (jobObj['company.description']) {
+    jobObj.companyDescription = jobObj['company.description'];
+  }
+  
+  if (jobObj['company.employeeCount']) {
+    jobObj.companyEmployeeCount = jobObj['company.employeeCount'];
+  }
+  
+  if (jobObj['company.followerCount']) {
+    jobObj.companyFollowerCount = jobObj['company.followerCount'];
+  }
+  
+  if (jobObj['company.linkedinUrl']) {
+    jobObj.companyLinkedinUrl = jobObj['company.linkedinUrl'];
+  }
+  
+  if (jobObj['company.logo']) {
+    jobObj.companyLogo = jobObj['company.logo'];
+  }
+  
+  if (jobObj['company.website']) {
+    jobObj.companyWebsite = jobObj['company.website'];
+  }
+  
+  // Ensure skills and tags are arrays
+  if (jobObj.skills && !Array.isArray(jobObj.skills)) {
+    jobObj.skills = [];
+  }
+  
+  if (jobObj.tags && !Array.isArray(jobObj.tags)) {
+    jobObj.tags = [];
+  }
+  
+  // Handle other arrays that might be objects
+  if (jobObj.openJobs && !Array.isArray(jobObj.openJobs)) {
+    jobObj.openJobs = [];
+  }
+  
+  if (jobObj.questions && !Array.isArray(jobObj.questions)) {
+    jobObj.questions = [];
+  }
+  
+  if (jobObj.qualificationsCountries && !Array.isArray(jobObj.qualificationsCountries)) {
+    jobObj.qualificationsCountries = [];
+  }
+  
+  if (jobObj.qualificationsLanguages && !Array.isArray(jobObj.qualificationsLanguages)) {
+    jobObj.qualificationsLanguages = [];
+  }
+  
+  return jobObj;
 };
 
 // Get company jobs with filtering and pagination
@@ -156,8 +256,213 @@ const getUserJobs = async (req, res) => {
     });
   }
 };
+// Get user jobs for dashboard (with proper pagination)
+// const getUserJobs = async (req, res) => {
+//   try {
+//     const companyId = req.user.company._id;
+    
+//     // Extract pagination parameters
+//     const page = parseInt(req.query.page) || 1;
+//     const limit = Math.min(parseInt(req.query.limit) || 10, 100); // Max 100 per page
+//     const skip = (page - 1) * limit;
+    
+//     // Extract filter parameters
+//     const { status, platform, search, tier, score_min, score_max } = req.query;
+    
+//     console.log(`Getting user jobs - Page: ${page}, Limit: ${limit}, Company: ${companyId}`);
+    
+//     // Build filter query
+//     const matchQuery = { companyId };
+    
+//     // Add filters if provided
+//     if (status) matchQuery.currentStatus = status;
+//     if (platform) matchQuery.platform = platform;
+    
+//     // Get jobs with proper pagination using aggregation pipeline
+//     const pipeline = [
+//       // Match company jobs
+//       { $match: matchQuery },
+      
+//       // Lookup master job data
+//       {
+//         $lookup: {
+//           from: 'masterjobs',
+//           localField: 'masterJobId',
+//           foreignField: '_id',
+//           as: 'masterJobData'
+//         }
+//       },
+      
+//       // Unwind master job data
+//       { $unwind: '$masterJobData' },
+      
+//       // Add search filter if provided
+//       ...(search ? [{
+//         $match: {
+//           $or: [
+//             { 'masterJobData.title': { $regex: search, $options: 'i' } },
+//             { 'masterJobData.description': { $regex: search, $options: 'i' } },
+//             { 'masterJobData.companyName': { $regex: search, $options: 'i' } }
+//           ]
+//         }
+//       }] : []),
+      
+//       // Add tier filter if provided
+//       ...(tier ? [{ $match: { 'masterJobData.tier': tier } }] : []),
+      
+//       // Add score filter if provided
+//       ...(score_min || score_max ? [{
+//         $match: {
+//           ...(score_min && { 'masterJobData.final_weighted_score': { $gte: parseFloat(score_min) } }),
+//           ...(score_max && { 'masterJobData.final_weighted_score': { $lte: parseFloat(score_max) } })
+//         }
+//       }] : []),
+      
+//       // Sort by distribution date (newest first)
+//       { $sort: { distributedAt: -1 } },
+      
+//       // Get total count
+//       {
+//         $facet: {
+//           data: [
+//             { $skip: skip },
+//             { $limit: limit },
+//             {
+//               $project: {
+//                 // Company job fields
+//                 _id: 1,
+//                 currentStatus: 1,
+//                 statusHistory: 1,
+//                 comments: 1,
+//                 proposal: 1,
+//                 companyScore: 1,
+//                 isBookmarked: 1,
+//                 distributedAt: 1,
+//                 lastUpdated: 1,
+                
+//                 // Master job fields (merged)
+//                 jobId: '$masterJobData.jobId',
+//                 title: '$masterJobData.title',
+//                 description: '$masterJobData.description',
+//                 descriptionText: '$masterJobData.descriptionText',
+//                 platform: '$masterJobData.platform',
+//                 companyName: '$masterJobData.companyName',
+//                 skills: '$masterJobData.skills',
+//                 tier: '$masterJobData.tier',
+//                 final_score: '$masterJobData.final_score',
+//                 final_weighted_score: '$masterJobData.final_weighted_score',
+//                 ai_remark: '$masterJobData.ai_remark',
+//                 predicted_domain: '$masterJobData.predicted_domain',
+//                 postedDate: '$masterJobData.postedDate',
+//                 salary: '$masterJobData.salary',
+//                 location: '$masterJobData.city',
+//                 country: '$masterJobData.country',
+//                 url: '$masterJobData.url',
+//                 linkedinUrl: '$masterJobData.linkedinUrl',
+                
+//                 // AE fields
+//                 ae_comment: '$masterJobData.ae_comment',
+//                 ae_score: '$masterJobData.ae_score',
+//                 ae_pitched: '$masterJobData.ae_pitched',
+//                 estimated_budget: '$masterJobData.estimated_budget'
+//               }
+//             }
+//           ],
+//           totalCount: [
+//             { $count: "count" }
+//           ]
+//         }
+//       }
+//     ];
+    
+//     const result = await CompanyJob.aggregate(pipeline);
+    
+//     const jobs = result[0].data;
+//     const total = result[0].totalCount[0]?.count || 0;
+    
+//     console.log(`Found ${jobs.length} jobs out of ${total} total for company ${companyId}`);
+
+//     res.json({
+//       jobs,
+//       pagination: {
+//         page,
+//         limit,
+//         total,
+//         pages: Math.ceil(total / limit),
+//         hasNext: page < Math.ceil(total / limit),
+//         hasPrev: page > 1
+//       },
+//       filters: {
+//         status,
+//         platform,
+//         search,
+//         tier,
+//         score_min,
+//         score_max
+//       }
+//     });
+
+//   } catch (error) {
+//     console.error('Get user jobs error:', error);
+//     res.status(500).json({ 
+//       error: 'Failed to fetch user jobs',
+//       details: error.message 
+//     });
+//   }
+// };
 
 // Get single job details with complete master data
+// const getJobDetails = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+
+//     const job = await CompanyJob.findOne({
+//       _id: jobId,
+//       companyId
+//     }).populate('masterJobId');
+
+//     if (!job) {
+//       return res.status(404).json({ error: 'Job not found' });
+//     }
+
+//     // Merge master data with company data
+//     const jobObj = job.toObject();
+//     if (jobObj.masterJobId) {
+//       const masterData = cleanMasterJobData(job.masterJobId);
+//       const mergedJob = {
+//         ...masterData,
+//         currentStatus: jobObj.currentStatus,
+//         statusHistory: jobObj.statusHistory,
+//         comments: jobObj.comments,
+//         proposal: jobObj.proposal,
+//         companyScore: jobObj.companyScore,
+//         isBookmarked: jobObj.isBookmarked,
+//         distributedAt: jobObj.distributedAt,
+//         lastUpdated: jobObj.lastUpdated,
+//         _id: jobObj._id
+//       };
+      
+//       res.json({ job: mergedJob });
+//     } else {
+//       res.json({ job: jobObj });
+//     }
+
+//   } catch (error) {
+//     console.error('Get job details error:', error);
+//     res.status(500).json({ 
+//       error: 'Failed to get job details',
+//       details: error.message 
+//     });
+//   }
+// };
+// Get single job details with complete master data
+
+
 const getJobDetails = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -176,27 +481,31 @@ const getJobDetails = async (req, res) => {
       return res.status(404).json({ error: 'Job not found' });
     }
 
-    // Merge master data with company data
-    const jobObj = job.toObject();
-    if (jobObj.masterJobId) {
-      const masterData = cleanMasterJobData(job.masterJobId);
-      const mergedJob = {
-        ...masterData,
-        currentStatus: jobObj.currentStatus,
-        statusHistory: jobObj.statusHistory,
-        comments: jobObj.comments,
-        proposal: jobObj.proposal,
-        companyScore: jobObj.companyScore,
-        isBookmarked: jobObj.isBookmarked,
-        distributedAt: jobObj.distributedAt,
-        lastUpdated: jobObj.lastUpdated,
-        _id: jobObj._id
-      };
+    // Merge master data with company data for complete job details
+    const completeJobData = {
+      // Company job fields
+      _id: job._id,
+      companyId: job.companyId,
+      currentStatus: job.currentStatus,
+      statusHistory: job.statusHistory,
+      comments: job.comments,
+      proposal: job.proposal,
+      companyScore: job.companyScore,
+      isBookmarked: job.isBookmarked,
+      distributedAt: job.distributedAt,
+      lastUpdated: job.lastUpdated,
       
-      res.json({ job: mergedJob });
-    } else {
-      res.json({ job: jobObj });
-    }
+      // Master job data (all fields)
+      ...job.masterJobId.toObject(),
+      
+      // Override with company-specific data
+      currentStatus: job.currentStatus,
+      statusHistory: job.statusHistory,
+      comments: job.comments,
+      proposal: job.proposal
+    };
+    
+    res.json({ job: completeJobData });
 
   } catch (error) {
     console.error('Get job details error:', error);
@@ -206,6 +515,120 @@ const getJobDetails = async (req, res) => {
     });
   }
 };
+// const getJobDetails = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const companyId = req.user.company._id;
+    
+//     // Pagination parameters
+//     const page = parseInt(req.query.page) || 1;
+//     const limit = parseInt(req.query.limit) || 20;
+//     const skip = (page - 1) * limit;
+    
+//     // Lazy loading parameters
+//     const includeStatusHistory = req.query.includeStatusHistory === 'true';
+//     const includeComments = req.query.includeComments === 'true';
+//     const includeCompanyScores = req.query.includeCompanyScores === 'true';
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+
+//     // Build population options based on lazy loading requirements
+//     const populateOptions = {
+//       path: 'masterJobId',
+//       select: 'title description platform companyName skills tier final_score ai_remark'
+//     };
+
+//     // Base job query
+//     let jobQuery = CompanyJob.findOne({
+//       _id: jobId,
+//       companyId
+//     }).populate(populateOptions);
+
+//     const job = await jobQuery;
+
+//     if (!job) {
+//       return res.status(404).json({ error: 'Job not found' });
+//     }
+
+//     // Prepare base response
+//     const completeJobData = {
+//       // Company job fields (always included)
+//       _id: job._id,
+//       companyId: job.companyId,
+//       currentStatus: job.currentStatus,
+//       isBookmarked: job.isBookmarked,
+//       distributedAt: job.distributedAt,
+//       lastUpdated: job.lastUpdated,
+//       proposal: job.proposal,
+      
+//       // Master job data (always included)
+//       ...job.masterJobId.toObject()
+//     };
+
+//     // Lazy load status history with pagination
+//     if (includeStatusHistory) {
+//       const statusHistory = job.statusHistory
+//         .sort((a, b) => new Date(b.date) - new Date(a.date))
+//         .slice(skip, skip + limit);
+      
+//       completeJobData.statusHistory = statusHistory;
+//       completeJobData.statusHistoryPagination = {
+//         page,
+//         limit,
+//         total: job.statusHistory.length,
+//         hasMore: (skip + limit) < job.statusHistory.length
+//       };
+//     }
+
+//     // Lazy load comments with pagination
+//     if (includeComments) {
+//       const comments = job.comments
+//         .sort((a, b) => new Date(b.date) - new Date(a.date))
+//         .slice(skip, skip + limit);
+      
+//       completeJobData.comments = comments;
+//       completeJobData.commentsPagination = {
+//         page,
+//         limit,
+//         total: job.comments.length,
+//         hasMore: (skip + limit) < job.comments.length
+//       };
+//     }
+
+//     // Lazy load company scores with pagination
+//     if (includeCompanyScores) {
+//       const companyScores = job.companyScore
+//         .sort((a, b) => new Date(b.date) - new Date(a.date))
+//         .slice(skip, skip + limit);
+      
+//       completeJobData.companyScore = companyScores;
+//       completeJobData.companyScoresPagination = {
+//         page,
+//         limit,
+//         total: job.companyScore.length,
+//         hasMore: (skip + limit) < job.companyScore.length
+//       };
+//     }
+
+//     res.json({ 
+//       job: completeJobData,
+//       lazyLoadingOptions: {
+//         includeStatusHistory,
+//         includeComments,
+//         includeCompanyScores
+//       }
+//     });
+
+//   } catch (error) {
+//     console.error('Get job details error:', error);
+//     res.status(500).json({ 
+//       error: 'Failed to get job details',
+//       details: error.message 
+//     });
+//   }
+// };
 
 // Update job status
 const updateJobStatus = async (req, res) => {
@@ -387,7 +810,7 @@ const rateJob = async (req, res) => {
   }
 };
 
-// ✅ Get company-wide job statistics (NEW)
+// Get company-wide job statistics (NEW)
 const getCompanyWideStats = async (req, res) => {
   try {
     const companyId = req.user.company._id;
