@@ -16,27 +16,73 @@ const CompanyJobSchema = new mongoose.Schema({
     required: true
   },
   
-  // Company-specific fields ONLY (no job data duplication)
-  currentStatus: {
-    type: String,
-    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived'],
-    default: 'not_engaged'
-  },
+  // // Company-specific fields ONLY (no job data duplication)
+  // currentStatus: {
+  //   type: String,
+  //   enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived'],
+  //   default: 'not_engaged'
+  // },
   
-  statusHistory: [{
-    status: {
+  //  statusHistory: [{
+  //   status: {
+  //     type: String,
+  //     enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived']
+  //   },
+  //   changedBy: {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'User'
+  //   },
+  //   username: String,
+  //   date: { type: Date, default: Date.now },
+  //   notes: String
+  // }],
+    // Make status more flexible
+    currentStatus: {
       type: String,
-      enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard', 'archived']
+      required: true,
+      default: 'not_engaged'
+      // Remove enum restriction to allow custom statuses
     },
-    changedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    username: String,
-    date: { type: Date, default: Date.now },
-    notes: String
-  }],
+    
+    statusHistory: [{
+      status: {
+        type: String,
+        required: true
+        // Remove enum restriction
+      },
+      changedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      },
+      username: String,
+      date: { type: Date, default: Date.now },
+      notes: String,
+      
+      // Additional fields for custom pipeline
+      previousStatus: String,
+      transitionType: {
+        type: String,
+        enum: ['manual', 'automatic', 'bulk'],
+        default: 'manual'
+      },
+      isValidTransition: {
+        type: Boolean,
+        default: true
+      }
+    }],
   
+    // Pipeline-specific metadata
+    pipelineMetadata: {
+      currentStage: {
+        name: String,
+        displayName: String,
+        color: String,
+        sortOrder: Number
+      },
+      stageStartedAt: Date,
+      stageDuration: Number, // in milliseconds
+      totalPipelineTime: Number
+    },
   comments: [{
     author: {
       type: mongoose.Schema.Types.ObjectId,

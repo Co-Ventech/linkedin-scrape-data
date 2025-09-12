@@ -64,12 +64,129 @@ const getCompanyUsers = async (req, res) => {
 };
 
 // Create user - only company_admin can create users in their company
+// const createUser = async (req, res) => {
+//   try {
+//     console.log('Creating user - Request body:', req.body);
+//     console.log('Creating user - Admin company:', req.user.company?._id);
+
+//     const { username, email, password } = req.body;
+
+//     // Validation
+//     if (!username || !email || !password) {
+//       return res.status(400).json({ 
+//         error: 'Username, email and password are required' 
+//       });
+//     }
+
+//     if (password.length < 6) {
+//       return res.status(400).json({ 
+//         error: 'Password must be at least 6 characters long' 
+//       });
+//     }
+
+//     // Only company_admin can create users
+//     if (req.user.role !== 'company_admin') {
+//       return res.status(403).json({ 
+//         error: 'Only company admins can create users' 
+//       });
+//     }
+
+//     // Get company from authenticated user
+//     const companyId = req.user.company?._id || req.user.company;
+//     if (!companyId) {
+//       return res.status(400).json({ 
+//         error: 'Company information missing' 
+//       });
+//     }
+
+//     // Verify company exists and is active
+//     const company = await Company.findById(companyId);
+//     if (!company || !company.isActive) {
+//       return res.status(400).json({ 
+//         error: 'Invalid or inactive company' 
+//       });
+//     }
+
+//     // Check for existing user with same email or username
+//     const existingUser = await User.findOne({
+//       $or: [{ email }, { username }]
+//     });
+
+//     if (existingUser) {
+//       const field = existingUser.email === email ? 'email' : 'username';
+//       return res.status(400).json({ 
+//         error: `User with this ${field} already exists` 
+//       });
+//     }
+
+//     // Create new user with company_user role
+//     const userData = {
+//       username,
+//       email,
+//       password,
+//       role: 'company_user', // Always create as company_user
+//       company: companyId,
+//       isActive: true
+//     };
+
+//     console.log('Creating user with data:', { ...userData, password: '[HIDDEN]' });
+
+//     const user = new User(userData);
+//     const savedUser = await user.save();
+
+//     console.log('User created successfully:', savedUser._id);
+
+//     // Send welcome email (optional, don't fail if email fails)
+//     try {
+//       await sendWelcomeEmail(email, username, company.name);
+//     } catch (emailError) {
+//       console.error('Failed to send welcome email:', emailError);
+//     }
+
+//     // Remove sensitive data from response
+//     const userResponse = savedUser.toObject();
+//     delete userResponse.password;
+//     delete userResponse.resetPasswordToken;
+//     delete userResponse.resetPasswordExpires;
+
+//     res.status(201).json({
+//       message: 'User created successfully',
+//       user: userResponse
+//     });
+
+//   } catch (error) {
+//     console.error('Create user error:', error);
+    
+//     if (error.code === 11000) {
+//       const field = Object.keys(error.keyPattern)[0];
+//       return res.status(400).json({ 
+//         error: `${field.charAt(0).toUpperCase() + field.slice(1)} already exists` 
+//       });
+//     }
+    
+//     if (error.name === 'ValidationError') {
+//       const validationErrors = Object.values(error.errors).map(err => err.message);
+//       return res.status(400).json({ 
+//         error: 'Validation failed', 
+//         details: validationErrors 
+//       });
+//     }
+    
+//     res.status(500).json({ 
+//       error: 'Failed to create user', 
+//       details: error.message 
+//     });
+//   }
+// };
+
+
+
+// Update the createUser function in controllers/userController.js
 const createUser = async (req, res) => {
   try {
     console.log('Creating user - Request body:', req.body);
-    console.log('Creating user - Admin company:', req.user.company?._id);
-
-    const { username, email, password } = req.body;
+    
+    const { username, email, password, companyId } = req.body; // Add companyId parameter
 
     // Validation
     if (!username || !email || !password) {
@@ -84,23 +201,33 @@ const createUser = async (req, res) => {
       });
     }
 
-    // Only company_admin can create users
-    if (req.user.role !== 'company_admin') {
+    // Get company based on role
+    let targetCompanyId;
+    
+    if (req.user.role === 'super_admin') {
+      // Super admin must specify companyId
+      if (!companyId) {
+        return res.status(400).json({ 
+          error: 'Company ID is required for super admin' 
+        });
+      }
+      targetCompanyId = companyId;
+    } else if (req.user.role === 'company_admin') {
+      // Company admin can only create users for their own company
+      targetCompanyId = req.user.company?._id || req.user.company;
+      if (!targetCompanyId) {
+        return res.status(400).json({ 
+          error: 'Company information missing' 
+        });
+      }
+    } else {
       return res.status(403).json({ 
-        error: 'Only company admins can create users' 
-      });
-    }
-
-    // Get company from authenticated user
-    const companyId = req.user.company?._id || req.user.company;
-    if (!companyId) {
-      return res.status(400).json({ 
-        error: 'Company information missing' 
+        error: 'Insufficient permissions' 
       });
     }
 
     // Verify company exists and is active
-    const company = await Company.findById(companyId);
+    const company = await Company.findById(targetCompanyId);
     if (!company || !company.isActive) {
       return res.status(400).json({ 
         error: 'Invalid or inactive company' 
@@ -125,7 +252,7 @@ const createUser = async (req, res) => {
       email,
       password,
       role: 'company_user', // Always create as company_user
-      company: companyId,
+      company: targetCompanyId,
       isActive: true
     };
 
@@ -148,6 +275,9 @@ const createUser = async (req, res) => {
     delete userResponse.password;
     delete userResponse.resetPasswordToken;
     delete userResponse.resetPasswordExpires;
+
+    // Populate company info in response
+    await savedUser.populate('company', 'name description');
 
     res.status(201).json({
       message: 'User created successfully',
@@ -178,6 +308,7 @@ const createUser = async (req, res) => {
     });
   }
 };
+
 
 // Update user - company_admin can update users in their company
 // const updateUser = async (req, res) => {

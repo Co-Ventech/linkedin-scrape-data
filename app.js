@@ -4,8 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./middleware/errorHandler');
 // const authRoutes = require('./routes/authRoutes');
-// const linkedinRoutes = require('./routes/linkedin');
-// const upworkRoutes = require('./routes/upwork');
+const linkedinRoutes = require('./routes/linkedin');
+const upworkRoutes = require('./routes/upwork');
 // const statusHistoryRoutes = require('./routes/admin');
 const authRoutesnew = require('./routes/auth');
 const companyRoutes = require('./routes/companies');
@@ -13,6 +13,7 @@ const userRoutes = require('./routes/users');
 const masterJobRoutes = require('./routes/masterJobs'); // Add this line
 const subscriptionPlanRoutes = require('./routes/subscriptionPlans'); // Add this
 const companyJobRoutes = require('./routes/companyJobs');
+const companypipeline = require('./routes/pipeline');
 const upworkSchedulerRoutes = require('./services/upworkSchedulerService');
 
 const app = express();
@@ -30,15 +31,14 @@ app.use('/api/users', userRoutes);
 app.use('/api/jobadmin', masterJobRoutes); // Add this line
 app.use('/api/subscriptions', subscriptionPlanRoutes); // Add this
 app.use('/api/company-jobs', companyJobRoutes);
-
-
 app.use('/api/upwork-scheduler', upworkSchedulerRoutes);
+app.use('/api/company-pipeline', companypipeline);
 
 // app.use('/api', authRoutes);  // Your existing auth routes
 
-// app.use('/api', upworkRoutes);
+app.use('/api', upworkRoutes);
 
-// app.use('/api', linkedinRoutes) ;
+app.use('/api', linkedinRoutes) ;
 // app.use('/api', statusHistoryRoutes);
 
 // app.use('/api', masterJobRoutes);

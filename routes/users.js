@@ -50,23 +50,55 @@ router.get('/:id', authenticateToken, requireRole(['company_admin', 'super_admin
 // Create user (Company Admin only)
 router.post('/', 
   authenticateToken, 
-  requireRole(['company_admin']), 
+  requireRole(['company_admin', 'super_admin']), 
   createUser
 );
+router.get('/company/:companyId', 
+  authenticateToken, 
+  requireRole(['super_admin']), 
+  async (req, res) => {
+    try {
+      const { companyId } = req.params;
+      
+      // Pagination parameters
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 20;
+      const skip = (page - 1) * limit;
 
-// // Update user (Company Admin, Super Admin, or self)
-// router.put('/:id', 
-//   authenticateToken, 
-//   requireRole(['company_admin', 'super_admin', 'company_user']), 
-//   updateUser
-// );
+      const users = await User.find({ 
+        company: companyId, 
+        isActive: true 
+      })
+      .select('-password -resetPasswordToken -resetPasswordExpires')
+      .populate('company', 'name description')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean();
 
-// // Delete user (Company Admin and Super Admin)
-// router.delete('/:id', 
-//   authenticateToken, 
-//   requireRole(['company_admin', 'super_admin']), 
-//   deleteUser
-// );
+      const total = await User.countDocuments({ 
+        company: companyId, 
+        isActive: true 
+      });
+
+      res.json({
+        users,
+        pagination: {
+          current: page,
+          limit,
+          total,
+          pages: Math.ceil(total / limit),
+          hasNext: page < Math.ceil(total / limit),
+          hasPrev: page > 1
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
+
+
 
 // Change own password (All authenticated users)
 router.post('/change-password', 
@@ -109,12 +141,7 @@ router.post('/:id/change-password', authenticateToken, requireRole(['company_adm
   }
 });
 
-// // Hard reset password (Admin only)
-// router.post('/:id/hard-reset-password', 
-//   authenticateToken, 
-//   requireRole(['company_admin', 'super_admin']), 
-//   hardResetPassword
-// );
+
 // Update user (Company Admin, Super Admin, or self)
 router.put('/:id', 
   authenticateToken, 

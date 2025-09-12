@@ -36,9 +36,9 @@ async function runlinkedinPipeline() {
     await delay(10000);
 
     // 4. Save jobs to MongoDB (requires auth)
-    await axios.post(`${API_BASE_URL}/api/linkedin/save-jobs`, {}, {
-      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }, timeout: 900000 
-    });
+    // await axios.post(`${API_BASE_URL}/api/linkedin/save-jobs`, {}, {
+    //   headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` }, timeout: 900000 
+    // });
     console.log('linkedin jobs saved to DB');
     await delay(10000);
     console.log(`${jobName} complete at`, new Date().toISOString());

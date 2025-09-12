@@ -1,9 +1,9 @@
-
 const MasterJob = require('../models/MasterJob');
 const CompanyJob = require('../models/CompanyJob');
 const Company = require('../models/Company');
 const JobCustomization = require('../models/JobCustomization');
 const JobBatch = require('../models/JobBatch');
+const CompanyPipeline = require('../models/CompanyPipeline');
 
 // Distribute jobs from specific batch to companies (SHADOW VIEW)
 const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
@@ -229,20 +229,38 @@ const createShadowJobEntry = async (companyId, masterJob) => {
       return null; // Already distributed
     }
 
-    // Create SHADOW VIEW entry (ONLY REFERENCES + COMPANY DATA)
-    const companyJob = new CompanyJob({
-      masterJobId: masterJob._id, // Reference to MasterJob
-      companyId, // Reference to Company
-      currentStatus: 'not_engaged',
-      statusHistory: [{
-        status: 'not_engaged',
-        username: 'system',
-        date: new Date(),
-        notes: 'Job distributed via shadow view'
-      }],
-      distributedAt: new Date()
-    });
+    // // Create SHADOW VIEW entry (ONLY REFERENCES + COMPANY DATA)
+    // const companyJob = new CompanyJob({
+    //   masterJobId: masterJob._id, // Reference to MasterJob
+    //   companyId, // Reference to Company
+    //   currentStatus: 'not_engaged',
+    //   statusHistory: [{
+    //     status: 'not_engaged',
+    //     username: 'system',
+    //     date: new Date(),
+    //     notes: 'Job distributed via shadow view'
+    //   }],
+    //   distributedAt: new Date()
+    // });
+// Create SHADOW VIEW entry (ONLY REFERENCES + COMPANY DATA)
+const pipeline = await CompanyPipeline.findOne({ companyId });
+const initialStatus = pipeline?.settings?.defaultInitialStatus || 'not_engaged';
 
+const companyJob = new CompanyJob({
+  masterJobId: masterJob._id, // Reference to MasterJob
+  companyId, // Reference to Company
+  currentStatus: initialStatus,
+  statusHistory: [{
+    status: initialStatus,
+    username: 'system',
+    date: new Date(),
+    notes: 'Job distributed via shadow view',
+    previousStatus: null,
+    transitionType: 'automatic',
+    isValidTransition: true
+  }],
+  distributedAt: new Date()
+});
     await companyJob.save();
     return companyJob;
   } catch (error) {
@@ -313,6 +331,9 @@ const filterJobsForCompany = (jobs, customization) => {
 
 module.exports = {
   distributeJobsFromBatch,
-  distributeNewJobs
+  distributeNewJobs,
+  distributeJobsToSingleCompanyShadow,
+  createShadowJobEntry,
+  filterJobsForCompany
 };
 

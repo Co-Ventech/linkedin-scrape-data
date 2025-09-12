@@ -63,6 +63,9 @@ const User = require('../models/User');
 //     next();
 //   };
 // };
+
+
+
 const requireSameCompanyOrAdmin = (req, res, next) => {
   if (req.user.role === 'super_admin') {
     return next();
