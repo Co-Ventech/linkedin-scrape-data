@@ -9,8 +9,9 @@ const jobBatchSchema = new mongoose.Schema({
   },
   platform: {
     type: String,
-    enum: ['linkedin', 'upwork', 'indeed', 'glassdoor'],
-    required: true
+    enum: ['linkedin', 'upwork', 'indeed', 'glassdoor','google'],
+    required: true,
+    index: true
   },
   status: {
     type: String,

@@ -845,7 +845,7 @@ const MasterJob = require('../models/MasterJob');
 const JobBatch = require('../models/JobBatch');
 const Company = require('../models/Company');
 const CompanyJob = require('../models/CompanyJob');
-
+const crypto = require('crypto');
 const PRESERVED_FIELDS = ['currentStatus','statusHistory','comments','ae_comment','ae_score','proposal','distributedTo'];
 
 const getFilePath = (platform) => {
@@ -855,18 +855,200 @@ const getFilePath = (platform) => {
     linkedin: 'scored_linkedin_jobs.json',
     upwork: 'final_jobs_upwork.json',
     indeed: 'scored_indeed_jobs.json',
-    glassdoor: 'scored_glassdoor_jobs.json'
+    glassdoor: 'scored_glassdoor_jobs.json',
+    google: 'scraped_jobs.json'
   };
   return path.join(dataDir, fileMap[platform]);
 };
 
+
+// Top-level config in masterJobController.js
+const COMPANY_MANAGED_FIELDS = [
+  'ae_comment',
+  'ae_score',
+  'proposal',
+  'ae_pitched',
+  'estimated_budget',
+];
 const generateBatchId = (platform) => {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '').slice(0, -5);
   return `${platform}_${timestamp}`;
 };
 
+// const convertToMasterJob = (job, platform, batchId) => {
+//   const baseJob = { platform, batchId, scrapedAt: new Date(), isActive: true, processed: true, source: 'file_upload' };
+//   if (platform === 'linkedin') {
+//     return {
+//       ...baseJob,
+//       jobId: job.id,
+//       id: job.id,
+//       title: job.title,
+//       linkedinUrl: job.linkedinUrl,
+//       descriptionText: job.descriptionText,
+//       postedDate: job.postedDate ? new Date(job.postedDate) : null,
+//       expireAt: job.expireAt ? new Date(job.expireAt) : null,
+//       employmentType: job.employmentType,
+//       workplaceType: job.workplaceType,
+//       easyApplyUrl: job.easyApplyUrl,
+//       applicants: job.applicants,
+//       views: job.views,
+//       jobApplicationLimitReached: job.jobApplicationLimitReached,
+//       applyMethod: job.applyMethod,
+//       salary: job.salary,
+//       url: job.linkedinUrl,
+//       'company.linkedinUrl': job['company.linkedinUrl'],
+//       'company.logo': job['company.logo'],
+//       'company.website': job['company.website'],
+//       'company.name': job['company.name'],
+//       'company.employeeCount': job['company.employeeCount'],
+//       'company.followerCount': job['company.followerCount'],
+//       'company.description': job['company.description'],
+//       'company.specialities': job['company.specialities'] || [],
+//       'company.industries': job['company.industries'] || [],
+//       'company.locations': job['company.locations'] || [],
+//       kpi_jd_quality: job.kpi_jd_quality,
+//       kpi_domain_fit: job.kpi_domain_fit,
+//       kpi_seniority_alignment: job.kpi_seniority_alignment,
+//       kpi_location_priority: job.kpi_location_priority,
+//       kpi_company_specialties: job.kpi_company_specialties,
+//       kpi_salary: job.kpi_salary,
+//       kpi_company_size: job.kpi_company_size,
+//       kpi_company_popularity: job.kpi_company_popularity,
+//       kpi_industry_match: job.kpi_industry_match,
+//       kpi_job_popularity: job.kpi_job_popularity,
+//       kpi_job_freshness: job.kpi_job_freshness,
+//       kpi_employment_type: job.kpi_employment_type,
+//       kpi_contact_info: job.kpi_contact_info,
+//       kpi_skills_explicitness: job.kpi_skills_explicitness,
+//       kpi_experience_threshold: job.kpi_experience_threshold,
+//       predicted_domain: job.predicted_domain,
+//       final_score: job.final_score,
+//       tier: job.tier,
+//       proposal: job.proposal || '',
+//       ai_remark: job.ai_remark
+//     };
+//   }
+//   if (platform === 'upwork') {
+//     return {
+//       ...baseJob,
+//       jobId: job.jobId,
+//       title: job.title,
+//       description: job.description,
+//       url: job.url,
+//       isContractToHire: job.isContractToHire,
+//       isPaymentMethodVerified: job.isPaymentMethodVerified,
+//       level: job.level,
+//       contractorTier: job.contractorTier,
+//       companyId: job.companyId,
+//       companyIndustry: job.companyIndustry,
+//       companyContractDate: job.companyContractDate ? new Date(job.companyContractDate) : null,
+//       buyerScore: job.buyerScore,
+//       buyerTotalAssignments: job.buyerTotalAssignments,
+//       buyerTotalJobsWithHires: job.buyerTotalJobsWithHires,
+//       buyerActiveAssignmentsCount: job.buyerActiveAssignmentsCount,
+//       buyerFeedbackCount: job.buyerFeedbackCount,
+//       buyerOpenJobsCount: job.buyerOpenJobsCount,
+//       buyerPostedJobsCount: job.buyerPostedJobsCount,
+//       buyerAvgHourlyRate: job.buyerAvgHourlyRate,
+//       minHourlyRate: job.minHourlyRate,
+//       maxHourlyRate: job.maxHourlyRate,
+//       hourlyType: job.hourlyType,
+//       hourlyWeeks: job.hourlyWeeks,
+//       minHoursWeek: job.minHoursWeek,
+//       lastBuyerActivity: job.lastBuyerActivity,
+//       clientTotalHours: job.clientTotalHours,
+//       clientTotalSpend: job.clientTotalSpend,
+//       clientRisingTalent: job.clientRisingTalent,
+//       jobType: job.jobType,
+//       fixedBudget: job.fixedBudget,
+//       fixedDurationLabel: job.fixedDurationLabel,
+//       numberOfPositionsToHire: job.numberOfPositionsToHire,
+//       premium: job.premium,
+//       tags: job.tags || [],
+//       skills: job.skills || [],
+//       openJobs: job.openJobs || [],
+//       questions: job.questions || [],
+//       qualificationsCountries: job.qualificationsCountries || [],
+//       qualificationsLanguages: job.qualificationsLanguages || [],
+//       qualificationsMinJobSuccessScore: job.qualificationsMinJobSuccessScore,
+//       qualificationsRisingTalent: job.qualificationsRisingTalent,
+//       qualificationsLocationCheckRequired: job.qualificationsLocationCheckRequired,
+//       city: job.city,
+//       country: job.country,
+//       countryTimezone: job.countryTimezone,
+//       utcOffsetMillis: job.utcOffsetMillis,
+//       companyName: job.companyName,
+//       companySize: job.companySize,
+//       companyIsEDCReplicated: job.companyIsEDCReplicated,
+//       category: job.category,
+//       categoryGroup: job.categoryGroup,
+//       occupation: job.occupation,
+//       status: job.status,
+//       ts_create: job.ts_create ? new Date(job.ts_create) : null,
+//       ts_publish: job.ts_publish ? new Date(job.ts_publish) : null,
+//       ts_sourcing: job.ts_sourcing ? new Date(job.ts_sourcing) : null,
+//       kpi_budget_attractiveness: job.kpi_budget_attractiveness,
+//       kpi_avg_hourly_rate: job.kpi_avg_hourly_rate,
+//       kpi_hiring_rate: job.kpi_hiring_rate,
+//       kpi_job_engagement: job.kpi_job_engagement,
+//       kpi_job_title_relevance: job.kpi_job_title_relevance,
+//       kpi_client_tenure: job.kpi_client_tenure,
+//       kpi_client_hiring_history: job.kpi_client_hiring_history,
+//       kpi_client_active_assignments: job.kpi_client_active_assignments,
+//       kpi_client_feedback_volume: job.kpi_client_feedback_volume,
+//       kpi_client_open_jobs: job.kpi_client_open_jobs,
+//       kpi_skill_match: job.kpi_skill_match,
+//       kpi_weekly_hour_commitment: job.kpi_weekly_hour_commitment,
+//       kpi_client_rating: job.kpi_client_rating,
+//       kpi_client_activity_recency: job.kpi_client_activity_recency,
+//       kpi_payment_verification: job.kpi_payment_verification,
+//       kpi_job_level_match: job.kpi_job_level_match,
+//       final_weighted_score: job.final_weighted_score,
+//       tier: job.tier,
+//       proposal: job.proposal || '',
+//       ai_remark: job.ai_remark
+//     };
+//   }
+//   // indeed/glassdoor fall back omitted here for brevity (already present in your file)
+//   return baseJob;
+// };
+
+// const upsertMasterJob = async (jobData) => {
+//   const existingJob = await MasterJob.findOne({ platform: jobData.platform, jobId: jobData.jobId });
+//   if (existingJob) {
+//     const updateData = { ...jobData };
+//     PRESERVED_FIELDS.forEach(f => delete updateData[f]);
+//     const result = await MasterJob.updateOne(
+//       { platform: jobData.platform, jobId: jobData.jobId },
+//       { $set: updateData },
+//       { upsert: false }
+//     );
+//     return { matched: result.matchedCount > 0, upserted: false, modified: result.modifiedCount > 0 };
+//   } else {
+//     const newJobData = {
+//       ...jobData,
+//       currentStatus: 'not_engaged',
+//       statusHistory: [],
+//       comments: [],
+//       ae_comment: '',
+//       ae_score: [],
+//       proposal: jobData.proposal || '',
+//       distributedTo: []
+//     };
+//     await MasterJob.create(newJobData);
+//     return { matched: false, upserted: true, modified: false };
+//   }
+// };
+
+
+// Updates existing record (preserving company-managed fields) or inserts new
+
+
+
+
 const convertToMasterJob = (job, platform, batchId) => {
   const baseJob = { platform, batchId, scrapedAt: new Date(), isActive: true, processed: true, source: 'file_upload' };
+
   if (platform === 'linkedin') {
     return {
       ...baseJob,
@@ -918,6 +1100,7 @@ const convertToMasterJob = (job, platform, batchId) => {
       ai_remark: job.ai_remark
     };
   }
+
   if (platform === 'upwork') {
     return {
       ...baseJob,
@@ -999,82 +1182,134 @@ const convertToMasterJob = (job, platform, batchId) => {
       ai_remark: job.ai_remark
     };
   }
-  // indeed/glassdoor fall back omitted here for brevity (already present in your file)
+
+  if (platform === 'google') {
+    const jobId =
+      job.primary_hash ||
+      job.job_id ||
+      crypto.createHash('md5').update(`${job.title || ''}|${job.company || job.company_name || ''}|${job.share_link || ''}`).digest('hex');
+
+    return {
+      ...baseJob,
+
+      jobId,
+      title: job.title || '',
+      descriptionText: job.description_preview || '',
+      url: job.share_link || '',
+
+      companyName: job.company || job.company_name || '',
+      'company.name': job.company || job.company_name || '',
+      'company.specialities': Array.isArray(job['company.specialities']) ? job['company.specialities'] : [],
+      'company.industries': Array.isArray(job['company.industries']) ? job['company.industries'] : [],
+      'company.locations': Array.isArray(job['company.locations']) ? job['company.locations'] : [],
+
+      city: job.location || undefined,
+      country: job.country || null,
+      via: job.via || undefined,
+      sourceUrl: job.share_link || '',
+      jobBoard: 'google_jobs',
+
+      employmentType: job.job_type || null,
+      workplaceType: job.work_arrangement || null,
+      experienceLevel: job.experience_level || null,
+      contractType: job.contract_type || null,
+
+      salary: job.salary_range || job.hourly_rate || null,    // Mixed
+      hourlyRateRange: job.hourly_rate || undefined,          // Mixed (optional)
+
+      postedText: job.posted_time || null,
+      postedDate: job.posted_at_exact ? new Date(job.posted_at_exact) : null,
+
+      benefits: Array.isArray(job.benefits) ? job.benefits : [],
+      detected_extensions: job.detected_extensions || undefined,
+      extensions: Array.isArray(job.extensions) ? job.extensions : undefined,
+      job_highlights: Array.isArray(job.job_highlights) ? job.job_highlights : undefined,
+      apply_options: Array.isArray(job.apply_options) ? job.apply_options : undefined,
+      thumbnail: job.thumbnail || undefined,
+      description_preview: job.description_preview || undefined,
+
+      source_query: job.source_query || undefined,
+      primary_hash: job.primary_hash || undefined,
+      secondary_hash: job.secondary_hash || undefined,
+
+      scrapedAt: job.scraped_at ? new Date(job.scraped_at) : baseJob.scrapedAt
+    };
+  }
+
   return baseJob;
 };
-
-// const upsertMasterJob = async (jobData) => {
-//   const existingJob = await MasterJob.findOne({ platform: jobData.platform, jobId: jobData.jobId });
-//   if (existingJob) {
-//     const updateData = { ...jobData };
-//     PRESERVED_FIELDS.forEach(f => delete updateData[f]);
-//     const result = await MasterJob.updateOne(
-//       { platform: jobData.platform, jobId: jobData.jobId },
-//       { $set: updateData },
-//       { upsert: false }
-//     );
-//     return { matched: result.matchedCount > 0, upserted: false, modified: result.modifiedCount > 0 };
-//   } else {
-//     const newJobData = {
-//       ...jobData,
-//       currentStatus: 'not_engaged',
-//       statusHistory: [],
-//       comments: [],
-//       ae_comment: '',
-//       ae_score: [],
-//       proposal: jobData.proposal || '',
-//       distributedTo: []
-//     };
-//     await MasterJob.create(newJobData);
-//     return { matched: false, upserted: true, modified: false };
-//   }
-// };
-
-
-// Updates existing record (preserving company-managed fields) or inserts new
 const upsertMasterJob = async (jobData) => {
   const existingJob = await MasterJob.findOne({
     platform: jobData.platform,
     jobId: jobData.jobId
   });
 
-  if (existingJob) {
-    const updateData = { ...jobData };
-    // never overwrite company-managed fields
-    PRESERVED_FIELDS.forEach(field => {
-      delete updateData[field];
-    });
+  // if (existingJob) {
+  //   const updateData = { ...jobData };
+  //   // never overwrite company-managed fields
+  //   PRESERVED_FIELDS.forEach(field => {
+  //     delete updateData[field];
+  //   });
 
-    const result = await MasterJob.updateOne(
-      { platform: jobData.platform, jobId: jobData.jobId },
-      { $set: updateData },
-      { upsert: false }
-    );
+  //   const result = await MasterJob.updateOne(
+  //     { platform: jobData.platform, jobId: jobData.jobId },
+  //     { $set: updateData },
+  //     { upsert: false }
+  //   );
 
-    return {
-      matched: true,
-      updated: result.modifiedCount > 0,   // was duplicate, now updated if any change
-      upserted: false
-    };
-  } else {
-    const newJobData = {
-      ...jobData,
-      currentStatus: 'not_engaged',
-      statusHistory: [],
-      comments: [],
-      ae_comment: '',
-      ae_score: [],
-      proposal: jobData.proposal || '',
-      distributedTo: []
-    };
+  //   return {
+  //     matched: true,
+  //     updated: result.modifiedCount > 0,   // was duplicate, now updated if any change
+  //     upserted: false
+  //   };
+  // } else {
+  //   const newJobData = {
+  //     ...jobData,
+  //     currentStatus: 'not_engaged',
+  //     statusHistory: [],
+  //     comments: [],
+  //     ae_comment: '',
+  //     ae_score: [],
+  //     proposal: jobData.proposal || '',
+  //     distributedTo: []
+  //   };
 
-    await MasterJob.create(newJobData);
-    return {
-      matched: false,
-      updated: false,
-      upserted: true
-    };
-  }
+  //   await MasterJob.create(newJobData);
+  //   return {
+  //     matched: false,
+  //     updated: false,
+  //     upserted: true
+  //   };
+  // }
+   // never write company-managed fields to MasterJob
+   const updateData = { ...jobData };
+   COMPANY_MANAGED_FIELDS.forEach(f => delete updateData[f]);
+ 
+   // purge these fields from old docs too
+   const unsetMap = {};
+   COMPANY_MANAGED_FIELDS.forEach(f => unsetMap[f] = "");
+ 
+   if (existingJob) {
+     const result = await MasterJob.updateOne(
+       { platform: jobData.platform, jobId: jobData.jobId },
+       { $set: updateData, $unset: unsetMap },
+       { upsert: false }
+     );
+     return { matched: true, updated: result.modifiedCount > 0, upserted: false };
+   } else {
+     const newJobData = {
+       ...updateData,
+       currentStatus: 'not_engaged',
+       statusHistory: [],
+       comments: [],
+       ae_comment: '',
+       ae_score: [],
+       proposal: updateData.proposal || '',
+       distributedTo: []
+     };
+     await MasterJob.create(newJobData);
+     return { matched: false, updated: false, upserted: true };
+   }
 };
 
 // const processJobBatch = async (jobs, platform, batchId, jobBatch) => {
@@ -1138,82 +1373,83 @@ const processJobBatch = async (jobs, platform, batchId, jobBatch) => {
 
   return { inserted, updated, errors };
 };
-const uploadScoredJobsFromFile = async (req, res) => {
-  try {
-    const { platform } = req.body;
-    if (!platform) return res.status(400).json({ error: 'Platform is required' });
-    if (!['linkedin', 'upwork', 'indeed', 'glassdoor'].includes(platform)) {
-      return res.status(400).json({ error: 'Invalid platform. Must be: linkedin, upwork, indeed, or glassdoor' });
-    }
-    const filePath = getFilePath(platform);
-    if (!fs.existsSync(filePath)) return res.status(400).json({ error: `File not found: ${filePath}` });
+// const uploadScoredJobsFromFile = async (req, res) => {
+//   try {
+//     const { platform } = req.body;
+//     if (!platform) return res.status(400).json({ error: 'Platform is required' });
+// // 1) Extend allowed platforms check:
+// if (!['linkedin', 'upwork', 'indeed', 'glassdoor', 'google'].includes(platform)) {
+//   return res.status(400).json({ error: 'Invalid platform. Must be: linkedin, upwork, indeed, glassdoor, or google' });
+// }
+//     const filePath = getFilePath(platform);
+//     if (!fs.existsSync(filePath)) return res.status(400).json({ error: `File not found: ${filePath}` });
 
-    const batchId = generateBatchId(platform);
-    const jobBatch = await JobBatch.create({
-      batchId, platform, status: 'running',
-      executedBy: req.user?.username || 'api_upload',
-      parameters: { filePath, uploadedAt: new Date() }
-    });
+//     const batchId = generateBatchId(platform);
+//     const jobBatch = await JobBatch.create({
+//       batchId, platform, status: 'running',
+//       executedBy: req.user?.username || 'api_upload',
+//       parameters: { filePath, uploadedAt: new Date() }
+//     });
 
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const jobs = JSON.parse(fileContent);
-    if (!Array.isArray(jobs)) return res.status(400).json({ error: 'File must contain an array of jobs' });
+//     const fileContent = fs.readFileSync(filePath, 'utf-8');
+//     const jobs = JSON.parse(fileContent);
+//     if (!Array.isArray(jobs)) return res.status(400).json({ error: 'File must contain an array of jobs' });
 
-    const results = await processJobBatch(jobs, platform, batchId, jobBatch);
+//     const results = await processJobBatch(jobs, platform, batchId, jobBatch);
 
-    // jobBatch.status = 'completed';
-    // jobBatch.endTime = new Date();
-    // jobBatch.stats = {
-    //   totalJobsScraped: jobs.length,
-    //   newJobsAdded: results.saved,
-    //   duplicatesSkipped: results.duplicates,
-    //   errorsEncountered: results.errors
-    // };
-    // await jobBatch.save();
+//     // jobBatch.status = 'completed';
+//     // jobBatch.endTime = new Date();
+//     // jobBatch.stats = {
+//     //   totalJobsScraped: jobs.length,
+//     //   newJobsAdded: results.saved,
+//     //   duplicatesSkipped: results.duplicates,
+//     //   errorsEncountered: results.errors
+//     // };
+//     // await jobBatch.save();
 
-    // res.json({
-    //   success: true,
-    //   message: `${platform} jobs uploaded successfully`,
-    //   batchId,
-    //   filePath,
-    //   results: {
-    //     totalProcessed: jobs.length,
-    //     saved: results.saved,
-    //     duplicates: results.duplicates,
-    //     errors: results.errors,
-    //     platform
-    //   },
-    //   note: 'Jobs saved to MasterJob. Use distribution endpoints to send to companies.'
-    // });
-    // After: const results = await processJobBatch(...)
-jobBatch.status = 'completed';
-jobBatch.endTime = new Date();
-jobBatch.stats = {
-  totalJobsScraped: jobs.length,
-  newJobsAdded: results.inserted,
-  updatedExisting: results.updated,
-  errorsEncountered: results.errors
-};
-await jobBatch.save();
+//     // res.json({
+//     //   success: true,
+//     //   message: `${platform} jobs uploaded successfully`,
+//     //   batchId,
+//     //   filePath,
+//     //   results: {
+//     //     totalProcessed: jobs.length,
+//     //     saved: results.saved,
+//     //     duplicates: results.duplicates,
+//     //     errors: results.errors,
+//     //     platform
+//     //   },
+//     //   note: 'Jobs saved to MasterJob. Use distribution endpoints to send to companies.'
+//     // });
+//     // After: const results = await processJobBatch(...)
+// jobBatch.status = 'completed';
+// jobBatch.endTime = new Date();
+// jobBatch.stats = {
+//   totalJobsScraped: jobs.length,
+//   newJobsAdded: results.inserted,
+//   updatedExisting: results.updated,
+//   errorsEncountered: results.errors
+// };
+// await jobBatch.save();
 
-res.json({
-  success: true,
-  message: `${platform.charAt(0).toUpperCase() + platform.slice(1)} jobs uploaded successfully`,
-  batchId,
-  filePath,
-  results: {
-    totalProcessed: jobs.length,
-    inserted: results.inserted,
-    updated: results.updated,
-    errors: results.errors,
-    platform
-  },
-  note: 'Existing jobs are updated with the latest data; company-managed fields remain intact.'
-});
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to upload jobs', details: error.message });
-  }
-};
+// res.json({
+//   success: true,
+//   message: `${platform.charAt(0).toUpperCase() + platform.slice(1)} jobs uploaded successfully`,
+//   batchId,
+//   filePath,
+//   results: {
+//     totalProcessed: jobs.length,
+//     inserted: results.inserted,
+//     updated: results.updated,
+//     errors: results.errors,
+//     platform
+//   },
+//   note: 'Existing jobs are updated with the latest data; company-managed fields remain intact.'
+// });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to upload jobs', details: error.message });
+//   }
+// };
 // const uploadScoredJobsFromFile = async (req, res) => {
 //   try {
 //     const { platform } = req.body;
@@ -1287,6 +1523,173 @@ res.json({
 //   },
 //   note: 'Existing jobs are updated with the latest data; company-managed fields remain intact.'
 // });
+
+
+// const uploadScoredJobsFromFile = async (req, res) => {
+//   try {
+//     const { platform } = req.body;
+//     if (!platform) return res.status(400).json({ error: 'Platform is required' });
+//     if (!['linkedin', 'upwork', 'indeed', 'glassdoor', 'google'].includes(platform)) {
+//       return res.status(400).json({ error: 'Invalid platform. Must be: linkedin, upwork, indeed, glassdoor, or google' });
+//     }
+
+//     const filePath = getFilePath(platform);
+//     if (!filePath) return res.status(400).json({ error: 'Unsupported platform' });
+//     if (!fs.existsSync(filePath)) return res.status(400).json({ error: `File not found: ${filePath}` });
+
+//     const batchId = generateBatchId(platform);
+//     let jobBatch;
+// try {
+//   jobBatch = await JobBatch.create({
+//     batchId, platform, status: 'running',
+//     executedBy: req.user?.username || 'api_upload',
+//     parameters: { filePath, uploadedAt: new Date() }
+//   });
+// } catch (e) {
+//   if (e?.code === 11000 && String(e?.errmsg || '').includes('batchId')) {
+//     // regenerate a unique batchId and retry once
+//     batchId = `${batchId}-${Math.random().toString(36).slice(2, 6)}`;
+//     jobBatch = await JobBatch.create({
+//       batchId, platform, status: 'running',
+//       executedBy: req.user?.username || 'api_upload',
+//       parameters: { filePath, uploadedAt: new Date(), retry: true }
+//     });
+//   } else {
+//     throw e;
+//   }
+// }
+//     // const jobBatch = await JobBatch.create({
+//     //   batchId,
+//     //   platform,
+//     //   status: 'running',
+//     //   executedBy: req.user?.username || 'api_upload',
+//     //   parameters: { filePath, uploadedAt: new Date() }
+//     // });
+
+//     const fileContent = fs.readFileSync(filePath, 'utf-8');
+//     const raw = JSON.parse(fileContent);
+
+//     // Normalize the input into a jobs array
+//     let jobs;
+//     if (platform === 'google') {
+//       // Prefer enriched unique_raw_jobs (contains raw fields + derived fields)
+//       jobs = Array.isArray(raw.unique_raw_jobs)
+//         ? raw.unique_raw_jobs
+//         : (Array.isArray(raw.extracted_unique_jobs) ? raw.extracted_unique_jobs : []);
+//     } else {
+//       jobs = Array.isArray(raw) ? raw : [];
+//     }
+//     if (!Array.isArray(jobs)) return res.status(400).json({ error: 'File must contain an array of jobs' });
+//     const results = await processJobBatch(jobs, platform, batchId, jobBatch);
+
+//     jobBatch.status = 'completed';
+//     jobBatch.endTime = new Date();
+//     jobBatch.stats = {
+//       totalJobsScraped: jobs.length,
+//       newJobsAdded: results.inserted,
+//       updatedExisting: results.updated,
+//       errorsEncountered: results.errors
+//     };
+//     await jobBatch.save();
+
+//     res.json({
+//       success: true,
+//       message: `${platform.charAt(0).toUpperCase() + platform.slice(1)} jobs uploaded successfully`,
+//       batchId,
+//       filePath,
+//       results: {
+//         totalProcessed: jobs.length,
+//         inserted: results.inserted,
+//         updated: results.updated,
+//         errors: results.errors,
+//         platform
+//       },
+//       note: 'Existing jobs are updated with the latest data; company-managed fields remain intact.'
+//     });
+//   } catch (error) {
+//     console.error('Upload error:', error);
+//     res.status(500).json({ error: 'Failed to upload jobs', details: error.message });
+//   }
+// };
+const uploadScoredJobsFromFile = async (req, res) => {
+  try {
+    const { platform } = req.body;
+    if (!platform) return res.status(400).json({ error: 'Platform is required' });
+    if (!['linkedin', 'upwork', 'indeed', 'glassdoor', 'google'].includes(platform)) {
+      return res.status(400).json({ error: 'Invalid platform. Must be: linkedin, upwork, indeed, glassdoor, or google' });
+    }
+
+    const filePath = getFilePath(platform);
+    if (!filePath) return res.status(400).json({ error: 'Unsupported platform' });
+    if (!fs.existsSync(filePath)) return res.status(400).json({ error: `File not found: ${filePath}` });
+
+    // unique-ish batchId with retry on duplicate
+    let batchId = `${platform}_${new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)}`;
+    let jobBatch;
+    try {
+      jobBatch = await JobBatch.create({
+        batchId, platform, status: 'running',
+        executedBy: req.user?.username || 'api_upload',
+        parameters: { filePath, uploadedAt: new Date() }
+      });
+    } catch (e) {
+      if (e?.code === 11000) {
+        batchId = `${batchId}-${Math.random().toString(36).slice(2, 6)}`;
+        jobBatch = await JobBatch.create({
+          batchId, platform, status: 'running',
+          executedBy: req.user?.username || 'api_upload',
+          parameters: { filePath, uploadedAt: new Date(), retry: true }
+        });
+      } else {
+        throw e;
+      }
+    }
+
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const parsed = JSON.parse(fileContent);
+
+    let jobs;
+    if (platform === 'google') {
+      // prefer enriched unique_raw_jobs
+      jobs = Array.isArray(parsed.unique_raw_jobs)
+        ? parsed.unique_raw_jobs
+        : (Array.isArray(parsed.extracted_unique_jobs) ? parsed.extracted_unique_jobs : []);
+    } else {
+      jobs = Array.isArray(parsed) ? parsed : [];
+    }
+    if (!Array.isArray(jobs)) return res.status(400).json({ error: 'File must contain an array of jobs' });
+
+    const results = await processJobBatch(jobs, platform, batchId);
+
+    jobBatch.status = 'completed';
+    jobBatch.endTime = new Date();
+    jobBatch.stats = {
+      totalJobsScraped: jobs.length,
+      newJobsAdded: results.inserted,
+      updatedExisting: results.updated,
+      errorsEncountered: results.errors
+    };
+    await jobBatch.save();
+
+    res.json({
+      success: true,
+      message: `${platform.charAt(0).toUpperCase() + platform.slice(1)} jobs uploaded successfully`,
+      batchId,
+      filePath,
+      results: {
+        totalProcessed: jobs.length,
+        inserted: results.inserted,
+        updated: results.updated,
+        errors: results.errors,
+        platform
+      },
+      note: 'Company-managed fields are never stored on MasterJob.'
+    });
+  } catch (error) {
+    console.error('Upload error:', error);
+    res.status(500).json({ error: 'Failed to upload jobs', details: error.message });
+  }
+};
 
 const getMasterJobs = async (req, res) => {
   try {

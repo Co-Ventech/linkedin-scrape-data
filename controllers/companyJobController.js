@@ -1638,170 +1638,249 @@ const rateJob = async (req, res) => {
   }
 };
 
-// POST /api/company-jobs/:jobId/ae-score
+// // POST /api/company-jobs/:jobId/ae-score
+// const addAeScore = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const { ae_score, username } = req.body;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+//     if (ae_score === undefined || !username) {
+//       return res.status(400).json({ error: 'AE score and username are required' });
+//     }
+
+//     const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+//     if (!job) return res.status(404).json({ error: 'Job not found' });
+
+//     const masterJob = job.masterJobId;
+//     if (!masterJob.ae_score) masterJob.ae_score = [];
+//     if (!Array.isArray(masterJob.ae_score)) masterJob.ae_score = [];
+//     masterJob.ae_score.push({ value: ae_score, username, date: new Date() });
+//     await masterJob.save();
+
+//     job.lastUpdated = new Date();
+//     await job.save();
+
+//     res.json({
+//       message: 'AE score added successfully',
+//       ae_score: masterJob.ae_score,
+//       job: {
+//         ...job.toObject(),
+//         ...masterJob.toObject(),
+//         _id: job._id,
+//         currentStatus: job.currentStatus,
+//         statusHistory: job.statusHistory,
+//         comments: job.comments,
+//         proposal: job.proposal
+//       }
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to add AE score', details: error.message });
+//   }
+// };
+
+// // PUT /api/company-jobs/:jobId/ae-pitched
+// const updateAePitched = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const { ae_pitched } = req.body;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+
+//     const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+//     if (!job) return res.status(404).json({ error: 'Job not found' });
+
+//     const masterJob = job.masterJobId;
+//     masterJob.ae_pitched = ae_pitched;
+//     await masterJob.save();
+
+//     job.lastUpdated = new Date();
+//     await job.save();
+
+//     res.json({
+//       message: 'AE pitched status updated successfully',
+//       ae_pitched: masterJob.ae_pitched,
+//       job: {
+//         ...job.toObject(),
+//         ...masterJob.toObject(),
+//         _id: job._id,
+//         currentStatus: job.currentStatus,
+//         statusHistory: job.statusHistory,
+//         comments: job.comments,
+//         proposal: job.proposal
+//       }
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to update AE pitched status', details: error.message });
+//   }
+// };
+
+// // PUT /api/company-jobs/:jobId/ae-remark
+// const updateAeRemark = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const { ae_comment } = req.body;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+
+//     const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+//     if (!job) return res.status(404).json({ error: 'Job not found' });
+
+//     const masterJob = job.masterJobId;
+//     masterJob.ae_comment = ae_comment;
+//     await masterJob.save();
+
+//     job.lastUpdated = new Date();
+//     await job.save();
+
+//     res.json({
+//       message: 'AE remark updated successfully',
+//       ae_comment: masterJob.ae_comment,
+//       job: {
+//         ...job.toObject(),
+//         ...masterJob.toObject(),
+//         _id: job._id,
+//         currentStatus: job.currentStatus,
+//         statusHistory: job.statusHistory,
+//         comments: job.comments,
+//         proposal: job.proposal
+//       }
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to update AE remark', details: error.message });
+//   }
+// };
+
+// // PUT /api/company-jobs/:jobId/estimated-budget
+// const updateEstimatedBudget = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const { estimated_budget } = req.body;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+//     if (estimated_budget === undefined) {
+//       return res.status(400).json({ error: 'Estimated budget is required' });
+//     }
+
+//     const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+//     if (!job) return res.status(404).json({ error: 'Job not found' });
+
+//     const masterJob = job.masterJobId;
+//     masterJob.estimated_budget = estimated_budget;
+//     await masterJob.save();
+
+//     job.lastUpdated = new Date();
+//     await job.save();
+
+//     res.json({
+//       message: 'Estimated budget updated successfully',
+//       estimated_budget: masterJob.estimated_budget,
+//       job: {
+//         ...job.toObject(),
+//         ...masterJob.toObject(),
+//         _id: job._id,
+//         currentStatus: job.currentStatus,
+//         statusHistory: job.statusHistory,
+//         comments: job.comments,
+//         proposal: job.proposal
+//       }
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to update estimated budget', details: error.message });
+//   }
+// };
+
+// AE: add score to CompanyJob.companyScore (NOT MasterJob)
 const addAeScore = async (req, res) => {
   try {
-    const { jobId } = req.params;
+    const { jobId } = req.params; // CompanyJob _id
     const { ae_score, username } = req.body;
-    const companyId = req.user.company._id;
-
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
       return res.status(400).json({ error: 'Invalid job ID format' });
     }
-    if (ae_score === undefined || !username) {
-      return res.status(400).json({ error: 'AE score and username are required' });
-    }
-
-    const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
-    if (!job) return res.status(404).json({ error: 'Job not found' });
-
-    const masterJob = job.masterJobId;
-    if (!masterJob.ae_score) masterJob.ae_score = [];
-    if (!Array.isArray(masterJob.ae_score)) masterJob.ae_score = [];
-    masterJob.ae_score.push({ value: ae_score, username, date: new Date() });
-    await masterJob.save();
-
-    job.lastUpdated = new Date();
-    await job.save();
-
-    res.json({
-      message: 'AE score added successfully',
-      ae_score: masterJob.ae_score,
-      job: {
-        ...job.toObject(),
-        ...masterJob.toObject(),
-        _id: job._id,
-        currentStatus: job.currentStatus,
-        statusHistory: job.statusHistory,
-        comments: job.comments,
-        proposal: job.proposal
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to add AE score', details: error.message });
+    const updated = await CompanyJob.findByIdAndUpdate(
+      jobId,
+      { $push: { companyScore: { ae_score, username, date: new Date() } }, $set: { lastUpdated: new Date() } },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ success: false, message: 'Company job not found' });
+    return res.json({ success: true, job: updated });
+  } catch (e) {
+    return res.status(500).json({ success: false, message: 'Failed to update AE score', error: e.message });
   }
 };
 
-// PUT /api/company-jobs/:jobId/ae-pitched
+// AE: pitched flag/value (CompanyJob)
 const updateAePitched = async (req, res) => {
   try {
     const { jobId } = req.params;
     const { ae_pitched } = req.body;
-    const companyId = req.user.company._id;
-
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
       return res.status(400).json({ error: 'Invalid job ID format' });
     }
-
-    const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
-    if (!job) return res.status(404).json({ error: 'Job not found' });
-
-    const masterJob = job.masterJobId;
-    masterJob.ae_pitched = ae_pitched;
-    await masterJob.save();
-
-    job.lastUpdated = new Date();
-    await job.save();
-
-    res.json({
-      message: 'AE pitched status updated successfully',
-      ae_pitched: masterJob.ae_pitched,
-      job: {
-        ...job.toObject(),
-        ...masterJob.toObject(),
-        _id: job._id,
-        currentStatus: job.currentStatus,
-        statusHistory: job.statusHistory,
-        comments: job.comments,
-        proposal: job.proposal
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update AE pitched status', details: error.message });
+    const updated = await CompanyJob.findByIdAndUpdate(
+      jobId,
+      { $set: { ae_pitched, lastUpdated: new Date() } },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ success: false, message: 'Company job not found' });
+    return res.json({ success: true, job: updated });
+  } catch (e) {
+    return res.status(500).json({ success: false, message: 'Failed to update AE pitched', error: e.message });
   }
 };
 
-// PUT /api/company-jobs/:jobId/ae-remark
+// AE: remark (CompanyJob)
 const updateAeRemark = async (req, res) => {
   try {
     const { jobId } = req.params;
     const { ae_comment } = req.body;
-    const companyId = req.user.company._id;
-
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
       return res.status(400).json({ error: 'Invalid job ID format' });
     }
-
-    const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
-    if (!job) return res.status(404).json({ error: 'Job not found' });
-
-    const masterJob = job.masterJobId;
-    masterJob.ae_comment = ae_comment;
-    await masterJob.save();
-
-    job.lastUpdated = new Date();
-    await job.save();
-
-    res.json({
-      message: 'AE remark updated successfully',
-      ae_comment: masterJob.ae_comment,
-      job: {
-        ...job.toObject(),
-        ...masterJob.toObject(),
-        _id: job._id,
-        currentStatus: job.currentStatus,
-        statusHistory: job.statusHistory,
-        comments: job.comments,
-        proposal: job.proposal
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update AE remark', details: error.message });
+    const updated = await CompanyJob.findByIdAndUpdate(
+      jobId,
+      { $set: { ae_comment, lastUpdated: new Date() } },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ success: false, message: 'Company job not found' });
+    return res.json({ success: true, job: updated });
+  } catch (e) {
+    return res.status(500).json({ success: false, message: 'Failed to update AE remark', error: e.message });
   }
 };
 
-// PUT /api/company-jobs/:jobId/estimated-budget
+// AE: estimated budget (CompanyJob)
 const updateEstimatedBudget = async (req, res) => {
   try {
     const { jobId } = req.params;
     const { estimated_budget } = req.body;
-    const companyId = req.user.company._id;
-
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
       return res.status(400).json({ error: 'Invalid job ID format' });
     }
-    if (estimated_budget === undefined) {
-      return res.status(400).json({ error: 'Estimated budget is required' });
-    }
-
-    const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
-    if (!job) return res.status(404).json({ error: 'Job not found' });
-
-    const masterJob = job.masterJobId;
-    masterJob.estimated_budget = estimated_budget;
-    await masterJob.save();
-
-    job.lastUpdated = new Date();
-    await job.save();
-
-    res.json({
-      message: 'Estimated budget updated successfully',
-      estimated_budget: masterJob.estimated_budget,
-      job: {
-        ...job.toObject(),
-        ...masterJob.toObject(),
-        _id: job._id,
-        currentStatus: job.currentStatus,
-        statusHistory: job.statusHistory,
-        comments: job.comments,
-        proposal: job.proposal
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update estimated budget', details: error.message });
+    const updated = await CompanyJob.findByIdAndUpdate(
+      jobId,
+      { $set: { estimated_budget, lastUpdated: new Date() } },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ success: false, message: 'Company job not found' });
+    return res.json({ success: true, job: updated });
+  } catch (e) {
+    return res.status(500).json({ success: false, message: 'Failed to update estimated budget', error: e.message });
   }
 };
-
 // POST /api/company-jobs/:jobId/generate-proposal
 const generateProposal = async (req, res) => {
   try {

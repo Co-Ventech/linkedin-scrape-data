@@ -22,6 +22,12 @@ const CompanySchema = new mongoose.Schema({
 const JobSchema = new mongoose.Schema({
   id: String,
   title: String,
+  platform: {
+    type: String,
+    enum: ['linkedin', 'upwork', 'indeed', 'glassdoor', 'google'],
+    required: true,
+    index: true
+  },
   linkedinUrl: String,
   postedDate: Date,
   expireAt: Date,

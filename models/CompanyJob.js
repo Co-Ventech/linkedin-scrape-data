@@ -100,7 +100,7 @@ const CompanyJobSchema = new mongoose.Schema({
   responseDate: Date,
   
   companyScore: [{
-    value: Number,
+    ae_score: Number,
     scoredBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
@@ -124,7 +124,11 @@ const CompanyJobSchema = new mongoose.Schema({
   
   // Distribution metadata
   distributedAt: { type: Date, default: Date.now },
-  lastUpdated: { type: Date, default: Date.now }
+  lastUpdated: { type: Date, default: Date.now },
+    // Add these fields
+    ae_comment: { type: String, default: '' },
+    ae_pitched: { type: String, default: '' },
+    estimated_budget: { type: Number, default: null }
 }, {
   timestamps: true
 });

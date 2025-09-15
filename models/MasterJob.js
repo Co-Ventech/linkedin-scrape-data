@@ -1061,7 +1061,7 @@ const MasterJobSchema = new mongoose.Schema({
   id: String, // LinkedIn id field
   platform: {
     type: String,
-    enum: ['linkedin', 'upwork', 'indeed', 'glassdoor'],
+    enum: ['linkedin', 'upwork', 'indeed', 'glassdoor','google'],
     required: true,
     index: true
   },
@@ -1075,6 +1075,8 @@ const MasterJobSchema = new mongoose.Schema({
   // LinkedIn specific job fields
   linkedinUrl: String,
   postedDate: Date,
+  postedText: String,     // <-- add here
+
   expireAt: Date,
   employmentType: String,
   workplaceType: String,
@@ -1153,7 +1155,23 @@ const MasterJobSchema = new mongoose.Schema({
   categoryGroup: String,
   occupation: String,
   status: String,
-  
+  // Google extracted fields
+experienceLevel: String, // <-- add
+contractType: String,    // <-- add
+benefits: [String],      // <-- add
+jobBoard: String,        // <-- add
+
+via: String,
+thumbnail: String,
+detected_extensions: mongoose.Schema.Types.Mixed,
+extensions: [mongoose.Schema.Types.Mixed],
+job_highlights: [mongoose.Schema.Types.Mixed],
+apply_options: [mongoose.Schema.Types.Mixed],
+source_query: String,
+primary_hash: String,
+secondary_hash: String,
+hourlyRateRange: mongoose.Schema.Types.Mixed,
+description_preview: String,
   // Timestamps
   ts_create: Date,
   ts_publish: Date,
@@ -1194,6 +1212,12 @@ const MasterJobSchema = new mongoose.Schema({
   kpi_payment_verification: mongoose.Schema.Types.Mixed,
   kpi_job_level_match: mongoose.Schema.Types.Mixed,
   
+
+// // Google extracted fields
+// experienceLevel: String,       // e.g., 'Junior', 'Senior', 'Lead/Principal'
+// contractType: String,          // e.g., 'Contract', 'Freelance', 'Internship'
+// benefits: [String],            // e.g., ['Health Insurance', 'Paid Time Off']
+// jobBoard: String,               // e.g., 'google_jobs'
   // AI Analysis fields
   predicted_domain: String,
   ai_remark: String,
