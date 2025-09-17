@@ -1484,6 +1484,51 @@ const getUserJobs = async (req, res) => {
   }
 };
 // GET /api/company-jobs/:jobId
+// const getJobDetails = async (req, res) => {
+//   try {
+//     const { jobId } = req.params;
+//     const companyId = req.user.company._id;
+
+//     if (!mongoose.Types.ObjectId.isValid(jobId)) {
+//       return res.status(400).json({ error: 'Invalid job ID format' });
+//     }
+
+//     const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+//     if (!job) return res.status(404).json({ error: 'Job not found' });
+
+//     const completeJobData = {
+//       // _id: job._id,
+//       // companyId: job.companyId,
+//       // currentStatus: job.currentStatus,
+//       // statusHistory: job.statusHistory,
+//       // comments: job.comments,
+//       // proposal: job.proposal,
+//       // companyScore: job.companyScore,
+//       // isBookmarked: job.isBookmarked,
+//       // distributedAt: job.distributedAt,
+//       // lastUpdated: job.lastUpdated,
+//       _id: job._id,
+//       companyId: job.companyId,
+//       currentStatus: job.currentStatus,
+//       statusHistory: job.statusHistory,
+//       comments: job.comments,
+//       proposal: job.proposal,
+//       companyScore: job.companyScore,
+//       ae_comment: job.ae_comment,
+//       ae_pitched: job.ae_pitched,
+//       estimated_budget: job.estimated_budget,
+//       ...job.masterJobId.toObject(),
+//       currentStatus: job.currentStatus,
+//       statusHistory: job.statusHistory,
+//       comments: job.comments,
+//       proposal: job.proposal
+//     };
+
+//     res.json({ job: completeJobData });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to get job details', details: error.message });
+//   }
+// };
 const getJobDetails = async (req, res) => {
   try {
     const { jobId } = req.params;
@@ -1493,29 +1538,27 @@ const getJobDetails = async (req, res) => {
       return res.status(400).json({ error: 'Invalid job ID format' });
     }
 
-    const job = await CompanyJob.findOne({ _id: jobId, companyId }).populate('masterJobId');
+    // Fetch without any field restrictions
+    const job = await CompanyJob.findOne({ 
+      _id: jobId, 
+      companyId 
+    }).populate('masterJobId').lean(); // Use .lean() for better performance
+
     if (!job) return res.status(404).json({ error: 'Job not found' });
 
+    // Separate the masterJob data
+    const masterJobData = { ...job.masterJobId };
+    delete job.masterJobId; // Remove nested reference
+
+    // Merge with company job taking precedence
     const completeJobData = {
-      _id: job._id,
-      companyId: job.companyId,
-      currentStatus: job.currentStatus,
-      statusHistory: job.statusHistory,
-      comments: job.comments,
-      proposal: job.proposal,
-      companyScore: job.companyScore,
-      isBookmarked: job.isBookmarked,
-      distributedAt: job.distributedAt,
-      lastUpdated: job.lastUpdated,
-      ...job.masterJobId.toObject(),
-      currentStatus: job.currentStatus,
-      statusHistory: job.statusHistory,
-      comments: job.comments,
-      proposal: job.proposal
+      ...masterJobData,
+      ...job // This should include ae_comment, ae_pitched, estimated_budget
     };
 
     res.json({ job: completeJobData });
   } catch (error) {
+    console.error('Error details:', error);
     res.status(500).json({ error: 'Failed to get job details', details: error.message });
   }
 };

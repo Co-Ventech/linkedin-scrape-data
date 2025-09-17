@@ -1224,55 +1224,55 @@ description_preview: String,
   final_score: mongoose.Schema.Types.Mixed, // LinkedIn uses this
   final_weighted_score: mongoose.Schema.Types.Mixed, // Upwork uses this
   tier: String,
-  estimated_budget: Number,
-  ae_pitched: String,
+  // estimated_budget: Number,
+  // ae_pitched: String,
   
-  // Status and comments fields (managed by companies)
-  currentStatus: {
-    type: String,
-    enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard'],
-    default: 'not_engaged'
-  },
-  statusHistory: {
-    type: [{
-      status: {
-        type: String,
-        enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard']
-      },
-      username: String,
-      date: { type: Date, default: Date.now },
-      notes: String,
-      changedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-    }],
-    default: []
-  },
-  comments: {
-    type: [{
-      username: String,
-      comment: String,
-      text: String,
-      date: { type: Date, default: Date.now },
-      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      isPrivate: { type: Boolean, default: false },
-      type: { type: String, enum: ['general', 'status', 'follow_up'], default: 'general' }
-    }],
-    default: []
-  },
-  ae_comment: {
-    type: String,
-    default: ''
-  },
+  // // Status and comments fields (managed by companies)
+  // currentStatus: {
+  //   type: String,
+  //   enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard'],
+  //   default: 'not_engaged'
+  // },
+  // statusHistory: {
+  //   type: [{
+  //     status: {
+  //       type: String,
+  //       enum: ['not_engaged', 'applied', 'engaged', 'interview', 'offer', 'rejected', 'onboard']
+  //     },
+  //     username: String,
+  //     date: { type: Date, default: Date.now },
+  //     notes: String,
+  //     changedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  //   }],
+  //   default: []
+  // },
+  // comments: {
+  //   type: [{
+  //     username: String,
+  //     comment: String,
+  //     text: String,
+  //     date: { type: Date, default: Date.now },
+  //     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  //     isPrivate: { type: Boolean, default: false },
+  //     type: { type: String, enum: ['general', 'status', 'follow_up'], default: 'general' }
+  //   }],
+  //   default: []
+  // },
+  // ae_comment: {
+  //   type: String,
+  //   default: ''
+  // },
   
-  // Proposal and AE scoring fields
-  proposal: { type: String, default: "" },
-  ae_score: {
-    type: [{
-      value: Number,
-      username: String,
-      date: { type: Date, default: Date.now }
-    }],
-    default: []
-  },
+  // // Proposal and AE scoring fields
+  // proposal: { type: String, default: "" },
+  // ae_score: {
+  //   type: [{
+  //     value: Number,
+  //     username: String,
+  //     date: { type: Date, default: Date.now }
+  //   }],
+  //   default: []
+  // },
   
   // Batch information
   batchId: String,
