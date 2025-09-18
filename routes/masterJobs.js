@@ -140,7 +140,7 @@ router.get('/', authenticateToken, requireRole(['super_admin']), getMasterJobs);
 
 // Batches
 router.get('/batches', authenticateToken, requireRole(['super_admin']), getJobBatches);
-// router.get('/batches/:batchId', authenticateToken, requireRole(['super_admin']), getBatchDetails);
+router.get('/batches/:batchId', authenticateToken, requireRole(['super_admin']), getBatchDetails);
 router.delete('/batches/:batchId', authenticateToken, requireRole(['super_admin']), deleteBatch);
 
 // Distribution

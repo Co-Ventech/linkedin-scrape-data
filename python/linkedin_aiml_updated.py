@@ -174,8 +174,35 @@ target_domains = {
 all_domain_keywords = set(kw.lower() for keywords in target_domains.values() for kw in keywords)
 
 # Scoring function
+# def domain_fit_score(row):
+#     combined_text = f"{row.get('title', '')} {row.get('descriptionText', '')} {' '.join(row.get('company.industries', []))} {' '.join(row.get('company.specialities', []))}".lower()
+#     matched = sum(1 for kw in all_domain_keywords if kw in combined_text)
+#     return round(min(matched / 5.0, 1.0), 2)
+
 def domain_fit_score(row):
-    combined_text = f"{row.get('title', '')} {row.get('descriptionText', '')} {' '.join(row.get('company.industries', []))} {' '.join(row.get('company.specialities', []))}".lower()
+    # Handle company industries (objects with 'name' field)
+    industries = row.get('company.industries', [])
+    if isinstance(industries, list):
+        industries_str = ' '.join([
+            item.get('name', str(item)) if isinstance(item, dict) else str(item)
+            for item in industries if item
+        ])
+    else:
+        industries_str = str(industries) if industries else ''
+    
+    # Handle company specialities (string array)
+    specialities = row.get('company.specialities', [])
+    if isinstance(specialities, list):
+        specialities_str = ' '.join([
+            item.get('name', str(item)) if isinstance(item, dict) else str(item)
+            for item in specialities if item
+        ])
+    else:
+        specialities_str = str(specialities) if specialities else ''
+    
+    # Create combined text with safe string conversion
+    combined_text = f"{row.get('title', '')} {row.get('descriptionText', '')} {industries_str} {specialities_str}".lower()
+    
     matched = sum(1 for kw in all_domain_keywords if kw in combined_text)
     return round(min(matched / 5.0, 1.0), 2)
 
@@ -408,13 +435,32 @@ preferred_industries = [
     "Fintech", "Edtech", "Healthtech", "Crypto", "Logistics", "Media",
     "E-commerce", "Ride hailing"
 ]
-
 def industry_match_score(industry_list):
     if not isinstance(industry_list, list):
         return 0.4  # fallback score
 
-    matches = sum(1 for industry in industry_list if any(pref.lower() in industry.lower() for pref in preferred_industries))
+    # Extract industry names from objects
+    industry_names = []
+    for industry in industry_list:
+        if isinstance(industry, dict):
+            name = industry.get('name', '')
+        else:
+            name = str(industry)
+        if name:
+            industry_names.append(name)
+    
+    # Check matches against preferred industries
+    matches = sum(1 for industry_name in industry_names 
+                 if any(pref.lower() in industry_name.lower() for pref in preferred_industries))
     return round(min(matches / 3.0, 1.0), 2)
+
+
+# def industry_match_score(industry_list):
+#     if not isinstance(industry_list, list):
+#         return 0.4  # fallback score
+
+#     matches = sum(1 for industry in industry_list if any(pref.lower() in industry.lower() for pref in preferred_industries))
+#     return round(min(matches / 3.0, 1.0), 2)
 
 df['kpi_industry_match'] = df['company.industries'].apply(industry_match_score)
 # print(df[['title', 'company.industries', 'kpi_industry_match']].head())

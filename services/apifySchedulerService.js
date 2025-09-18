@@ -1,6 +1,9 @@
 
 const cron = require('node-cron');
 const axios = require('axios');
+
+const express = require('express');
+const router = express.Router();
 const { sendSuccessEmail, sendErrorEmail } = require('./emailService');
 
 
@@ -20,7 +23,7 @@ async function runlinkedinPipeline() {
     console.log('Pipeline started at', new Date().toISOString());
         await delay(10000);
 
-    // 1. Fetch jobs from Upwork
+    // 1. Fetch jobs from Linkedin
     await axios.get(`${API_BASE_URL}/api/linkedin`,{ timeout: 900000 });
     console.log('linkedin jobs fetched');
     await delay(10000);
@@ -60,4 +63,18 @@ async function runlinkedinPipeline() {
   console.log('linkedin cron job started at:', new Date());
   runlinkedinPipeline();
 });
+
+// API route to trigger the Linkedin pipeline
+router.post('/run-linkedin-pipeline', async (req, res) => {
+  try {
+    console.log('API triggered: Running Linkedin pipeline at', new Date());
+    await runlinkedinPipeline();
+    res.status(200).json({ message: 'Linkedin pipeline executed successfully.' });
+  } catch (error) {
+    console.error('Error running Linkedin pipeline:', error.message);
+    res.status(500).json({ error: 'Failed to execute Linkedin pipeline.', details: error.message });
+  }
+});
+
+module.exports = router;
 

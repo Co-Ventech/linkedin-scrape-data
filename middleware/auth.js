@@ -77,19 +77,117 @@ const requireSameCompanyOrAdmin = (req, res, next) => {
   
   return res.status(403).json({ error: 'Access denied' });
 };
+// const authenticateToken = async (req, res, next) => {
+//   try {
+//     const authHeader = req.headers.authorization;
+//     const token = authHeader && authHeader.split(' ')[1];
+
+//     if (!token) {
+//       return res.status(401).json({ error: 'Access token required' });
+//     }
+
+//     // ✅ Verify token with updated structure
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    
+//     // ✅ Handle both old and new token structures
+//     const userId = decoded.userId || decoded.id;
+    
+//     const user = await User.findById(userId)
+//       .populate('company', 'name description isActive subscriptionPlan subscriptionStatus jobsQuota jobsUsed');
+
+//     if (!user) {
+//       return res.status(401).json({ error: 'User not found' });
+//     }
+
+//     if (!user.isActive) {
+//       return res.status(401).json({ error: 'Account is deactivated' });
+//     }
+
+//     req.user = user;
+//     next();
+//   } catch (error) {
+//     console.error('Auth middleware error:', error);
+    
+//     if (error.name === 'JsonWebTokenError') {
+//       return res.status(401).json({ error: 'Invalid token' });
+//     } else if (error.name === 'TokenExpiredError') {
+//       return res.status(401).json({ error: 'Token expired' });
+//     }
+    
+//     res.status(500).json({ error: 'Authentication failed' });
+//   }
+// };
+
+
+// const authenticateToken = async (req, res, next) => {
+//   try {
+//     const authHeader = req.headers.authorization;
+//     const token = authHeader && authHeader.split(' ')[1];
+
+//     if (!token) {
+//       return res.status(401).json({ error: 'Access token required' });
+//     }
+
+//     // Add validation for malformed tokens
+//     if (token.split('.').length !== 3) {
+//       return res.status(401).json({ error: 'Malformed token' });
+//     }
+
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+//     const userId = decoded.userId || decoded.id;
+    
+//     const user = await User.findById(userId)
+//       .populate('company', 'name description isActive subscriptionPlan subscriptionStatus jobsQuota jobsUsed');
+
+//     if (!user) {
+//       return res.status(401).json({ error: 'User not found' });
+//     }
+
+//     if (!user.isActive) {
+//       return res.status(401).json({ error: 'Account is deactivated' });
+//     }
+
+//     req.user = user;
+//     next();
+//   } catch (error) {
+//     console.error('Auth middleware error:', error);
+    
+//     if (error.name === 'JsonWebTokenError') {
+//       return res.status(401).json({ error: 'Invalid token format' });
+//     } else if (error.name === 'TokenExpiredError') {
+//       return res.status(401).json({ error: 'Token expired' });
+//     }
+    
+//     res.status(500).json({ error: 'Authentication failed' });
+//   }
+// };
 const authenticateToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
+    // console.log('Auth header:', authHeader); // Debug line
+    
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
       return res.status(401).json({ error: 'Access token required' });
     }
 
-    // ✅ Verify token with updated structure
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    // console.log('Token received:', token.substring(0, 20) + '...'); // Debug line
+
+    // Check if token has proper JWT structure (3 parts separated by dots)
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      console.log('Invalid token structure - parts:', tokenParts.length);
+      return res.status(401).json({ error: 'Malformed token structure' });
+    }
+
+    // Use consistent secret
+    const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+    // console.log('Using JWT_SECRET:', JWT_SECRET); // Debug line - remove in production
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    // console.log('Token decoded successfully:', decoded); // Debug line
     
-    // ✅ Handle both old and new token structures
     const userId = decoded.userId || decoded.id;
     
     const user = await User.findById(userId)
@@ -106,10 +204,17 @@ const authenticateToken = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error('Auth middleware error:', error);
+    console.error('Auth middleware error details:', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
     
     if (error.name === 'JsonWebTokenError') {
-      return res.status(401).json({ error: 'Invalid token' });
+      if (error.message.includes('invalid signature')) {
+        return res.status(401).json({ error: 'Token signature verification failed - check JWT_SECRET' });
+      }
+      return res.status(401).json({ error: 'Invalid token format' });
     } else if (error.name === 'TokenExpiredError') {
       return res.status(401).json({ error: 'Token expired' });
     }
@@ -117,6 +222,7 @@ const authenticateToken = async (req, res, next) => {
     res.status(500).json({ error: 'Authentication failed' });
   }
 };
+
 
 const requireRole = (allowedRoles) => {
   return (req, res, next) => {

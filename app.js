@@ -15,6 +15,8 @@ const subscriptionPlanRoutes = require('./routes/subscriptionPlans'); // Add thi
 const companyJobRoutes = require('./routes/companyJobs');
 const companypipeline = require('./routes/pipeline');
 const upworkSchedulerRoutes = require('./services/upworkSchedulerService');
+const linkedinSchedulerRoutes = require('./services/apifySchedulerService');
+
 const googleRoutes = require('./routes/google');
 
 const app = express();
@@ -33,6 +35,8 @@ app.use('/api/jobadmin', masterJobRoutes); // Add this line
 app.use('/api/subscriptions', subscriptionPlanRoutes); // Add this
 app.use('/api/company-jobs', companyJobRoutes);
 app.use('/api/upwork-scheduler', upworkSchedulerRoutes);
+app.use('/api/linkedin-scheduler', linkedinSchedulerRoutes);
+
 app.use('/api/company-pipeline', companypipeline);
 app.use('/api/google', googleRoutes);
 // app.use('/api', authRoutes);  // Your existing auth routes

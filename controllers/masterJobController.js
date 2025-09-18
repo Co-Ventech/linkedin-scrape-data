@@ -1075,9 +1075,38 @@ const convertToMasterJob = (job, platform, batchId) => {
       'company.employeeCount': job['company.employeeCount'],
       'company.followerCount': job['company.followerCount'],
       'company.description': job['company.description'],
-      'company.specialities': job['company.specialities'] || [],
-      'company.industries': job['company.industries'] || [],
-      'company.locations': job['company.locations'] || [],
+      // 'company.specialities': job['company.specialities'] || [],
+      // 'company.industries': job['company.industries'] || [],
+      // 'company.locations': job['company.locations'] || [],
+      
+      // FIXED: Transform company.specialities to array of strings
+'company.specialities': Array.isArray(job['company.specialities']) 
+? job['company.specialities'].map(specialty => 
+    typeof specialty === 'string' ? specialty : String(specialty)
+  ) 
+: [],
+
+// FIXED: Transform company.industries from objects to strings  
+'company.industries': Array.isArray(job['company.industries']) 
+? job['company.industries'].map(industry => 
+    typeof industry === 'string' ? industry : (industry.name || String(industry))
+  ) 
+: [],
+
+// FIXED: Ensure proper nested object structure for locations
+'company.locations': Array.isArray(job['company.locations']) 
+? job['company.locations'].map(location => {
+    if (typeof location === 'object' && location !== null) {
+      return {
+        city: location.city || undefined,
+        state: location.state || undefined, 
+        country: location.country || undefined
+      };
+    }
+    return { city: String(location) };
+  })
+: [],
+
       kpi_jd_quality: job.kpi_jd_quality,
       kpi_domain_fit: job.kpi_domain_fit,
       kpi_seniority_alignment: job.kpi_seniority_alignment,
