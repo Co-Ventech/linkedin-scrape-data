@@ -6,7 +6,7 @@ const JobBatch = require('../models/JobBatch');
 const CompanyPipeline = require('../models/CompanyPipeline');
 
 // Distribute jobs from specific batch to companies (SHADOW VIEW)
-const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
+const distributeJobsFromBatch = async (batchId, specificCompanyIds = null,perCompanyLimit = null) => {
   try {
     console.log(`Starting SHADOW VIEW distribution for batch: ${batchId}`);
 
@@ -30,13 +30,17 @@ const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
     if (specificCompanyIds && specificCompanyIds.length > 0) {
       targetCompanies = await Company.find({
         _id: { $in: specificCompanyIds },
-        subscriptionStatus: 'active',
-        isActive: true
+        isActive: true,
+        subscriptionStatus: { $in: ['active', 'trial'] },
+        $or: [
+          { subscriptionEndDate: { $exists: false } },
+          { subscriptionEndDate: { $gt: new Date() } }
+        ]
       });
     } else {
       targetCompanies = await Company.find({
-        subscriptionStatus: 'active',
         isActive: true,
+        subscriptionStatus: { $in: ['active', 'trial'] },
         $or: [
           { subscriptionEndDate: { $exists: false } },
           { subscriptionEndDate: { $gt: new Date() } }
@@ -60,7 +64,7 @@ const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
 
     // Distribute jobs to each company (SHADOW VIEW - NO DATA DUPLICATION)
     for (const company of targetCompanies) {
-      const result = await distributeJobsToSingleCompanyShadow(company, batchJobs);
+      const result = await distributeJobsToSingleCompanyShadow(company, batchJobs, perCompanyLimit);
       if (result.distributed > 0) {
         totalDistributed += result.distributed;
         companiesNotified++;
@@ -89,38 +93,80 @@ const distributeJobsFromBatch = async (batchId, specificCompanyIds = null) => {
   }
 };
 
-// Distribute all undistributed jobs (FIXED LOGIC)
-const distributeNewJobs = async () => {
+// // Distribute all undistributed jobs (FIXED LOGIC)
+// const distributeNewJobs = async (perCompanyLimit = null) => {
+//   try {
+//     console.log('Starting distribution of all undistributed jobs');
+
+//     const activeCompanies = await Company.find({
+//       isActive: true,
+//       subscriptionStatus: { $in: ['active', 'trial'] },
+//       $or: [
+//         { subscriptionEndDate: { $exists: false } },
+//         { subscriptionEndDate: { $gt: new Date() } }
+//       ]
+//     });
+
+//     console.log(`Found ${activeCompanies.length} active companies`);
+
+//     if (activeCompanies.length === 0) {
+//       return {
+//         companiesNotified: 0,
+//         jobsDistributed: 0,
+//         error: 'No active companies found'
+//       };
+//     }
+
+//     let totalDistributed = 0;
+//     let companiesNotified = 0;
+
+//     for (const company of activeCompanies) {
+//       // Fetch only jobs NOT yet distributed to this company
+//       const jobsNotSentToCompany = await MasterJob.find({
+//         isActive: true,
+//         $or: [
+//           { distributedTo: { $exists: false } },
+//           { distributedTo: { $size: 0 } },
+//           { distributedTo: { $not: { $elemMatch: { companyId: company._id } } } }
+//         ]
+//       });
+
+//       console.log(`Company ${company.name}: ${jobsNotSentToCompany.length} jobs not yet sent`);
+
+//       if (jobsNotSentToCompany.length === 0) continue;
+
+//       const result = await distributeJobsToSingleCompanyShadow(company, jobsNotSentToCompany);
+//       if (result.distributed > 0) {
+//         totalDistributed += result.distributed;
+//         companiesNotified++;
+//       }
+//     }
+
+//     return {
+//       companiesNotified,
+//       jobsDistributed: totalDistributed
+//     };
+//   } catch (error) {
+//     console.error('Distribution error:', error);
+//     throw error;
+//   }
+// };
+// Replace this function in services/jobDistributionService.js
+const distributeNewJobs = async (perCompanyLimit = null) => {
   try {
-    console.log('Starting distribution of all undistributed jobs');
+    console.log('Starting distribution of all undistributed jobs (per-company missing jobs)');
 
-    // Get all jobs that haven't been distributed yet
-    const undistributedJobs = await MasterJob.find({
-      isActive: true,
-      distributedTo: { $size: 0 } // No distributions yet
-    });
-
-    console.log(`Found ${undistributedJobs.length} undistributed jobs`);
-
-    if (undistributedJobs.length === 0) {
-      return {
-        companiesNotified: 0,
-        jobsDistributed: 0,
-        error: 'No undistributed jobs found'
-      };
-    }
-
-    // Get all active companies
+    // Find all eligible companies (active or trial, not expired)
     const activeCompanies = await Company.find({
-      subscriptionStatus: 'active',
       isActive: true,
+      subscriptionStatus: { $in: ['active', 'trial'] },
       $or: [
         { subscriptionEndDate: { $exists: false } },
         { subscriptionEndDate: { $gt: new Date() } }
       ]
     });
 
-    console.log(`Found ${activeCompanies.length} active companies`);
+    console.log(`Found ${activeCompanies.length} eligible companies`);
 
     if (activeCompanies.length === 0) {
       return {
@@ -133,9 +179,22 @@ const distributeNewJobs = async () => {
     let totalDistributed = 0;
     let companiesNotified = 0;
 
-    // Distribute to all companies
     for (const company of activeCompanies) {
-      const result = await distributeJobsToSingleCompanyShadow(company, undistributedJobs);
+      // For this company, find jobs they have NOT received yet
+      const jobsNotSentToCompany = await MasterJob.find({
+        isActive: true,
+        $or: [
+          { distributedTo: { $exists: false } },
+          { distributedTo: { $size: 0 } },
+          { distributedTo: { $not: { $elemMatch: { companyId: company._id } } } }
+        ]
+      });
+
+      console.log(`Company ${company.name}: ${jobsNotSentToCompany.length} jobs not yet sent`);
+
+      if (jobsNotSentToCompany.length === 0) continue;
+
+      const result = await distributeJobsToSingleCompanyShadow(company, jobsNotSentToCompany, perCompanyLimit);
       if (result.distributed > 0) {
         totalDistributed += result.distributed;
         companiesNotified++;
@@ -146,56 +205,146 @@ const distributeNewJobs = async () => {
       companiesNotified,
       jobsDistributed: totalDistributed
     };
-
   } catch (error) {
     console.error('Distribution error:', error);
     throw error;
   }
 };
+// // Distribute jobs to single company (SHADOW VIEW)
+// const distributeJobsToSingleCompanyShadow = async (company, availableJobs, perCompanyLimit = null) => {
+//   try {
+//     console.log(`Distributing jobs to company: ${company.name}`);
 
-// Distribute jobs to single company (SHADOW VIEW)
-const distributeJobsToSingleCompanyShadow = async (company, availableJobs) => {
+//     // Get company customization/preferences
+//     const customization = await JobCustomization.findOne({ companyId: company._id });
+
+//     // Filter jobs based on company preferences
+//     const filteredJobs = filterJobsForCompany(availableJobs, customization);
+
+//     // Check quota limits
+//     const remainingQuota = Math.max(0, (company.jobsQuota || 100) - (company.jobsUsed || 0));
+//     const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
+
+//     console.log(`Company ${company.name}: ${filteredJobs.length} filtered, ${jobsToDistribute.length} to distribute (quota remaining: ${remainingQuota})`);
+
+//     let distributed = 0;
+
+//     // Create SHADOW VIEW entries (ONLY REFERENCES + COMPANY DATA)
+//     for (const masterJob of jobsToDistribute) {
+//       try {
+//         const companyJob = await createShadowJobEntry(company._id, masterJob);
+//         if (companyJob) {
+//           distributed++;
+
+//           // Update master job distribution tracking
+//           await MasterJob.findByIdAndUpdate(masterJob._id, {
+//             $push: {
+//               distributedTo: {
+//                 companyId: company._id,
+//                 distributedAt: new Date(),
+//                 status: 'delivered'
+//               }
+//             }
+//           });
+//         }
+//       } catch (error) {
+//         console.error(`Error distributing job ${masterJob.jobId} to ${company.name}:`, error.message);
+//       }
+//     }
+
+//     // Update company job usage
+//     if (distributed > 0) {
+//       await Company.findByIdAndUpdate(company._id, {
+//         $inc: { jobsUsed: distributed },
+//         lastJobSync: new Date()
+//       });
+//     }
+
+//     return {
+//       distributed,
+//       available: availableJobs.length,
+//       filtered: filteredJobs.length,
+//       quotaRemaining: remainingQuota - distributed
+//     };
+
+//   } catch (error) {
+//     console.error(`Error distributing jobs to company ${company.name}:`, error);
+//     return { distributed: 0 };
+//   }
+// };
+// Replace this function in services/jobDistributionService.js
+const distributeJobsToSingleCompanyShadow = async (company, availableJobs, perCompanyLimit = null) => {
   try {
     console.log(`Distributing jobs to company: ${company.name}`);
 
-    // Get company customization/preferences
+    // Company preferences
     const customization = await JobCustomization.findOne({ companyId: company._id });
 
-    // Filter jobs based on company preferences
+    // Filter jobs for this company
     const filteredJobs = filterJobsForCompany(availableJobs, customization);
 
-    // Check quota limits
+    // Company quota remaining
     const remainingQuota = Math.max(0, (company.jobsQuota || 100) - (company.jobsUsed || 0));
-    const jobsToDistribute = filteredJobs.slice(0, remainingQuota);
 
-    console.log(`Company ${company.name}: ${filteredJobs.length} filtered, ${jobsToDistribute.length} to distribute (quota remaining: ${remainingQuota})`);
+    // Apply optional per-company limit, respecting quota
+    const cap = typeof perCompanyLimit === 'number' && perCompanyLimit > 0
+      ? Math.min(remainingQuota, perCompanyLimit)
+      : remainingQuota;
+
+    const jobsToDistribute = filteredJobs.slice(0, cap);
+
+    console.log(`Company ${company.name}: ${filteredJobs.length} filtered, ${jobsToDistribute.length} to distribute (quota remaining: ${remainingQuota}, cap: ${cap})`);
 
     let distributed = 0;
 
-    // Create SHADOW VIEW entries (ONLY REFERENCES + COMPANY DATA)
     for (const masterJob of jobsToDistribute) {
       try {
-        const companyJob = await createShadowJobEntry(company._id, masterJob);
-        if (companyJob) {
-          distributed++;
+        // Skip if already exists
+        const existingJob = await CompanyJob.findOne({
+          masterJobId: masterJob._id,
+          companyId: company._id
+        });
+        if (existingJob) continue;
 
-          // Update master job distribution tracking
-          await MasterJob.findByIdAndUpdate(masterJob._id, {
-            $push: {
-              distributedTo: {
-                companyId: company._id,
-                distributedAt: new Date(),
-                status: 'delivered'
-              }
+        // Pick initial status from pipeline if present
+        const pipeline = await CompanyPipeline.findOne({ companyId: company._id });
+        const initialStatus = pipeline?.settings?.defaultInitialStatus || 'not_engaged';
+
+        // Create shadow entry
+        const companyJob = new CompanyJob({
+          masterJobId: masterJob._id,
+          companyId: company._id,
+          currentStatus: initialStatus,
+          statusHistory: [{
+            status: initialStatus,
+            username: 'system',
+            date: new Date(),
+            notes: 'Job distributed via shadow view',
+            previousStatus: null,
+            transitionType: 'automatic',
+            isValidTransition: true
+          }],
+          distributedAt: new Date()
+        });
+        await companyJob.save();
+
+        // Track distribution on master
+        await MasterJob.findByIdAndUpdate(masterJob._id, {
+          $push: {
+            distributedTo: {
+              companyId: company._id,
+              distributedAt: new Date(),
+              status: 'delivered'
             }
-          });
-        }
-      } catch (error) {
-        console.error(`Error distributing job ${masterJob.jobId} to ${company.name}:`, error.message);
+          }
+        });
+
+        distributed++;
+      } catch (err) {
+        console.error(`Error distributing job ${masterJob.jobId} to ${company.name}:`, err.message);
       }
     }
 
-    // Update company job usage
     if (distributed > 0) {
       await Company.findByIdAndUpdate(company._id, {
         $inc: { jobsUsed: distributed },
@@ -209,13 +358,11 @@ const distributeJobsToSingleCompanyShadow = async (company, availableJobs) => {
       filtered: filteredJobs.length,
       quotaRemaining: remainingQuota - distributed
     };
-
   } catch (error) {
     console.error(`Error distributing jobs to company ${company.name}:`, error);
     return { distributed: 0 };
   }
 };
-
 // Create SHADOW VIEW entry (MINIMAL DATA)
 const createShadowJobEntry = async (companyId, masterJob) => {
   try {

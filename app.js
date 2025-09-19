@@ -18,6 +18,7 @@ const upworkSchedulerRoutes = require('./services/upworkSchedulerService');
 const linkedinSchedulerRoutes = require('./services/apifySchedulerService');
 
 const googleRoutes = require('./routes/google');
+const googleSchedulerRoutes = require('./services/googleSchedulerService');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/api/subscriptions', subscriptionPlanRoutes); // Add this
 app.use('/api/company-jobs', companyJobRoutes);
 app.use('/api/upwork-scheduler', upworkSchedulerRoutes);
 app.use('/api/linkedin-scheduler', linkedinSchedulerRoutes);
+app.use('/api/google-scheduler', googleSchedulerRoutes);
 
 app.use('/api/company-pipeline', companypipeline);
 app.use('/api/google', googleRoutes);

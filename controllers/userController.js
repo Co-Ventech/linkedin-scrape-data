@@ -253,7 +253,9 @@ const createUser = async (req, res) => {
       password,
       role: 'company_user', // Always create as company_user
       company: targetCompanyId,
-      isActive: true
+      isActive: true,
+      phone: req.body.phone || '',
+      location: req.body.location || ''
     };
 
     console.log('Creating user with data:', { ...userData, password: '[HIDDEN]' });
@@ -593,10 +595,13 @@ const updateUser = async (req, res) => {
     }
 
     // Build update data
+        // Build update data
     const updateData = {};
     if (username) updateData.username = username;
     if (email) updateData.email = email;
     if (typeof isActive === 'boolean') updateData.isActive = isActive;
+    if (typeof req.body.phone !== 'undefined') updateData.phone = req.body.phone;
+    if (typeof req.body.location !== 'undefined') updateData.location = req.body.location;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,

@@ -39,8 +39,14 @@ async function runUpworkPipeline() {
     // await axios.post(`${API_BASE_URL}/api/upwork/save-jobs`, {}, {
     //   headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` },timeout: 900000
     // });
+        // 4. Save jobs to MongoDB (requires auth)
+    await axios.post(`${API_BASE_URL}/api/jobadmin/upload`, { platform: 'upwork' }, {
+      headers: { Authorization: `Bearer ${AUTOMATION_JWT_TOKEN}` },
+      timeout: 900000
+    });
     console.log('Upwork jobs saved to DB');
     await delay(10000);
+
 
     console.log('Pipeline complete at', new Date().toISOString());
     console.log(`${jobName} complete at`, new Date().toISOString());

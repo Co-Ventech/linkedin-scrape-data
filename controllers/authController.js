@@ -448,7 +448,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '365d' }
+      { expiresIn: '24h' }
     );
 
     res.json({
@@ -520,7 +520,7 @@ exports.companySignup = async (req, res) => {
     const token = jwt.sign(
       { userId: savedAdmin._id, role: savedAdmin.role },
       process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '365d' }
+      { expiresIn: '24h' }
     );
 
     res.status(201).json({

@@ -59,7 +59,9 @@ exports.createCompanyWithAdmin = async (req, res) => {
 
     const company = new Company({
       name: companyName,
-      description: companyDescription || ''
+      description: companyDescription || '',
+      phone: req.body.phone || '',
+      location: req.body.location || ''
     });
     const savedCompany = await company.save();
 
@@ -68,7 +70,9 @@ exports.createCompanyWithAdmin = async (req, res) => {
       email: adminEmail,
       password: temporaryPassword,
       role: 'company_admin',
-      company: savedCompany._id
+      company: savedCompany._id,
+      phone: req.body.phone || '',
+      location: req.body.location || ''
     });
     const savedAdmin = await companyAdmin.save();
 
@@ -143,6 +147,8 @@ exports.updateCompany = async (req, res) => {
     const updateData = {};
     if (name) updateData.name = name;
     if (description !== undefined) updateData.description = description;
+    if (typeof req.body.phone !== 'undefined') updateData.phone = req.body.phone;
+    if (typeof req.body.location !== 'undefined') updateData.location = req.body.location;
 
     const updatedCompany = await Company.findByIdAndUpdate(
       companyId,

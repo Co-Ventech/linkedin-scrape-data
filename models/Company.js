@@ -47,7 +47,9 @@ const companySchema = new mongoose.Schema({
   createdBy: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: "User" 
-  }
+  },
+  phone: { type: String, default: '' },
+  location: { type: String, default: '' }
 }, { 
   timestamps: true 
 });
