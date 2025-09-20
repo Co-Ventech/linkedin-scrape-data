@@ -233,3 +233,58 @@ exports.getCompanyUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+// Replace the assignSubscriptionPlan function in controllers/companyController.js
+exports.assignSubscriptionPlan = async (req, res) => {
+  try {
+    const { companyId } = req.params;
+    const { subscriptionPlanId, durationMonths = 1 } = req.body;
+
+    if (!subscriptionPlanId) {
+      return res.status(400).json({ error: 'Subscription plan ID is required' });
+    }
+
+    // Verify plan exists
+    const SubscriptionPlan = require('../models/SubscriptionPlan');
+    const plan = await SubscriptionPlan.findById(subscriptionPlanId);
+    if (!plan) {
+      return res.status(400).json({ error: 'Subscription plan not found' });
+    }
+
+    // Calculate end date (auto-time for specified months)
+    const subscriptionEndDate = new Date();
+    subscriptionEndDate.setMonth(subscriptionEndDate.getMonth() + durationMonths);
+
+    const updateData = {
+      subscriptionPlan: plan.name,
+      subscriptionStatus: 'active',
+      jobsQuota: plan.jobsQuota,
+      subscriptionEndDate
+    };
+
+    const company = await Company.findByIdAndUpdate(
+      companyId,
+      updateData,
+      { new: true }
+    ).populate('admin', 'username email');
+
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found' });
+    }
+
+    res.json({
+      message: 'Subscription plan assigned successfully',
+      company: {
+        id: company._id,
+        name: company.name,
+        subscriptionPlan: company.subscriptionPlan,
+        subscriptionStatus: company.subscriptionStatus,
+        jobsQuota: company.jobsQuota,
+        subscriptionEndDate: company.subscriptionEndDate
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to assign subscription plan' });
+  }
+};

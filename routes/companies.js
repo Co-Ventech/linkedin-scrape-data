@@ -385,5 +385,6 @@ router.get('/:companyId/users', authenticateToken, requireRole(['super_admin']),
 
 // Performance
 router.get('/:companyId/user-performance', authenticateToken, requireRole(['super_admin', 'company_admin']), getCompanyUserPerformance);
-
+// Assign subscription plan to company (super admin only)
+router.put('/:id/subscription', authenticateToken, requireRole(['super_admin']), companyController.assignSubscriptionPlan);
 module.exports = router;

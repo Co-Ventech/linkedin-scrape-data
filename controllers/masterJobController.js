@@ -1786,65 +1786,173 @@ const deleteBatch = async (req, res) => {
   }
 };
 
+// const distributeToSpecificCompanies = async (req, res) => {
+//   try {
+//     const { companyIds } = req.body;
+//     if (!companyIds || !Array.isArray(companyIds) || companyIds.length === 0) {
+//       return res.status(400).json({ error: 'companyIds array is required and must not be empty' });
+//     }
+//     const companies = await Company.find({ _id: { $in: companyIds }, isActive: true });
+//     if (companies.length === 0) return res.status(400).json({ error: 'No active companies found with provided IDs' });
+
+//     const undistributedJobs = await MasterJob.find({ isActive: true, distributedTo: { $size: 0 } });
+//     if (undistributedJobs.length === 0) {
+//       return res.json({ success: true, message: 'No undistributed jobs found', companiesNotified: companies.length, jobsDistributed: 0 });
+//     }
+
+//     let totalDistributed = 0;
+//     const companyResults = [];
+//     for (const company of companies) {
+//       try {
+//         const companyJobs = undistributedJobs.map(job => ({
+//           masterJobId: job._id,
+//           companyId: company._id,
+//           currentStatus: 'not_engaged',
+//           distributedAt: new Date(),
+//           statusHistory: [{ status: 'not_engaged', username: 'system', date: new Date(), notes: 'Job distributed by admin' }]
+//         }));
+//         await CompanyJob.insertMany(companyJobs, { ordered: false });
+//         totalDistributed += companyJobs.length;
+//         companyResults.push({ companyId: company._id, companyName: company.name, jobsDistributed: companyJobs.length, errors: 0 });
+//       } catch (error) {
+//         companyResults.push({ companyId: company._id, companyName: company.name, jobsDistributed: 0, errors: 1, errorMessage: error.message });
+//       }
+//     }
+
+//     if (totalDistributed > 0) {
+//       await MasterJob.updateMany(
+//         { _id: { $in: undistributedJobs.map(j => j._id) } },
+//         {
+//           $push: {
+//             distributedTo: {
+//               $each: companies.map(c => ({ companyId: c._id, distributedAt: new Date(), status: 'delivered' }))
+//             }
+//           }
+//         }
+//       );
+//     }
+
+//     res.json({
+//       success: true,
+//       message: 'Jobs distribution completed',
+//       summary: {
+//         totalJobs: undistributedJobs.length,
+//         totalCompanies: companies.length,
+//         totalDistributed,
+//         avgJobsPerCompany: Math.round(totalDistributed / companies.length)
+//       },
+//       companyResults
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: 'Distribution failed', details: error.message });
+//   }
+// };
+
 const distributeToSpecificCompanies = async (req, res) => {
   try {
     const { companyIds } = req.body;
     if (!companyIds || !Array.isArray(companyIds) || companyIds.length === 0) {
       return res.status(400).json({ error: 'companyIds array is required and must not be empty' });
     }
-    const companies = await Company.find({ _id: { $in: companyIds }, isActive: true });
-    if (companies.length === 0) return res.status(400).json({ error: 'No active companies found with provided IDs' });
 
-    const undistributedJobs = await MasterJob.find({ isActive: true, distributedTo: { $size: 0 } });
-    if (undistributedJobs.length === 0) {
-      return res.json({ success: true, message: 'No undistributed jobs found', companiesNotified: companies.length, jobsDistributed: 0 });
+    const companies = await Company.find({ 
+      _id: { $in: companyIds }, 
+      isActive: true,
+      subscriptionStatus: { $in: ['active', 'trial'] }
+    });
+
+    if (companies.length === 0) {
+      return res.status(400).json({ error: 'No active companies found with provided IDs' });
     }
 
     let totalDistributed = 0;
     const companyResults = [];
+
     for (const company of companies) {
       try {
-        const companyJobs = undistributedJobs.map(job => ({
+        // Find jobs this company hasn't received yet (FIXED LOGIC)
+        const jobsNotSentToCompany = await MasterJob.find({
+          isActive: true,
+          $or: [
+            { distributedTo: { $exists: false } },
+            { distributedTo: { $size: 0 } },
+            { distributedTo: { $not: { $elemMatch: { companyId: company._id } } } }
+          ]
+        });
+
+        if (jobsNotSentToCompany.length === 0) {
+          companyResults.push({ 
+            companyId: company._id, 
+            companyName: company.name, 
+            jobsDistributed: 0, 
+            message: 'No new jobs available for this company' 
+          });
+          continue;
+        }
+
+        // Create company jobs
+        const companyJobs = jobsNotSentToCompany.map(job => ({
           masterJobId: job._id,
           companyId: company._id,
           currentStatus: 'not_engaged',
           distributedAt: new Date(),
-          statusHistory: [{ status: 'not_engaged', username: 'system', date: new Date(), notes: 'Job distributed by admin' }]
+          statusHistory: [{ 
+            status: 'not_engaged', 
+            username: 'system', 
+            date: new Date(), 
+            notes: 'Job distributed by admin' 
+          }]
         }));
+
         await CompanyJob.insertMany(companyJobs, { ordered: false });
         totalDistributed += companyJobs.length;
-        companyResults.push({ companyId: company._id, companyName: company.name, jobsDistributed: companyJobs.length, errors: 0 });
-      } catch (error) {
-        companyResults.push({ companyId: company._id, companyName: company.name, jobsDistributed: 0, errors: 1, errorMessage: error.message });
-      }
-    }
 
-    if (totalDistributed > 0) {
-      await MasterJob.updateMany(
-        { _id: { $in: undistributedJobs.map(j => j._id) } },
-        {
-          $push: {
-            distributedTo: {
-              $each: companies.map(c => ({ companyId: c._id, distributedAt: new Date(), status: 'delivered' }))
+        // Update master job to track distribution
+        await MasterJob.updateMany(
+          { _id: { $in: jobsNotSentToCompany.map(j => j._id) } },
+          {
+            $push: {
+              distributedTo: {
+                $each: [{
+                  companyId: company._id,
+                  distributedAt: new Date(),
+                  status: 'delivered'
+                }]
+              }
             }
           }
-        }
-      );
+        );
+
+        companyResults.push({ 
+          companyId: company._id, 
+          companyName: company.name, 
+          jobsDistributed: companyJobs.length 
+        });
+
+      } catch (error) {
+        console.error(`Error distributing to company ${company.name}:`, error);
+        companyResults.push({ 
+          companyId: company._id, 
+          companyName: company.name, 
+          jobsDistributed: 0, 
+          error: error.message 
+        });
+      }
     }
 
     res.json({
       success: true,
       message: 'Jobs distribution completed',
       summary: {
-        totalJobs: undistributedJobs.length,
-        totalCompanies: companies.length,
-        totalDistributed,
-        avgJobsPerCompany: Math.round(totalDistributed / companies.length)
-      },
-      companyResults
+        companiesProcessed: companies.length,
+        jobsDistributed: totalDistributed,
+        companyResults
+      }
     });
+
   } catch (error) {
-    res.status(500).json({ error: 'Distribution failed', details: error.message });
+    console.error('Distribution error:', error);
+    res.status(500).json({ error: 'Failed to distribute jobs' });
   }
 };
 
